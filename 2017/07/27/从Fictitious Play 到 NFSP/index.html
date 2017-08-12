@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图17.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/18.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图19.png">
-<meta property="og:updated_time" content="2017-08-12T11:51:23.000Z">
+<meta property="og:updated_time" content="2017-08-12T11:54:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从Fictitious Play 到 NFSP">
 <meta name="twitter:description" content="博弈论Normal-form game在博弈论中，Normal-form game是对game的一种描述。Normal-form game通过矩阵来表示game。下图就是一个payoff矩阵：Normal-form game是一种静态模型，这个模型假设每个player仅选择一次action或策略。Normal-form game适用于描述不需要考虑博弈进程的完全信息静态(Complete info">
@@ -177,36 +177,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="博弈论"><a href="#博弈论" class="headerlink" title="博弈论"></a>博弈论</h1><h3 id="Normal-form-game"><a href="#Normal-form-game" class="headerlink" title="Normal-form game"></a>Normal-form game</h3><p>在博弈论中，Normal-form game是对game的一种描述。Normal-form game通过矩阵来表示game。<br>下图就是一个payoff矩阵：<br><img src="/assets/img/NFSP/payoff.png" alt="payoff"><br>Normal-form game是一种静态模型，这个模型假设每个player仅选择一次action或策略。<br>Normal-form game适用于描述不需要考虑博弈进程的完全信息静态(Complete information static)博弈。<br><a id="more"></a></p>
+        <h1 id="博弈论"><a href="#博弈论" class="headerlink" title="博弈论"></a>博弈论</h1><h3 id="Normal-form-game"><a href="#Normal-form-game" class="headerlink" title="Normal-form game"></a>Normal-form game</h3><p>在博弈论中，Normal-form game是对game的一种描述。Normal-form game通过矩阵来表示game。<br>下图就是一个payoff矩阵：<br><img src="https://gyh75520.github.io/assets/img/NFSP/payoff.png" alt="payoff"><br>Normal-form game是一种静态模型，这个模型假设每个player仅选择一次action或策略。<br>Normal-form game适用于描述不需要考虑博弈进程的完全信息静态(Complete information static)博弈。<br><a id="more"></a></p>
 <ul>
 <li><strong>静态博弈</strong><br>players同时进行决策</li>
 <li><strong>动态博弈</strong><br>players的决策顺序有先后</li>
 <li><strong>完全信息(Complete information)</strong><br>在完全信息博弈中，players的游戏结构和players的payoff矩阵是众所周知的，但players可能看不到其他players所做的所有动作。</li>
 <li><strong>完美信息(Perfect information)</strong><br>在完美信息博弈中，每个player可以观测到其他players的动作，但可能缺乏关于他人的payoff或游戏结构的信息。</li>
 </ul>
-<h3 id="Extensive-form-game"><a href="#Extensive-form-game" class="headerlink" title="Extensive-form game"></a>Extensive-form game</h3><p>Extensive-form game是一种动态模型。通过使用树这种图形来表示game。不仅给出了博弈结果，还描述了博弈过程，如给出博弈中参与人的行动顺序，以及决策环境和行动空间等。<br><strong>完美信息下的Extensive-form game:</strong><br><img src="/assets/img/NFSP/图1.png" alt="图1"><br>If player 1 plays D, player 2 will play U’ to maximise his payoff and so player 1 will only receive 1. However, if player 1 plays U, player 2 maximises his payoff by playing D’ and player 1 receives 2. Player 1 prefers 2 to 1 and so will play U and player 2 will play D’</p>
+<h3 id="Extensive-form-game"><a href="#Extensive-form-game" class="headerlink" title="Extensive-form game"></a>Extensive-form game</h3><p>Extensive-form game是一种动态模型。通过使用树这种图形来表示game。不仅给出了博弈结果，还描述了博弈过程，如给出博弈中参与人的行动顺序，以及决策环境和行动空间等。<br><strong>完美信息下的Extensive-form game:</strong><br><img src="https://gyh75520.github.io/assets/img/NFSP/图1.png" alt="图1"><br>If player 1 plays D, player 2 will play U’ to maximise his payoff and so player 1 will only receive 1. However, if player 1 plays U, player 2 maximises his payoff by playing D’ and player 1 receives 2. Player 1 prefers 2 to 1 and so will play U and player 2 will play D’</p>
 <p><strong>非完美信息下的Extensive-form game:</strong></p>
 <p><strong>信息集</strong> 是一组决策节点：</p>
 <ul>
 <li>集合中的每个节点都只属于一个player；</li>
 <li>当player到达信息集时，player不能区分信息集中的节点。即，如果信息集包含多个节点，则该集合所属的player不知道集合中的哪个节点已经到达。</li>
 </ul>
-<p>下图的虚线连接的两个节点2代表player2的一个信息集，player2不知道player1采取的是U还是D。<br>补充：在扑克游戏中，player不知道的是对方的手牌信息而不是这个例子中的动作。<br><img src="/assets/img/NFSP/图二.png" alt="图二"><br>player 2 cannot observe player 1’s move. Player 1 would like to fool player 2 into thinking he has played U when he has actually played D so that player 2 will play D’ and player 1 will receive 3.</p>
+<p>下图的虚线连接的两个节点2代表player2的一个信息集，player2不知道player1采取的是U还是D。<br>补充：在扑克游戏中，player不知道的是对方的手牌信息而不是这个例子中的动作。<br><img src="https://gyh75520.github.io/assets/img/NFSP/图二.png" alt="图二"><br>player 2 cannot observe player 1’s move. Player 1 would like to fool player 2 into thinking he has played U when he has actually played D so that player 2 will play D’ and player 1 will receive 3.</p>
 <p>ref : <a href="https://en.wikipedia.org/wiki/Extensive-form_game" target="_blank" rel="external">https://en.wikipedia.org/wiki/Extensive-form_game</a></p>
-<h3 id="Extensive-form-game和Normal-form-game的转换"><a href="#Extensive-form-game和Normal-form-game的转换" class="headerlink" title="Extensive-form game和Normal-form game的转换"></a>Extensive-form game和Normal-form game的转换</h3><p>下图是Extensive-form game的一个例子：<br><img src="/assets/img/NFSP/图3.png" alt="图3"><br>player1有三个信息集，每个信息集里面有两种行动，所以player1有8种策略；player2有两个信息集，每个信息集里面有两种行动，所以player2有4种策略。<br>所以转换成Normal-form game是一个横8纵4的矩阵.</p>
+<h3 id="Extensive-form-game和Normal-form-game的转换"><a href="#Extensive-form-game和Normal-form-game的转换" class="headerlink" title="Extensive-form game和Normal-form game的转换"></a>Extensive-form game和Normal-form game的转换</h3><p>下图是Extensive-form game的一个例子：<br><img src="https://gyh75520.github.io/assets/img/NFSP/图3.png" alt="图3"><br>player1有三个信息集，每个信息集里面有两种行动，所以player1有8种策略；player2有两个信息集，每个信息集里面有两种行动，所以player2有4种策略。<br>所以转换成Normal-form game是一个横8纵4的矩阵.</p>
 <h1 id="FSP-in-Extensive-Form-Games"><a href="#FSP-in-Extensive-Form-Games" class="headerlink" title="FSP in Extensive-Form Games"></a>FSP in Extensive-Form Games</h1><h3 id="Extensive-Form-定义扩充"><a href="#Extensive-Form-定义扩充" class="headerlink" title="Extensive-Form 定义扩充"></a>Extensive-Form 定义扩充</h3><ul>
 <li><strong>Chance</strong><br>Chance被认为是一个特别的player，遵循一个固定的随机策略，决定了chance节点进入每个分支的概率分布。（如扑克游戏中的发牌）。</li>
-<li><strong>Information State</strong><br>我们假设游戏具有perfect recall，即每个player当前的信息状态u隐含了之前的信息状态和行动序列: <img src="/assets/img/NFSP/图5.png" alt="图5"></li>
-<li><strong>Behavioural Strategy</strong><br>在给定Information State时，动作action的概率分布。Behavioural Strategy <img src="/assets/img/NFSP/图4.png" alt="图4"> 输出player i在信息状态u下，动作的概率分布。<h3 id="Normal-Form-定义扩充"><a href="#Normal-Form-定义扩充" class="headerlink" title="Normal-Form 定义扩充"></a>Normal-Form 定义扩充</h3></li>
+<li><strong>Information State</strong><br>我们假设游戏具有perfect recall，即每个player当前的信息状态u隐含了之前的信息状态和行动序列: <img src="https://gyh75520.github.io/assets/img/NFSP/图5.png" alt="图5"></li>
+<li><strong>Behavioural Strategy</strong><br>在给定Information State时，动作action的概率分布。Behavioural Strategy <img src="https://gyh75520.github.io/assets/img/NFSP/图4.png" alt="图4"> 输出player i在信息状态u下，动作的概率分布。<h3 id="Normal-Form-定义扩充"><a href="#Normal-Form-定义扩充" class="headerlink" title="Normal-Form 定义扩充"></a>Normal-Form 定义扩充</h3></li>
 <li><strong>Pure Strategy</strong><br>player在可能遇到的所有情况下都有一个确定的动作action。(payoff矩阵中的每一行和列都是一个Pure Strategy)</li>
-<li><strong>Mixed Strategy</strong><br>Mixed Strateg<img src="/assets/img/NFSP/图7.png" alt="图7">是Player i的Pure Strategy的概率分布。</li>
+<li><strong>Mixed Strategy</strong><br>Mixed Strateg<img src="https://gyh75520.github.io/assets/img/NFSP/图7.png" alt="图7">是Player i的Pure Strategy的概率分布。</li>
 </ul>
-<h2 id="Fictitious-Play"><a href="#Fictitious-Play" class="headerlink" title="Fictitious Play"></a>Fictitious Play</h2><p><img src="/assets/img/NFSP/!图20.png" alt="!图20"><br>在normal form下：<br>当前策略 = 现有策略和bestResponse的加权平均。</p>
-<h2 id="Realization-equivalence"><a href="#Realization-equivalence" class="headerlink" title="Realization-equivalence"></a>Realization-equivalence</h2><p><img src="/assets/img/NFSP/图8.png" alt="图8"><br>也就是说，Extensive-Form下的Behavioural Strategy和Normal-form下的Mixed Strategy存在一种等价。<br><strong>Extensive-Form也可以使用Normal-form下的Fictitious Play来求纳什均衡解。</strong></p>
-<h2 id="Extensive-Form-Fictitious-Play"><a href="#Extensive-Form-Fictitious-Play" class="headerlink" title="Extensive-Form Fictitious Play"></a>Extensive-Form Fictitious Play</h2><p><img src="/assets/img/NFSP/图12.png" alt="图12"> 代表到信息状态u的sequence<br><img src="/assets/img/NFSP/图11.png" alt="图11"><br><img src="/assets/img/NFSP/图13.png" alt="图13">  = sequence 中每个节点选择每个action的概率乘积</p>
-<p><img src="/assets/img/NFSP/图9.png" alt="图9"><br>下图是对Lemma 6的一个计算的验证。<br><img src="/assets/img/NFSP/图14.png" alt="图14"><br><img src="/assets/img/NFSP/图10.png" alt="图10"></p>
+<h2 id="Fictitious-Play"><a href="#Fictitious-Play" class="headerlink" title="Fictitious Play"></a>Fictitious Play</h2><p><img src="https://gyh75520.github.io/assets/img/NFSP/!图20.png" alt="!图20"><br>在normal form下：<br>当前策略 = 现有策略和bestResponse的加权平均。</p>
+<h2 id="Realization-equivalence"><a href="#Realization-equivalence" class="headerlink" title="Realization-equivalence"></a>Realization-equivalence</h2><p><img src="https://gyh75520.github.io/assets/img/NFSP/图8.png" alt="图8"><br>也就是说，Extensive-Form下的Behavioural Strategy和Normal-form下的Mixed Strategy存在一种等价。<br><strong>Extensive-Form也可以使用Normal-form下的Fictitious Play来求纳什均衡解。</strong></p>
+<h2 id="Extensive-Form-Fictitious-Play"><a href="#Extensive-Form-Fictitious-Play" class="headerlink" title="Extensive-Form Fictitious Play"></a>Extensive-Form Fictitious Play</h2><p><img src="https://gyh75520.github.io/assets/img/NFSP/图12.png" alt="图12"> 代表到信息状态u的sequence<br><img src="https://gyh75520.github.io/assets/img/NFSP/图11.png" alt="图11"><br><img src="https://gyh75520.github.io/assets/img/NFSP/图13.png" alt="图13">  = sequence 中每个节点选择每个action的概率乘积</p>
+<p><img src="https://gyh75520.github.io/assets/img/NFSP/图9.png" alt="图9"><br>下图是对Lemma 6的一个计算的验证。<br><img src="https://gyh75520.github.io/assets/img/NFSP/图14.png" alt="图14"><br><img src="https://gyh75520.github.io/assets/img/NFSP/图10.png" alt="图10"></p>
 <p><strong>我们通过Theorem7更新Behavioural Strategy，可以收敛到纳什均衡。</strong></p>
-<p><strong>具体算法XFP：</strong><br><img src="/assets/img/NFSP/图15.png" alt="图15"></p>
+<p><strong>具体算法XFP：</strong><br><img src="https://gyh75520.github.io/assets/img/NFSP/图15.png" alt="图15"></p>
 <ol>
 <li>计算bestResponse</li>
 <li>更新策略，使用Theorem7</li>
@@ -218,9 +218,9 @@
 <li>使用强化学习去计算bestResponse</li>
 <li>使用监督学习更新策略</li>
 </ol>
-<p><img src="/assets/img/NFSP/图16.png" alt="图16"><br>样本的采集 GENERATEDAT()方法需要在理解一下。</p>
-<h1 id="Neural-Fictitious-Self-Play"><a href="#Neural-Fictitious-Self-Play" class="headerlink" title="Neural Fictitious Self-Play"></a>Neural Fictitious Self-Play</h1><p>强化学习和监督学习都使用神经网络去学习出一个函数。<br><img src="/assets/img/NFSP/图17.png" alt="图17"></p>
-<p>FSP中样本采集的混合策略<img src="/assets/img/NFSP/18.png" alt="图18"> ，在NSFP中是函数，不能简单相加。<br>转换成<img src="/assets/img/NFSP/图19.png" alt="图19"> ，使用概率完成上面式子中的加操作。</p>
+<p><img src="https://gyh75520.github.io/assets/img/NFSP/图16.png" alt="图16"><br>样本的采集 GENERATEDAT()方法需要在理解一下。</p>
+<h1 id="Neural-Fictitious-Self-Play"><a href="#Neural-Fictitious-Self-Play" class="headerlink" title="Neural Fictitious Self-Play"></a>Neural Fictitious Self-Play</h1><p>强化学习和监督学习都使用神经网络去学习出一个函数。<br><img src="https://gyh75520.github.io/assets/img/NFSP/图17.png" alt="图17"></p>
+<p>FSP中样本采集的混合策略<img src="https://gyh75520.github.io/assets/img/NFSP/18.png" alt="图18"> ，在NSFP中是函数，不能简单相加。<br>转换成<img src="https://gyh75520.github.io/assets/img/NFSP/图19.png" alt="图19"> ，使用概率完成上面式子中的加操作。</p>
 <h3 id="REF："><a href="#REF：" class="headerlink" title="REF："></a>REF：</h3><ul>
 <li>Topics in Algorithmic Game Theory February 8, 2010 Lecturer: Constantinos Daskalakis Lecture 2</li>
 <li>Fictitious Self-Play in Extensive-Form Games</li>
