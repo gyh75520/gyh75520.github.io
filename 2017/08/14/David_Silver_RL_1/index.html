@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
-  <title>David Silver 强化学习 1 | Howard的博客</title>
+  <title>David Silver 强化学习 1 Introduction | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="强化学习的特点(不同于其他机器学习)：  没有监督数据、只有奖励信号 奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。 时间（序列）是一个重要因素 当前的行为影响后续接收到的数据     The RL Problem奖励 Reward 一个Reward $R_{t}$ 是信号的反馈，是一个标量 它反映 Agent 在 t 时刻做得怎么样 Agent 的工作就是最大化累计奖励  强化学习">
 <meta name="keywords" content="RL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="David Silver 强化学习 1">
+<meta property="og:title" content="David Silver 强化学习 1 Introduction">
 <meta property="og:url" content="https://gyh75520.github.io/2017/08/14/David_Silver_RL_1/index.html">
 <meta property="og:site_name" content="Howard的博客">
 <meta property="og:description" content="强化学习的特点(不同于其他机器学习)：  没有监督数据、只有奖励信号 奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。 时间（序列）是一个重要因素 当前的行为影响后续接收到的数据     The RL Problem奖励 Reward 一个Reward $R_{t}$ 是信号的反馈，是一个标量 它反映 Agent 在 t 时刻做得怎么样 Agent 的工作就是最大化累计奖励  强化学习">
@@ -21,9 +21,9 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_4.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_5.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_6.png">
-<meta property="og:updated_time" content="2017-08-18T08:24:42.000Z">
+<meta property="og:updated_time" content="2017-08-18T12:31:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="David Silver 强化学习 1">
+<meta name="twitter:title" content="David Silver 强化学习 1 Introduction">
 <meta name="twitter:description" content="强化学习的特点(不同于其他机器学习)：  没有监督数据、只有奖励信号 奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。 时间（序列）是一个重要因素 当前的行为影响后续接收到的数据     The RL Problem奖励 Reward 一个Reward $R_{t}$ 是信号的反馈，是一个标量 它反映 Agent 在 t 时刻做得怎么样 Agent 的工作就是最大化累计奖励  强化学习">
 <meta name="twitter:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_1.png">
   
@@ -150,7 +150,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      David Silver 强化学习 1
+      David Silver 强化学习 1 Introduction
     </h1>
   
 
@@ -375,6 +375,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/08/18/David_Silver_RL_2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          David Silver 强化学习 2 MDP
+        
+      </div>
+    </a>
   
   
     <a href="/2017/07/27/从Fictitious Play 到 NFSP/" id="article-nav-older" class="article-nav-link-wrap">

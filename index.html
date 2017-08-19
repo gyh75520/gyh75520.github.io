@@ -137,6 +137,144 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-David_Silver_RL_2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/David_Silver_RL_2/">David Silver 强化学习 2 MDP</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/David_Silver_RL_2/" class="archive-article-date">
+  	<time datetime="2017-08-18T13:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+          	<div id="toc" class="toc-article">
+          	  <strong class="toc-title">文章目录</strong>
+          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#马尔可夫过程-Markov-Process"><span class="toc-number">1.</span> <span class="toc-text">马尔可夫过程 Markov Process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#马尔可夫性-Markov-Property"><span class="toc-number">1.1.</span> <span class="toc-text">马尔可夫性 Markov Property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#马尔可夫过程-Markov-Process-1"><span class="toc-number">1.2.</span> <span class="toc-text">马尔可夫过程 Markov Process</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#马尔可夫奖励过程-Markov-Reward-Process"><span class="toc-number">2.</span> <span class="toc-text">马尔可夫奖励过程 Markov Reward Process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#回报-Return"><span class="toc-number">2.1.</span> <span class="toc-text">回报 Return</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#价值函数-Value-Function"><span class="toc-number">2.2.</span> <span class="toc-text">价值函数 Value Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#价值函数的推导"><span class="toc-number">2.3.</span> <span class="toc-text">价值函数的推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#马尔可夫决策过程-Markov-Decision-Process"><span class="toc-number">3.</span> <span class="toc-text">马尔可夫决策过程 Markov Decision Process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#策略-Policy-pi"><span class="toc-number">3.1.</span> <span class="toc-text">策略 Policy $\pi$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于策略-pi-的价值函数-Value-Function"><span class="toc-number">3.2.</span> <span class="toc-text">基于策略 $\pi$ 的价值函数 Value Function</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#状态值函数-State-Value-Function-V"><span class="toc-number">3.2.1.</span> <span class="toc-text">状态值函数 State-Value Function V</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动作值函数-Action-Value-Function-Q"><span class="toc-number">3.2.2.</span> <span class="toc-text">动作值函数 Action-Value Function Q</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman期望方程-Bellman-Expectation-Equation"><span class="toc-number">3.3.</span> <span class="toc-text">Bellman期望方程 Bellman Expectation Equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最优价值函数"><span class="toc-number">3.4.</span> <span class="toc-text">最优价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最优策略"><span class="toc-number">3.5.</span> <span class="toc-text">最优策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻找最优策略"><span class="toc-number">3.6.</span> <span class="toc-text">寻找最优策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman最优方程-Bellman-Optimality-Equation"><span class="toc-number">3.7.</span> <span class="toc-text">Bellman最优方程 Bellman Optimality Equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#求解Bellman最优方程"><span class="toc-number">3.8.</span> <span class="toc-text">求解Bellman最优方程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MDP延伸——Extensions-to-MDPs"><span class="toc-number">4.</span> <span class="toc-text">MDP延伸——Extensions to MDPs</span></a></li></ol>
+          	</div>
+          
+        <p>在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对<font color="red">完全可观测的环境</font>进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。<br>最优状态值函数 $v_<em>$ 指的是在从所有策略产生的状态值函数中，选取使状态 s 值最大的函数：<br>$v_</em> = \max_{\pi} v_{\pi}(s)$</p>
+<p>类似的，最优动作值函数 $q_<em> (s,a)$ 指的是从所有策略产生的动作值函数中，选取是状态动作对 <s,a> 价值最大的函数：<br>$q_</s,a></em>(s,a) = \max_{\pi} q_{\pi}(s,a)$</p>
+<p>最优价值函数明确了MDP的最优可能表现，当我们知道了最优价值函数，也就知道了每个状态的最优价值，这时便认为这个MDP获得了解决。</p>
+<h2 id="马尔可夫过程-Markov-Process"><a href="#马尔可夫过程-Markov-Process" class="headerlink" title="马尔可夫过程 Markov Process"></a>马尔可夫过程 Markov Process</h2><h3 id="马尔可夫性-Markov-Property"><a href="#马尔可夫性-Markov-Property" class="headerlink" title="马尔可夫性 Markov Property"></a>马尔可夫性 Markov Property</h3><p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_5.png" alt="p_5"></p>
+<ul>
+<li>某一状态信息包含了所有相关的历史</li>
+<li>只要当前状态可知，历史信息 history 就可以被丢弃</li>
+<li>当前状态就可以决定未来</li>
+</ul>
+<p>The future is independent of the past given the present<br>即该状态具有马尔可夫性。</p>
+<p>可以用下面的状态转移概率公式来描述马尔可夫性：<br>$P_{ss’} = P[S_{t+1}=s’|S_t=s]$</p>
+<p>下面的状态转移矩阵定义了所有状态的转移概率：<br><img src="p_1.png" alt="p_1"><br>式中n为状态数量，矩阵中每一行元素之和为1.</p>
+<h3 id="马尔可夫过程-Markov-Process-1"><a href="#马尔可夫过程-Markov-Process-1" class="headerlink" title="马尔可夫过程 Markov Process"></a>马尔可夫过程 Markov Process</h3><p><img src="p_2.png" alt="p_2"><br>马尔可夫过程 又叫马尔可夫链(Markov Chain)，它是一个无记忆的随机过程，可以用一个元组<s,p>表示，其中S是有限数量的状态集，P是状态转移概率矩阵。</s,p></p>
+<p>如下图1圆圈内是状态，箭头上的值是状态之间的转移概率。class是指上第几堂课，facebook指看facebook网页，pub指去酒吧，pass指通过考试，sleep指睡觉。例如处于class1有0.5的概率转移到class2，或者0.5的概率转移到facebook。</p>
+<p><img src="p_3.png" alt="p_3"><br>从而可以产生非常多的随机序列，例如C1 C2 C3 Pass Sleep或者C1 FB FB C1 C2 C3 Pub C1 FB FB FB C1 C2 C3 Pub C2 Sleep等。这些随机状态的序列就是马尔可夫过程。</p>
+<h2 id="马尔可夫奖励过程-Markov-Reward-Process"><a href="#马尔可夫奖励过程-Markov-Reward-Process" class="headerlink" title="马尔可夫奖励过程 Markov Reward Process"></a>马尔可夫奖励过程 Markov Reward Process</h2><p><img src="p_4.png" alt="p_4"><br><strong>马尔可夫奖励过程在马尔可夫过程的基础上增加了奖励 R 和衰减系数 γ</strong><br>R是一个奖励函数。S 状态下的奖励是某一时刻(t)处在状态s下在下一个时刻 (t+1) 能获得的奖励期望：$R_{s} = E[R_{t+1} | S_{t} = s ]$</p>
+<p>衰减系数 Discount Factor: γ∈ [0, 1]，其远期利益具有一定的不确定性，符合人类对于眼前利益的追求等。</p>
+<h3 id="回报-Return"><a href="#回报-Return" class="headerlink" title="回报 Return"></a>回报 Return</h3><p>定义：回报 $G_{t}$ 为在一个马尔可夫奖励链上从 t 时刻开始往后所有的奖励的有衰减的总和。公式如下：<br>$G_t = R_{t+1}+\gamma R_{t+2}+…=\sum_{k=0}^{\infty}\gamma^kR_{t+k+1}$<br>其中衰减系数体现了未来的奖励在当前时刻的价值比例，在k+1时刻获得的奖励R在t时刻的体现出的价值是 $\gamma^k R$ ，γ 接近0，则表明趋向于“近视”性评估；γ 接近1则表明偏重考虑远期的利益。</p>
+<h3 id="价值函数-Value-Function"><a href="#价值函数-Value-Function" class="headerlink" title="价值函数 Value Function"></a>价值函数 Value Function</h3><p><img src="p_5.png" alt="p_5"><br>状态值函数给出了某一状态或某一动作的长期价值。<br>定义：一个马尔可夫奖励过程中的状态值函数为从该状态开始的马尔可夫链回报的期望：<br>$v(s) = E [ G_{t} | S_{t} = s ]$</p>
+<h3 id="价值函数的推导"><a href="#价值函数的推导" class="headerlink" title="价值函数的推导"></a>价值函数的推导</h3><p><strong>Bellman方程 - MRP</strong><br>先尝试用价值的定义公式来推导看看能得到什么：<br><img src="p_6.png" alt="p_6"><br>这个推导过程相对简单，仅在导出最后一行时，将 $G_{t+1}$ 变成了 $v(S_{t+1})$</p>
+<p>通过方程可以看出 v(s) 由两部分组成，一是该状态的即时奖励期望，即时奖励期望等于即时奖励，因为根据即时奖励的定义，它与下一个状态无关；另一个是下一时刻状态的价值期望，可以根据下一时刻状态的概率分布得到其期望。如果用s’表示s状态下一时刻任一可能的状态，那么Bellman方程可以写成：<br>$v(s) = E[G_t|S_t=s]= E[R_{t+1} + \gamma (R_{t+2}+\gamma R_{t+3}+…) | S_t=s]= E[R_{t+1} + \gamma G_{t+1} | S_t=s] = ER_s + \gamma \sum_{s’\in S}P_{ss’}v(s’) $</p>
+<p>下图已经给出了 γ=1 时各状态的价值（该图没有文字说明 γ=1，根据视频讲解和前面图示以及状态方程的要求，γ 必须要确定才能计算），状态 $C_{3}$ 的价值可以通过状态 Pub 和 Pass 的价值以及他们之间的状态转移概率来计算：<br>$4.3 = -2 + 1.0 <em> ( 0.6 </em> 10 + 0.4 * 0.8 )$<br><img src="p_7.png" alt="p_7"></p>
+<p><strong>Bellman方程的矩阵形式和求解</strong><br><img src="p_8.png" alt="p_8"><br>实际上，计算复杂度是 $O(n^{3})$ ， n 是状态数量。因此直接求解仅适用于小规模的MRPs。大规模MRP的求解通常使用迭代法。常用的迭代方法有：动态规划Dynamic Programming、蒙特卡洛评估Monte-Carlo evaluation、时序差分学习Temporal-Difference，后文会逐步讲解这些方法。</p>
+<h2 id="马尔可夫决策过程-Markov-Decision-Process"><a href="#马尔可夫决策过程-Markov-Decision-Process" class="headerlink" title="马尔可夫决策过程 Markov Decision Process"></a>马尔可夫决策过程 Markov Decision Process</h2><p><img src="p_9.png" alt="p_9"><br>相较于马尔可夫奖励过程，马尔可夫决策过程多了一个动作（动作）集合A，它是这样的一个元组: <s, a,="" p,="" r,="" γ="">。看起来很类似马尔可夫奖励过程，但这里的P和R都与具体的动作a对应，而不像马尔可夫奖励过程那样仅对应于某个状态，A表示的是有限的动作的集合。具体的数学表达式如下：<br>$P^a_{ss’} = P[S_{t+1}=s’|S_t=s,A_t=a]$<br>$R^a_{s} = E[R_{t+1} | S_{t} = s,A_t=a ]$</s,></p>
+<p>下图给出了一个可能的MDP的状态转化图。图中红色的文字表示的是采取的动作，而不是先前的状态名。对比之前的学生MRP示例可以发现，即时奖励与动作对应了，同一个状态下采取不同的动作得到的即时奖励是不一样的。由于引入了Action，容易与状态名混淆，因此此图没有给出各状态的名称；此图还把Pass和Sleep状态合并成一个终止状态；另外当选择”去查阅文献”这个动作时，主动进入了一个临时状态（图中用黑色小实点表示），随后被动的被环境按照其动力学分配到另外三个状态，也就是说此时Agent没有选择权决定去哪一个状态。<br><img src="p_10.png" alt="p_10"></p>
+<h3 id="策略-Policy-pi"><a href="#策略-Policy-pi" class="headerlink" title="策略 Policy $\pi$"></a>策略 Policy $\pi$</h3><p>策略 $\pi$是概率的集合或分布，其元素 $\pi(a|s)$ 为对过程中的某一状态s采取可能的动作 a 的概率。用 $\pi(a|s)$ 表示。</p>
+<p>一个策略完整定义了 Agent 的动作方式，也就是说定义了 Agent 在各个状态下的各种可能的动作方式以及其概率的大小。Policy 仅和当前的状态有关，与历史信息无关；同时某一确定的Policy是静态的，与时间无关；但是 Agent 可以随着时间更新策略。</p>
+<p>当给定一个MDP: M = <s, a,="" p,="" r,="" $\gamma$=""> 和一个策略 $\pi$，那么状态序列 $S_{1},S_{2},…$ 是一个马尔可夫过程 &lt; $S$,$P^{\pi}$&gt; :<br>状态转移概率公式表示: $P^\pi_{ss’}=\sum_{a\in A}\pi(a|s)P^a_{ss’}$<br>在执行策略 $\pi$ 时，状态从 s 转移至 s’ 的概率等于一系列概率的和，这一系列概率指的是在执行当前策略时，执行某一个动作的概率与该动作能使状态从s转移至s’的概率的乘积。</s,></p>
+<p>同样的，状态和奖励序列 $S_{1}, R_{2}, S_{2}, R_{3}, S_{3}, … $是一个马尔可夫奖励过程 &lt; $S$, $P^{\pi}$, $R^{\pi}$, $\gamma$ &gt;<br>奖励函数表示：$R^\pi_{s}=\sum_{a\in A}\pi(a|s)R^a_{s}$<br>当前状态s下执行某一指定策略得到的即时奖励是该策略下所有可能动作得到的奖励与该动作发生的概率的乘积的和。</p>
+<p>策略 $\pi$ 在MDP中的作用相当于 agent 可以在某一个状态时做出选择，进而有形成各种马尔可夫过程的可能，而且基于策略产生的每一个马尔可夫过程是一个马尔可夫奖励过程，各过程之间的差别是不同的选择产生了不同的后续状态以及对应的不同的奖励。</p>
+<h3 id="基于策略-pi-的价值函数-Value-Function"><a href="#基于策略-pi-的价值函数-Value-Function" class="headerlink" title="基于策略 $\pi$ 的价值函数 Value Function"></a>基于策略 $\pi$ 的价值函数 Value Function</h3><h4 id="状态值函数-State-Value-Function-V"><a href="#状态值函数-State-Value-Function-V" class="headerlink" title="状态值函数 State-Value Function V"></a>状态值函数 State-Value Function V</h4><p>定义 $v_\pi(s)$ 是在 MDP 下的基于策略 $\pi$ 的状态值函数，表示从状态s开始，遵循当前策略时所获得的收获的期望；或者说在执行当前策略 $\pi$ 时，衡量个体处在状态s时的价值大小。数学表示如下：<br>$v_{\pi}(s) = E_{\pi}[G_t|S_t=s]$</p>
+<p>注意策略是静态的、关于整体的概念，不随状态改变而改变；变化的是在某一个状态时，依据策略可能产生的具体动作，因为具体的动作是有一定的概率的，策略就是用来描述各个不同状态下执行各个不同动作的概率。</p>
+<h4 id="动作值函数-Action-Value-Function-Q"><a href="#动作值函数-Action-Value-Function-Q" class="headerlink" title="动作值函数 Action-Value Function Q"></a>动作值函数 Action-Value Function Q</h4><p>定义 $q_{\pi}(s,a)$ 为动作值函数，表示在执行策略 $\pi$ 时，对当前状态 s 执行某一具体动作 a 所能的到的收获的期望；或者说在遵循当前策略 $\pi$ 时，衡量对当前状态执行动作 a 的价值大小。动作值函数一般都是与某一特定的状态相对应的。动作值函数的公式描述如下:<br>$q_{\pi}(s,a)= E_{\pi}[G_t|S_t=s, A_t=a]$</p>
+<p>由于策略$\pi(a|s)$是可以改变的，因此两个值函数的取值不像MRP一样是固定的，那么就能从不同的取值中找到一个最大值即最优值函数(这节课没有讲如何求解)。MDP需要解决的问题并不是每一步到底会获得多少累积reward，而是找到一个最优的解决方案。</p>
+<h3 id="Bellman期望方程-Bellman-Expectation-Equation"><a href="#Bellman期望方程-Bellman-Expectation-Equation" class="headerlink" title="Bellman期望方程 Bellman Expectation Equation"></a>Bellman期望方程 Bellman Expectation Equation</h3><p><img src="p_11.png" alt="p_11"><br>根据这两个值函数的定义，它们之间的关系表示为</p>
+<ul>
+<li>$v_{\pi}(s) = \sum_{a\in A}\pi(a|s)q_{\pi}(s,a)$</li>
+<li>$q_{\pi}(s,a) = R_s^a + \gamma \sum_{s’\in S}P_{ss’}^av_{\pi}(s’)$</li>
+</ul>
+<p>第二个式子是说当选择一个action之后，转移到不同状态下之后获取的reward之和是多少。将两个式子互相代入，可以得到如下的Bellman期望方程。</p>
+<ul>
+<li>$v_{\pi}(s) = \sum_{a\in A}\pi(a|s)(R_s^a + \gamma \sum_{s’\in S}P_{ss’}^av_{\pi}(s’))$</li>
+<li>$q_{\pi}(s,a) = R_s^a + \gamma \sum_{s’\in S}P_{ss’}^a\sum_{a’\in A}\pi(a’|s’)q_{\pi}(s’,a’)$</li>
+</ul>
+<p>下图解释了红色空心圆圈状态的状态价值是如何计算的，遵循的策略随机策略，即所有可能的动作有相同的几率被选择执行。<br><img src="p_13.png" alt="p_13"><br>和MRP类似的,我们也可以得到矩阵形式和求解<br><img src="p_12.png" alt="p_12"></p>
+<h3 id="最优价值函数"><a href="#最优价值函数" class="headerlink" title="最优价值函数"></a>最优价值函数</h3><p>最优状态值函数 $v_<em>$ 指的是在从所有策略产生的状态值函数中，选取使状态 s 值最大的函数：<br>$v_</em> = \max_{\pi} v_{\pi}(s)$</p>
+<p>类似的，最优动作值函数 $q_<em> (s,a)$ 指的是从所有策略产生的动作值函数中，选取是状态动作对 <s,a> 价值最大的函数：<br>$q_</s,a></em>(s,a) = \max_{\pi} q_{\pi}(s,a)$</p>
+<p>最优价值函数明确了MDP的最优可能表现，当我们知道了最优价值函数，也就知道了每个状态的最优价值，这时便认为这个MDP获得了解决。</p>
+<h3 id="最优策略"><a href="#最优策略" class="headerlink" title="最优策略"></a>最优策略</h3><p>当对于任何状态 s，遵循策略 $\pi$ 的价值不小于遵循策略 $\pi$’ 下的价值，则策略 $\pi$ 优于策略 $\pi$’：<br>$\pi \geq \pi^{‘} if  v_{\pi}(s)\geq v_{\pi^{‘}}(s)$<br>定理 对于任何MDP，下面几点成立：</p>
+<ol>
+<li>存在一个最优策略，比任何其他策略更好或至少相等；</li>
+<li>所有的最优策略有相同的最优价值函数；</li>
+<li>所有的最优策略具有相同的动作值函数。</li>
+</ol>
+<h3 id="寻找最优策略"><a href="#寻找最优策略" class="headerlink" title="寻找最优策略"></a>寻找最优策略</h3><p>可以通过最大化最优动作值函数来找到最优策略：<br><img src="p_14.png" alt="p_14"><br>对于任何MDP问题，总存在一个确定性的最优策略；同时如果我们知道最优动作值函数，则表明我们找到了最优策略。</p>
+<h3 id="Bellman最优方程-Bellman-Optimality-Equation"><a href="#Bellman最优方程-Bellman-Optimality-Equation" class="headerlink" title="Bellman最优方程 Bellman Optimality Equation"></a>Bellman最优方程 Bellman Optimality Equation</h3><p>针对 $v_*$ ，一个状态的最优价值等于从该状态出发采取的所有动作产生的动作价值中最大的那个动作价值：</p>
+<p>针对 $q_*$ ，在某个状态 s 下，采取某个动作的最优价值由2部分组成，一部分是离开状态 s 的即刻奖励，另一部分则是所有能到达的状态 s’ 的最优状态价值按出现概率求和：</p>
+<p>组合起来，得到Bellman最优方程:<br><img src="p_15.png" alt="p_15"><br><img src="p_16.png" alt="p_16"></p>
+<h3 id="求解Bellman最优方程"><a href="#求解Bellman最优方程" class="headerlink" title="求解Bellman最优方程"></a>求解Bellman最优方程</h3><p>Bellman最优方程是非线性的，没有固定的解决方案，通过一些迭代方法来解决：价值迭代、策略迭代、Q学习、Sarsa等。后续会逐步讲解展开。</p>
+<h2 id="MDP延伸——Extensions-to-MDPs"><a href="#MDP延伸——Extensions-to-MDPs" class="headerlink" title="MDP延伸——Extensions to MDPs"></a>MDP延伸——Extensions to MDPs</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/David_Silver_RL_2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-David_Silver_RL_1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -144,7 +282,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/14/David_Silver_RL_1/">David Silver 强化学习 1</a>
+      <a class="article-title" href="/2017/08/14/David_Silver_RL_1/">David Silver 强化学习 1 Introduction</a>
     </h1>
   
 
