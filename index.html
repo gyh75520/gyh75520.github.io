@@ -206,18 +206,17 @@
 <li>$q_{\pi}(s,a) = R_s^a + \gamma \sum_{s’\in S}P_{ss’}^a\sum_{a’\in A}\pi(a’|s’)q_{\pi}(s’,a’)$</li>
 </ul>
 <p>下图解释了红色空心圆圈状态的状态价值是如何计算的，遵循的策略随机策略，即所有可能的动作有相同的几率被选择执行。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_13.png" alt="p_13"><br>和MRP类似的,我们也可以得到矩阵形式和求解<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_12.png" alt="p_12"></p>
-<h3 id="最优价值函数"><a href="#最优价值函数" class="headerlink" title="最优价值函数"></a>最优价值函数</h3><p>最优状态值函数 $v_<em>$ 指的是在从所有策略产生的状态值函数中，选取使状态 s 值最大的函数：<br>$v_</em> = \max_{\pi} v_{\pi}(s)$</p>
-<p>类似的，最优动作值函数 $q_<em> (s,a)$ 指的是从所有策略产生的动作值函数中，选取是状态动作对 <s,a> 价值最大的函数：<br>$q_</s,a></em>(s,a) = \max_{\pi} q_{\pi}(s,a)$</p>
+<h3 id="最优价值函数"><a href="#最优价值函数" class="headerlink" title="最优价值函数"></a>最优价值函数</h3><p>最优状态值函数 $v$ 指的是在从所有策略产生的状态值函数中，选取使状态 s 值最大的函数：<br>$v_* = \max \limits_{\pi} v_{\pi}(s)$</p>
+<p>类似的，最优动作值函数 $q (s,a)$ 指的是从所有策略产生的动作值函数中，选取是状态动作对 &lt;$s$, $a$&gt; 价值最大的函数：<br>$q_* (s,a) = \max \limits_{\pi} q_{\pi}(s,a)$</p>
 <p>最优价值函数明确了MDP的最优可能表现，当我们知道了最优价值函数，也就知道了每个状态的最优价值，这时便认为这个MDP获得了解决。</p>
-<h3 id="最优策略"><a href="#最优策略" class="headerlink" title="最优策略"></a>最优策略</h3><p>当对于任何状态 s，遵循策略 $\pi$ 的价值不小于遵循策略 $\pi$’ 下的价值，则策略 $\pi$ 优于策略 $\pi$’：<br>$\pi \geq \pi^{‘} if  v_{\pi}(s)\geq v_{\pi^{‘}}(s)$<br>定理 对于任何MDP，下面几点成立：</p>
+<h3 id="最优策略"><a href="#最优策略" class="headerlink" title="最优策略"></a>最优策略</h3><p>当对于任何状态 s，遵循策略 $\pi$ 的价值不小于遵循策略 $\pi$’ 下的价值，则策略 $\pi$ 优于策略 $\pi$’：<br>$\pi \geq \pi^{‘} if  v_{\pi}(s)\geq v_{\pi^{‘}}(s)  ,\forall s $<br>定理 对于任何MDP，下面几点成立：</p>
 <ol>
 <li>存在一个最优策略，比任何其他策略更好或至少相等；</li>
 <li>所有的最优策略有相同的最优价值函数；</li>
 <li>所有的最优策略具有相同的动作值函数。</li>
 </ol>
 <h3 id="寻找最优策略"><a href="#寻找最优策略" class="headerlink" title="寻找最优策略"></a>寻找最优策略</h3><p>可以通过最大化最优动作值函数来找到最优策略：<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_14.png" alt="p_14"><br>对于任何MDP问题，总存在一个确定性的最优策略；同时如果我们知道最优动作值函数，则表明我们找到了最优策略。</p>
-<h3 id="Bellman最优方程-Bellman-Optimality-Equation"><a href="#Bellman最优方程-Bellman-Optimality-Equation" class="headerlink" title="Bellman最优方程 Bellman Optimality Equation"></a>Bellman最优方程 Bellman Optimality Equation</h3><p>针对 $v_*$ ，一个状态的最优价值等于从该状态出发采取的所有动作产生的动作价值中最大的那个动作价值：</p>
-<p>针对 $q_*$ ，在某个状态 s 下，采取某个动作的最优价值由2部分组成，一部分是离开状态 s 的即刻奖励，另一部分则是所有能到达的状态 s’ 的最优状态价值按出现概率求和：</p>
+<h3 id="Bellman最优方程-Bellman-Optimality-Equation"><a href="#Bellman最优方程-Bellman-Optimality-Equation" class="headerlink" title="Bellman最优方程 Bellman Optimality Equation"></a>Bellman最优方程 Bellman Optimality Equation</h3><p>针对 $v_<em>$ ，一个状态的最优价值等于从该状态出发采取的所有动作产生的动作价值中最大的那个动作价值：<br><img src="p_17.png" alt="p_17"><br>针对 $q_</em>$ ，在某个状态 s 下，采取某个动作的最优价值由2部分组成，一部分是离开状态 s 的即刻奖励，另一部分则是所有能到达的状态 s’ 的最优状态价值按出现概率求和：<br><img src="p_18.png" alt="p_18"> </p>
 <p>组合起来，得到Bellman最优方程:<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_15.png" alt="p_15"><br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_16.png" alt="p_16"></p>
 <h3 id="求解Bellman最优方程"><a href="#求解Bellman最优方程" class="headerlink" title="求解Bellman最优方程"></a>求解Bellman最优方程</h3><p>Bellman最优方程是非线性的，没有固定的解决方案，通过一些迭代方法来解决：价值迭代、策略迭代、Q学习、Sarsa等。后续会逐步讲解展开。</p>
 <h2 id="MDP延伸——Extensions-to-MDPs"><a href="#MDP延伸——Extensions-to-MDPs" class="headerlink" title="MDP延伸——Extensions to MDPs"></a>MDP延伸——Extensions to MDPs</h2>
