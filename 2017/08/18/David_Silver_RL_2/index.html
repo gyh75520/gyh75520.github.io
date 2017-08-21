@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
   <title>David Silver 强化学习 2 MDP | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对完全可观测的环境进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。">
+  <meta name="description" content="在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对完全可观测的环境进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。 马尔可夫过程 Markov Process马尔可夫性 Markov Property  某一状态信息包含了所有相关的历史 只要当前状态可知，历史信">
 <meta name="keywords" content="RL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="David Silver 强化学习 2 MDP">
 <meta property="og:url" content="https://gyh75520.github.io/2017/08/18/David_Silver_RL_2/index.html">
 <meta property="og:site_name" content="Howard的博客">
-<meta property="og:description" content="在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对完全可观测的环境进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。">
+<meta property="og:description" content="在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对完全可观测的环境进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。 马尔可夫过程 Markov Process马尔可夫性 Markov Property  某一状态信息包含了所有相关的历史 只要当前状态可知，历史信">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_5.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_1.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_2.png">
@@ -34,10 +34,10 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_18.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_15.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_16.png">
-<meta property="og:updated_time" content="2017-08-21T08:02:31.000Z">
+<meta property="og:updated_time" content="2017-08-21T08:05:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="David Silver 强化学习 2 MDP">
-<meta name="twitter:description" content="在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对完全可观测的环境进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。">
+<meta name="twitter:description" content="在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对完全可观测的环境进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。 马尔可夫过程 Markov Process马尔可夫性 Markov Property  某一状态信息包含了所有相关的历史 只要当前状态可知，历史信">
 <meta name="twitter:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_5.png">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
@@ -182,14 +182,14 @@
           	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#马尔可夫过程-Markov-Process"><span class="toc-number">1.</span> <span class="toc-text">马尔可夫过程 Markov Process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#马尔可夫性-Markov-Property"><span class="toc-number">1.1.</span> <span class="toc-text">马尔可夫性 Markov Property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#马尔可夫过程-Markov-Process-1"><span class="toc-number">1.2.</span> <span class="toc-text">马尔可夫过程 Markov Process</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#马尔可夫奖励过程-Markov-Reward-Process"><span class="toc-number">2.</span> <span class="toc-text">马尔可夫奖励过程 Markov Reward Process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#回报-Return"><span class="toc-number">2.1.</span> <span class="toc-text">回报 Return</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#价值函数-Value-Function"><span class="toc-number">2.2.</span> <span class="toc-text">价值函数 Value Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#价值函数的推导"><span class="toc-number">2.3.</span> <span class="toc-text">价值函数的推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#马尔可夫决策过程-Markov-Decision-Process"><span class="toc-number">3.</span> <span class="toc-text">马尔可夫决策过程 Markov Decision Process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#策略-Policy-pi"><span class="toc-number">3.1.</span> <span class="toc-text">策略 Policy $\pi$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于策略-pi-的价值函数-Value-Function"><span class="toc-number">3.2.</span> <span class="toc-text">基于策略 $\pi$ 的价值函数 Value Function</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#状态值函数-State-Value-Function-V"><span class="toc-number">3.2.1.</span> <span class="toc-text">状态值函数 State-Value Function V</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动作值函数-Action-Value-Function-Q"><span class="toc-number">3.2.2.</span> <span class="toc-text">动作值函数 Action-Value Function Q</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman期望方程-Bellman-Expectation-Equation"><span class="toc-number">3.3.</span> <span class="toc-text">Bellman期望方程 Bellman Expectation Equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最优价值函数"><span class="toc-number">3.4.</span> <span class="toc-text">最优价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最优策略"><span class="toc-number">3.5.</span> <span class="toc-text">最优策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻找最优策略"><span class="toc-number">3.6.</span> <span class="toc-text">寻找最优策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman最优方程-Bellman-Optimality-Equation"><span class="toc-number">3.7.</span> <span class="toc-text">Bellman最优方程 Bellman Optimality Equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#求解Bellman最优方程"><span class="toc-number">3.8.</span> <span class="toc-text">求解Bellman最优方程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MDP延伸——Extensions-to-MDPs"><span class="toc-number">4.</span> <span class="toc-text">MDP延伸——Extensions to MDPs</span></a></li></ol>
           	</div>
           
-        <p>在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对<font color="red">完全可观测的环境</font>进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。<br><a id="more"></a></p>
+        <p>在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对<font color="red">完全可观测的环境</font>进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。</p>
 <h2 id="马尔可夫过程-Markov-Process"><a href="#马尔可夫过程-Markov-Process" class="headerlink" title="马尔可夫过程 Markov Process"></a>马尔可夫过程 Markov Process</h2><h3 id="马尔可夫性-Markov-Property"><a href="#马尔可夫性-Markov-Property" class="headerlink" title="马尔可夫性 Markov Property"></a>马尔可夫性 Markov Property</h3><p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_5.png" alt="p_5"></p>
 <ul>
 <li>某一状态信息包含了所有相关的历史</li>
 <li>只要当前状态可知，历史信息 history 就可以被丢弃</li>
-<li>当前状态就可以决定未来</li>
+<li>当前状态就可以决定未来<a id="more"></a>
+The future is independent of the past given the present<br>即该状态具有马尔可夫性。</li>
 </ul>
-<p>The future is independent of the past given the present<br>即该状态具有马尔可夫性。</p>
 <p>可以用下面的状态转移概率公式来描述马尔可夫性：<br>$P_{ss’} = P[S_{t+1}=s’|S_t=s]$</p>
 <p>下面的状态转移矩阵定义了所有状态的转移概率：<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_1.png" alt="p_1"><br>式中n为状态数量，矩阵中每一行元素之和为1.</p>
 <h3 id="马尔可夫过程-Markov-Process-1"><a href="#马尔可夫过程-Markov-Process-1" class="headerlink" title="马尔可夫过程 Markov Process"></a>马尔可夫过程 Markov Process</h3><p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_2.png" alt="p_2"><br>马尔可夫过程 又叫马尔可夫链(Markov Chain)，它是一个无记忆的随机过程，可以用一个元组<s,p>表示，其中S是有限数量的状态集，P是状态转移概率矩阵。</s,p></p>
