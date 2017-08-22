@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_4.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_5.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_6.png">
-<meta property="og:updated_time" content="2017-08-21T09:47:31.000Z">
+<meta property="og:updated_time" content="2017-08-22T12:11:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="David Silver 强化学习 1 Introduction">
 <meta name="twitter:description" content="强化学习的特点(不同于其他机器学习)：  没有监督数据、只有奖励信号 奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。 时间（序列）是一个重要因素 当前的行为影响后续接收到的数据     The RL Problem奖励 Reward 一个Reward $R_{t}$ 是信号的反馈，是一个标量 它反映 Agent 在 t 时刻做得怎么样 Agent 的工作就是最大化累计奖励  强化学习">
@@ -273,13 +273,13 @@
 <h3 id="学习和规划-Learning-amp-Planning"><a href="#学习和规划-Learning-amp-Planning" class="headerlink" title="学习和规划 Learning &amp; Planning"></a>学习和规划 Learning &amp; Planning</h3><p><strong>学习：</strong></p>
 <ul>
 <li>环境初始时是未知的</li>
-<li>个体不知道环境如何工作</li>
-<li>个体通过与环境进行交互，逐渐改善其行为策略。</li>
+<li>Agent不知道环境如何工作</li>
+<li>Agent通过与环境进行交互，逐渐改善其行为策略。</li>
 </ul>
 <p><strong>规划:</strong></p>
 <ul>
-<li>环境如何工作对于个体是已知或近似已知的</li>
-<li>个体并不与环境发生实际的交互，而是利用其构建的模型进行计算</li>
+<li>环境如何工作对于Agent是已知或近似已知的</li>
+<li>Agent并不与环境发生实际的交互，而是利用其构建的模型进行计算</li>
 <li>在此基础上改善其行为策略。</li>
 </ul>
 <p>一个常用的强化学习问题解决思路是，先学习环境如何工作，也就是了解环境工作的方式，即学习得到一个模型，然后利用这个模型进行规划。</p>
@@ -541,15 +541,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">mac</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
               </li>
              
               <li class="article-tag-list-item">
