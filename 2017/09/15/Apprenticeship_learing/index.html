@@ -6,23 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
-  <title>Apprenticeship learning via inverse reinforcement learning | Howard的博客</title>
+  <title>学徒学习 Apprenticeship learning via inverse reinforcement learning | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。">
+  <meta name="description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。 回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。逆向强化学习求的就是回报">
 <meta name="keywords" content="RL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Apprenticeship learning via inverse reinforcement learning">
+<meta property="og:title" content="学徒学习 Apprenticeship learning via inverse reinforcement learning">
 <meta property="og:url" content="https://gyh75520.github.io/2017/09/15/Apprenticeship_learing/index.html">
 <meta property="og:site_name" content="Howard的博客">
-<meta property="og:description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。">
+<meta property="og:description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。 回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。逆向强化学习求的就是回报">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_5.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_1.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_3.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_4.png">
-<meta property="og:updated_time" content="2017-09-15T12:45:12.000Z">
+<meta property="og:updated_time" content="2017-09-15T12:46:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Apprenticeship learning via inverse reinforcement learning">
-<meta name="twitter:description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。">
+<meta name="twitter:title" content="学徒学习 Apprenticeship learning via inverse reinforcement learning">
+<meta name="twitter:description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。 回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。逆向强化学习求的就是回报">
 <meta name="twitter:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_5.png">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
@@ -148,7 +148,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Apprenticeship learning via inverse reinforcement learning
+      学徒学习 Apprenticeship learning via inverse reinforcement learning
     </h1>
   
 
@@ -167,8 +167,8 @@
           	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-number">1.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
           	</div>
           
-        <p>学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。<br><a id="more"></a><br>回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。<br>逆向强化学习求的就是回报函数中的系数w。</p>
-<p>策略 $\pi$ 的值函数为：<br>$v_{\pi}(s) = E_{\pi}[\sum_{t=0}^{\infty}\gamma^t R(s_t)]$<br>将回报函数代入：<br>$v_{\pi}(s) = w^T E_{\pi}[\sum_{t=0}^{\infty}\gamma^t \phi(s_t)]$</p>
+        <p>学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。</p>
+<p>回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。<br>逆向强化学习求的就是回报函数中的系数w。<br><a id="more"></a><br>策略 $\pi$ 的值函数为：<br>$v_{\pi}(s) = E_{\pi}[\sum_{t=0}^{\infty}\gamma^t R(s_t)]$<br>将回报函数代入：<br>$v_{\pi}(s) = w^T E_{\pi}[\sum_{t=0}^{\infty}\gamma^t \phi(s_t)]$</p>
 <p>将上式右半部分定义为特征期望：$\mu\left(\pi\right)=E_{\pi}[\sum_{t=0}^{\infty}\gamma^t \phi(s_t)]$。需要注意的是，特征期望跟策略 $\pi$ 有关，策略不同时，策略期望也不相同</p>
 <p>当给定m条专家轨迹后，根据定义我们可以估计专家策略的特征期望为：<br>$\hat{\mu}_E=\frac{1}{m}\Sigma_{i=1}^{m}\Sigma_{t=0}^{\infty}\gamma^t\phi\left(s_{t}^{\left(i\right)}\right)$<br>其中，专家状态序列为专家轨迹:${ s_{0}^{(i)},s_{1}^{(i)},\cdots }_{i=1}^{m}$</p>
 <p>逆向强化学习可以归结为如下问题：</p>
