@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_1.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_3.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_4.png">
-<meta property="og:updated_time" content="2017-09-15T12:46:19.000Z">
+<meta property="og:updated_time" content="2017-09-15T13:00:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学徒学习 Apprenticeship learning via inverse reinforcement learning">
 <meta name="twitter:description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。 回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。逆向强化学习求的就是回报">
@@ -180,7 +180,7 @@
 <p>写成标准的优化形式为：<br><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_3.png" alt="p_3"><br>注意，在进行第二行求解时，$\mu^{\left(j\right)}$中的 $j\in{0,1,\cdots ,i-1}$是前i-1次迭代得到的最优策略。也就是说第i次求解参数时，i-1次迭代的策略是已知的。这时候的最优函数值t相当于专家策略 $\mu_E$ 与i-1个迭代策略之间的最大边际。<br><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_4.png" alt="p_4"></p>
 <p>我们可以从支持向量机的角度去理解。专家策略为一类，其他策略为另一类，参数的求解其实就是找一条超曲面将专家策略和其他策略区分开来。这个超平面使得两类之间的边际最大。</p>
 <p>第四行是在第二行求出参数后，便有了回报函数$R=\left(w^{\left(i\right)}\right)^T\phi$，利用该回报函数进行强化学习，从而得到该回报函数下的最优策略 $\pi^{\left(i\right)}$。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>学徒逆向强化学习方法分为两步:<br>第一步在已经迭代得到的最优策略中，利用最大边际方法求出当前的回报函数的参数值；<br>第二步利用求出的回报函数的参数值进行正向强化学习方法求得当前最优的策略，然后重复第一步。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>学徒逆向强化学习方法分为两步:<br>第一步在已经迭代得到的最优策略中，利用最大边际方法求出当前的回报函数的参数值；（该计算需要用到QP(二次规划)求解器或者SVM求解器。文中也给出了一种不使用求解器的简单算法。）<br>第二步利用求出的回报函数的参数值进行正向强化学习方法求得当前最优的策略，然后重复第一步。</p>
 <p>需要注意的是，$\phi(s)$ 中输入的 s 为 i 个特征：$s^1,s^2,…,s^i$，if 第 i 个特征存在，$s^i = 1$，else $s^i = 0$。又因为$\lVert w\rVert_1\le 1$，所以$R\le 1$。</p>
 
       
