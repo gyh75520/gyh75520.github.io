@@ -137,6 +137,100 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Apprenticeship_learing" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/15/Apprenticeship_learing/">Apprenticeship learning via inverse reinforcement learning</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/15/Apprenticeship_learing/" class="archive-article-date">
+  	<time datetime="2017-09-15T13:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+          	<div id="toc" class="toc-article">
+          	  <strong class="toc-title">文章目录</strong>
+          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-number">1.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
+          	</div>
+          
+        <p>学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。</p>
+<p>回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。<br>逆向强化学习求的就是回报函数中的系数w。</p>
+<p>策略 $\pi$ 的值函数为：<br>$v_{\pi}(s) = E_{\pi}[\sum_{t=0}^{\infty}\gamma^t R(s_t)]$<br>将回报函数代入：<br>$v_{\pi}(s) = w^T E_{\pi}[\sum_{t=0}^{\infty}\gamma^t \phi(s_t)]$</p>
+<p>将上式右半部分定义为特征期望：$\mu\left(\pi\right)=E_{\pi}[\sum_{t=0}^{\infty}\gamma^t \phi(s_t)]$。需要注意的是，特征期望跟策略 $\pi$ 有关，策略不同时，策略期望也不相同</p>
+<p>当给定m条专家轨迹后，根据定义我们可以估计专家策略的特征期望为：<br>$\hat{\mu}_E=\frac{1}{m}\Sigma_{i=1}^{m}\Sigma_{t=0}^{\infty}\gamma^t\phi\left(s_{t}^{\left(i\right)}\right)$<br>其中，专家状态序列为专家轨迹:${ s_{0}^{(i)},s_{1}^{(i)},\cdots }_{i=1}^{m}$</p>
+<p>逆向强化学习可以归结为如下问题：</p>
+<p>找到一个策略，使得该策略的表现与专家策略相近。我们可以利用特征期望来表示一个策略的好坏，找到一个策略，使其表现与专家策略相近，其实就是找到一个策略 $\tilde{\pi}$ 的特征期望与专家策略的特征期望相近，即使如下不等式成立：<br>$\lVert\mu\left(\tilde{\pi}\right)-\mu_E\rVert_2\le\epsilon$</p>
+<p>当该不等式成立时，对于任意的权重$\lVert w\rVert_1\le 1$，值函数满足如下不等式：<br><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_5.png" alt="p_5"></p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_1.png" alt="p_1"></p>
+<p>其中第二行的目标函数为:</p>
+<p>$t^{(i)}=\max_{w:\lVert w\rVert_2\le 1}\min_{j\in{0\cdots(i-1)}}w^T(\mu_E-\mu^{(j)})$</p>
+<p>写成标准的优化形式为：<br><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_3.png" alt="p_3"><br>注意，在进行第二行求解时，$\mu^{\left(j\right)}$中的 $j\in{0,1,\cdots ,i-1}$是前i-1次迭代得到的最优策略。也就是说第i次求解参数时，i-1次迭代的策略是已知的。这时候的最优函数值t相当于专家策略 $\mu_E$ 与i-1个迭代策略之间的最大边际。<br><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_4.png" alt="p_4"></p>
+<p>我们可以从支持向量机的角度去理解。专家策略为一类，其他策略为另一类，参数的求解其实就是找一条超曲面将专家策略和其他策略区分开来。这个超平面使得两类之间的边际最大。</p>
+<p>第四行是在第二行求出参数后，便有了回报函数$R=\left(w^{\left(i\right)}\right)^T\phi$，利用该回报函数进行强化学习，从而得到该回报函数下的最优策略 $\pi^{\left(i\right)}$。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>学徒逆向强化学习方法分为两步:<br>第一步在已经迭代得到的最优策略中，利用最大边际方法求出当前的回报函数的参数值；<br>第二步利用求出的回报函数的参数值进行正向强化学习方法求得当前最优的策略，然后重复第一步。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/15/Apprenticeship_learing/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-David_Silver_RL_2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

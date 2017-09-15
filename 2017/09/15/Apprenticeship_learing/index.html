@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
-  <title>Archives: 2017 | Howard的博客</title>
+  <title>Apprenticeship learning via inverse reinforcement learning | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="幽幽微醺淡淡咖啡香">
-<meta name="keywords" content="增强学习,深度学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Howard的博客">
-<meta property="og:url" content="https://gyh75520.github.io/archives/2017/index.html">
+  <meta name="description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。 回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。逆向强化学习求的就是回报">
+<meta name="keywords" content="RL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apprenticeship learning via inverse reinforcement learning">
+<meta property="og:url" content="https://gyh75520.github.io/2017/09/15/Apprenticeship_learing/index.html">
 <meta property="og:site_name" content="Howard的博客">
-<meta property="og:description" content="幽幽微醺淡淡咖啡香">
+<meta property="og:description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。 回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。逆向强化学习求的就是回报">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_5.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_1.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_3.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_4.png">
+<meta property="og:updated_time" content="2017-09-15T12:30:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Howard的博客">
-<meta name="twitter:description" content="幽幽微醺淡淡咖啡香">
+<meta name="twitter:title" content="Apprenticeship learning via inverse reinforcement learning">
+<meta name="twitter:description" content="学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。 回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。逆向强化学习求的就是回报">
+<meta name="twitter:image" content="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_5.png">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
   
@@ -135,36 +141,76 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Apprenticeship_learing" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Apprenticeship learning via inverse reinforcement learning
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/15/Apprenticeship_learing/" class="archive-article-date">
+
+        
+        <a href="/2017/09/15/Apprenticeship_learing/" class="archive-article-date">
   	<time datetime="2017-09-15T13:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/15/Apprenticeship_learing/">Apprenticeship learning via inverse reinforcement learning</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
           
+          	<div id="toc" class="toc-article">
+          	  <strong class="toc-title">文章目录</strong>
+          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-number">1.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
+          	</div>
+          
+        <p>学徒学习是Ng（吴恩达）和Abbeel提出来的。学徒学习是这样：智能体从专家示例中学到回报函数，使得在该回报函数下所得到的最优策略在专家示例策略附近。</p>
+<p>回报函数$R(s)$ 假设为：$R\left(s\right)=w^T\cdot\phi\left(s\right)$，其中$\phi(s)$为映射特征的基函数，可以为多项式基底，也可以为傅里叶基底。文中是以线性函数为基底。<br>逆向强化学习求的就是回报函数中的系数w。</p>
+<p>策略 $\pi$ 的值函数为：<br>$v_{\pi}(s) = E_{\pi}[\sum_{t=0}^{\infty}\gamma^t R(s_t)]$<br>将回报函数代入：<br>$v_{\pi}(s) = w^T E_{\pi}[\sum_{t=0}^{\infty}\gamma^t \phi(s_t)]$</p>
+<p>将上式右半部分定义为特征期望：$\mu\left(\pi\right)=E_{\pi}[\sum_{t=0}^{\infty}\gamma^t \phi(s_t)]$。需要注意的是，特征期望跟策略 $\pi$ 有关，策略不同时，策略期望也不相同</p>
+<p>当给定m条专家轨迹后，根据定义我们可以估计专家策略的特征期望为：<br>$\hat{\mu}_E=\frac{1}{m}\Sigma_{i=1}^{m}\Sigma_{t=0}^{\infty}\gamma^t\phi\left(s_{t}^{\left(i\right)}\right)$<br>其中，专家状态序列为专家轨迹:${ s_{0}^{(i)},s_{1}^{(i)},\cdots }_{i=1}^{m}$</p>
+<p>逆向强化学习可以归结为如下问题：</p>
+<p>找到一个策略，使得该策略的表现与专家策略相近。我们可以利用特征期望来表示一个策略的好坏，找到一个策略，使其表现与专家策略相近，其实就是找到一个策略 $\tilde{\pi}$ 的特征期望与专家策略的特征期望相近，即使如下不等式成立：<br>$\lVert\mu\left(\tilde{\pi}\right)-\mu_E\rVert_2\le\epsilon$</p>
+<p>当该不等式成立时，对于任意的权重$\lVert w\rVert_1\le 1$，值函数满足如下不等式：<br><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_5.png" alt="p_5"></p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_1.png" alt="p_1"></p>
+<p>其中第二行的目标函数为:</p>
+<p>$t^{(i)}=\max_{w:\lVert w\rVert_2\le 1}\min_{j\in{0\cdots(i-1)}}w^T(\mu_E-\mu^{(j)})$</p>
+<p>写成标准的优化形式为：<br><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_3.png" alt="p_3"><br>注意，在进行第二行求解时，$\mu^{\left(j\right)}$中的 $j\in{0,1,\cdots ,i-1}$是前i-1次迭代得到的最优策略。也就是说第i次求解参数时，i-1次迭代的策略是已知的。这时候的最优函数值t相当于专家策略 $\mu_E$ 与i-1个迭代策略之间的最大边际。<br><img src="https://gyh75520.github.io/assets/img/Apprenticeship_learing/p_4.png" alt="p_4"></p>
+<p>我们可以从支持向量机的角度去理解。专家策略为一类，其他策略为另一类，参数的求解其实就是找一条超曲面将专家策略和其他策略区分开来。这个超平面使得两类之间的边际最大。</p>
+<p>第四行是在第二行求出参数后，便有了回报函数$R=\left(w^{\left(i\right)}\right)^T\phi$，利用该回报函数进行强化学习，从而得到该回报函数下的最优策略 $\pi^{\left(i\right)}$。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>学徒逆向强化学习方法分为两步:<br>第一步在已经迭代得到的最优策略中，利用最大边际方法求出当前的回报函数的参数值；<br>第二步利用求出的回报函数的参数值进行正向强化学习方法求得当前最优的策略，然后重复第一步。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -176,183 +222,104 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://gyh75520.github.io/2017/09/15/Apprenticeship_learing/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/18/David_Silver_RL_2/" class="archive-article-date">
-  	<time datetime="2017-08-18T13:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/18/David_Silver_RL_2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">David Silver 强化学习 2 MDP</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/18/David_Silver_RL_2/">David Silver 强化学习 2 MDP</a>
-    </h1>
+        
+        
+    </div>
+</aside>
+
+
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/14/David_Silver_RL_1/" class="archive-article-date">
-  	<time datetime="2017-08-14T13:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/14/David_Silver_RL_1/">David Silver 强化学习 1 Introduction</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/27/从Fictitious Play 到 NFSP/" class="archive-article-date">
-  	<time datetime="2017-07-27T13:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/27/从Fictitious Play 到 NFSP/">从Fictitious Play 到 NFSP</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">博弈论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/22/opencv3 --python3 mac配置/" class="archive-article-date">
-  	<time datetime="2017-07-22T11:38:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/22/opencv3 --python3 mac配置/">opencv3 --python3 mac下配置</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">opencv3</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">mac</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -375,8 +342,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
