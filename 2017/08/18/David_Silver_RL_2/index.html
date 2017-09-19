@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_18.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_15.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_16.png">
-<meta property="og:updated_time" content="2017-09-19T14:05:44.000Z">
+<meta property="og:updated_time" content="2017-09-19T14:08:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="David Silver 强化学习 2 MDP">
 <meta name="twitter:description" content="在强化学习中，马尔可夫决策过程（Markov decision process, MDP）是对完全可观测的环境进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。本讲是理解强化学习问题的理论基础。 马尔可夫过程 Markov Process马尔可夫性 Markov Property  某一状态信息包含了所有相关的历史 只要当前状态可知，历史信">
@@ -237,7 +237,7 @@ The future is independent of the past given the present<br>即该状态具有马
 <h3 id="寻找最优策略"><a href="#寻找最优策略" class="headerlink" title="寻找最优策略"></a>寻找最优策略</h3><p>可以通过最大化最优动作值函数来找到最优策略：<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_14.png" alt="p_14"><br>对于任何MDP问题，总存在一个确定性的最优策略；同时如果我们知道最优动作值函数，则表明我们找到了最优策略。</p>
 <h3 id="Bellman最优方程-Bellman-Optimality-Equation"><a href="#Bellman最优方程-Bellman-Optimality-Equation" class="headerlink" title="Bellman最优方程 Bellman Optimality Equation"></a>Bellman最优方程 Bellman Optimality Equation</h3><p>针对 $v$ 一个状态的最优价值等于从该状态出发采取的所有动作产生的动作价值中最大的那个动作价值：<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_17.png" alt="p_17"><br>针对 $q$，在某个状态 s 下，采取某个动作的最优价值由2部分组成，一部分是离开状态 s 的即刻奖励，另一部分则是所有能到达的状态 s’ 的最优状态价值按出现概率求和：<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_18.png" alt="p_18"></p>
 <p>组合起来，得到Bellman最优方程:<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_15.png" alt="p_15"><br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_2/p_16.png" alt="p_16"></p>
-<p>满足bellman最优方程，意味着找到了最优策略。也就是$v_\pi (s) = \max \limits_{a} q_{\pi}(s,a)$,也就是不需要在进行策略改进。</p>
+<p>满足bellman最优方程，意味着找到了最优策略。也就是$v_\pi (s) = \max \limits_{a} q_{\pi}(s,a)$，也就是不需要在进行策略改进。</p>
 <h3 id="求解Bellman最优方程"><a href="#求解Bellman最优方程" class="headerlink" title="求解Bellman最优方程"></a>求解Bellman最优方程</h3><p>Bellman最优方程是非线性的，没有固定的解决方案，通过一些迭代方法来解决：价值迭代、策略迭代、Q学习、Sarsa等。后续会逐步讲解展开。</p>
 <h2 id="MDP延伸——Extensions-to-MDPs"><a href="#MDP延伸——Extensions-to-MDPs" class="headerlink" title="MDP延伸——Extensions to MDPs"></a>MDP延伸——Extensions to MDPs</h2>
       
@@ -495,15 +495,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">mac</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
               </li>
              
               <li class="article-tag-list-item">
