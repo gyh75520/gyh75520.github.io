@@ -157,33 +157,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-          
-          	<div id="toc" class="toc-article">
-          	  <strong class="toc-title">文章目录</strong>
-          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介-Introduction"><span class="toc-number">1.</span> <span class="toc-text">简介 Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#策略迭代-Policy-Iteration"><span class="toc-number">2.</span> <span class="toc-text">策略迭代 Policy Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#策略改善-Policy-Improvment-理论证明"><span class="toc-number">2.1.</span> <span class="toc-text">策略改善 Policy Improvment 理论证明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#值迭代-Value-Iteration"><span class="toc-number">3.</span> <span class="toc-text">值迭代 Value Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化原则-Principle-of-Optimality"><span class="toc-number">3.1.</span> <span class="toc-text">优化原则 Principle of Optimality</span></a></li></ol></li></ol>
-          	</div>
-          
         <h2 id="简介-Introduction"><a href="#简介-Introduction" class="headerlink" title="简介 Introduction"></a>简介 Introduction</h2><p>当问题具有下列特性时，通常可以考虑使用动态规划来求解：</p>
 <ul>
 <li>第一个特性是一个复杂问题的最优解由数个小问题的最优解构成，可以通过寻找子问题的最优解来得到复杂问题的最优解；</li>
 <li>子问题在复杂问题内重复出现，使得子问题的解可以被存储起来重复利用。</li>
 </ul>
 <p>马尔可夫决策过程（MDP）具有上述两个属性：Bellman方程把问题递归为求解子问题，价值函数就相当于存储了一些子问题的解，可以复用。因此可以使用动态规划来求解MDP。</p>
-<p>我们用动态规划算法来求解一类称为“规划 Planning”的问题。“规划”指的是在了解整个MDP的基础上求解最优策略，也就是清楚模型结构的基础上：包括状态行为空间、转换矩阵、奖励等。这类问题不是典型的强化学习问题，我们可以用规划来解决 Predict 和 Control 问题。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_1.png" alt="p_1"></p>
-<h2 id="策略迭代-Policy-Iteration"><a href="#策略迭代-Policy-Iteration" class="headerlink" title="策略迭代 Policy Iteration"></a>策略迭代 Policy Iteration</h2><p>这个解决途径主要分为两步：</p>
-<ul>
-<li>Policy Evaluation:基于当前的Policy计算出每个状态的value function $V$ （迭代计算直到收敛）</li>
-<li>Policy Improvment:基于当前的value function，采用贪心算法来找到当前最优的Policy $\pi$</li>
-</ul>
-<p>如此反复多次，最终得到最优策略 $\pi^{star}$ 和最优状态价值函数 $V^{star} $ ( star 代表 * )。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_2.png" alt="p_2"></p>
-<p>下图是一个叫Small Gridworld的例子，左上角和右下角是终点，γ=1，移动一步 reward=-1，起始的random policy是朝每个能走的方向概率相同。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_5.png" alt="p_5"></p>
-<h3 id="策略改善-Policy-Improvment-理论证明"><a href="#策略改善-Policy-Improvment-理论证明" class="headerlink" title="策略改善 Policy Improvment 理论证明"></a>策略改善 Policy Improvment 理论证明</h3><p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_3.png" alt="p_3"><br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_4.png" alt="p_4"><br>思考：很多时候，策略的更新较早就收敛至最优策略，而状态价值的收敛要慢很多，是否有必要一定要迭代计算直到状态价值得到收敛呢？</p>
-<h2 id="值迭代-Value-Iteration"><a href="#值迭代-Value-Iteration" class="headerlink" title="值迭代 Value Iteration"></a>值迭代 Value Iteration</h2><h3 id="优化原则-Principle-of-Optimality"><a href="#优化原则-Principle-of-Optimality" class="headerlink" title="优化原则 Principle of Optimality"></a>优化原则 Principle of Optimality</h3><p>一个最优策略可以被分解为两部分：从状态 s 到下一个状态 s’ 采取了最优行为 $A_*$ ；在状态 s’ 时遵循一个最优策略。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_6.png" alt="p_6"></p>
-<p>从上面原理出发，如果已知子问题的最优值 v∗(s′)，那么就能通过第一个Bellman Optimality Equation将 v∗(s) 也推出来。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_9.png" alt="p_9"><br>因此从终点开始向起点推就能把全部状态最优值推出来。<br>Value Iteration 通过迭代的方法，通过这一步的 $v_k (s’)$ 更新下一步的 $v_{k+1}(s)$ ，最终收敛到最优的 v∗ ，需要注意的是中间生成的value function的值不对应着任何 policy。</p>
-<p>考虑下面这个Shortest Path例子，左上角是终点，要求的是剩下每一个格子距离终点的最短距离，每走一步，reward=-1<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_8.png" alt="p_8"></p>
-<p>因此，针对MDP要解决的两个问题，有如下几种方式来解决。针对prediction，因为它的目标是在已知的Policy下得到收敛的value function，因此针对问题不断迭代计算Bellman Expectation Equation就够了，但是control则需要同时获得最优的policy，那么在Iterative Policy Evaluation的基础上加入一个选择Policy的过程就行了，也就是上面的Policy Iteration，另外Value Iteration虽然在迭代的过程中没有显式计算出policy，但是在得到最优的value function之后就能推导出最优的policy，因此也能用做解决control问题。</p>
-<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_10.png" alt="p_10"></p>
-
+<p>我们用动态规划算法来求解一类称为“规划 Planning”的问题。“规划”指的是在了解整个MDP的基础上求解最优策略，也就是清楚模型结构的基础上：包括状态行为空间、转换矩阵、奖励等。这类问题不是典型的强化学习问题，我们可以用规划来解决 Predict 和 Control 问题。<br>
+        
       
 
       
@@ -823,15 +804,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">mac</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
               </li>
              
               <li class="article-tag-list-item">

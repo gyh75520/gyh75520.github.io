@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_9.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_8.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_10.png">
-<meta property="og:updated_time" content="2017-09-22T09:12:41.000Z">
+<meta property="og:updated_time" content="2017-09-22T09:18:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="David Silver 强化学习 3 动态规划解决MDP的Planning问题">
 <meta name="twitter:description" content="简介 Introduction当问题具有下列特性时，通常可以考虑使用动态规划来求解：  第一个特性是一个复杂问题的最优解由数个小问题的最优解构成，可以通过寻找子问题的最优解来得到复杂问题的最优解； 子问题在复杂问题内重复出现，使得子问题的解可以被存储起来重复利用。  马尔可夫决策过程（MDP）具有上述两个属性：Bellman方程把问题递归为求解子问题，价值函数就相当于存储了一些子问题的解，可以复用">
@@ -178,7 +178,7 @@
 <li>子问题在复杂问题内重复出现，使得子问题的解可以被存储起来重复利用。</li>
 </ul>
 <p>马尔可夫决策过程（MDP）具有上述两个属性：Bellman方程把问题递归为求解子问题，价值函数就相当于存储了一些子问题的解，可以复用。因此可以使用动态规划来求解MDP。</p>
-<p>我们用动态规划算法来求解一类称为“规划 Planning”的问题。“规划”指的是在了解整个MDP的基础上求解最优策略，也就是清楚模型结构的基础上：包括状态行为空间、转换矩阵、奖励等。这类问题不是典型的强化学习问题，我们可以用规划来解决 Predict 和 Control 问题。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_1.png" alt="p_1"></p>
+<p>我们用动态规划算法来求解一类称为“规划 Planning”的问题。“规划”指的是在了解整个MDP的基础上求解最优策略，也就是清楚模型结构的基础上：包括状态行为空间、转换矩阵、奖励等。这类问题不是典型的强化学习问题，我们可以用规划来解决 Predict 和 Control 问题。<br><a id="more"></a><br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_1.png" alt="p_1"></p>
 <h2 id="策略迭代-Policy-Iteration"><a href="#策略迭代-Policy-Iteration" class="headerlink" title="策略迭代 Policy Iteration"></a>策略迭代 Policy Iteration</h2><p>这个解决途径主要分为两步：</p>
 <ul>
 <li>Policy Evaluation:基于当前的Policy计算出每个状态的value function $V$ （迭代计算直到收敛）</li>
@@ -439,15 +439,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">mac</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
               </li>
              
               <li class="article-tag-list-item">
