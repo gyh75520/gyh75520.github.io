@@ -6,40 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
-  <title>从Fictitious Play 到 NFSP | Howard的博客</title>
+  <title>David Silver 强化学习 3 动态规划解决MDP的Planning问题 | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="博弈论Normal-form game在博弈论中，Normal-form game是对game的一种描述。Normal-form game通过矩阵来表示game。下图就是一个payoff矩阵：Normal-form game是一种静态模型，这个模型假设每个player仅选择一次action或策略。Normal-form game适用于描述不需要考虑博弈进程的完全信息静态(Complete info">
-<meta name="keywords" content="RL,博弈论,ML">
+  <meta name="description" content="简介 Introduction当问题具有下列特性时，通常可以考虑使用动态规划来求解：  第一个特性是一个复杂问题的最优解由数个小问题的最优解构成，可以通过寻找子问题的最优解来得到复杂问题的最优解； 子问题在复杂问题内重复出现，使得子问题的解可以被存储起来重复利用。  马尔可夫决策过程（MDP）具有上述两个属性：Bellman方程把问题递归为求解子问题，价值函数就相当于存储了一些子问题的解，可以复用">
+<meta name="keywords" content="RL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从Fictitious Play 到 NFSP">
-<meta property="og:url" content="https://gyh75520.github.io/2017/07/27/从Fictitious Play 到 NFSP/index.html">
+<meta property="og:title" content="David Silver 强化学习 3 动态规划解决MDP的Planning问题">
+<meta property="og:url" content="https://gyh75520.github.io/2017/09/21/David_Silver_RL_3/index.html">
 <meta property="og:site_name" content="Howard的博客">
-<meta property="og:description" content="博弈论Normal-form game在博弈论中，Normal-form game是对game的一种描述。Normal-form game通过矩阵来表示game。下图就是一个payoff矩阵：Normal-form game是一种静态模型，这个模型假设每个player仅选择一次action或策略。Normal-form game适用于描述不需要考虑博弈进程的完全信息静态(Complete info">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/payoff.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图1.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图二.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图3.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图5.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图4.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图7.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/!图20.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图8.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图12.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图11.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图13.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图9.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图14.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图10.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图15.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图16.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图17.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/18.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/NFSP/图19.png">
-<meta property="og:updated_time" content="2017-08-18T09:26:01.000Z">
+<meta property="og:description" content="简介 Introduction当问题具有下列特性时，通常可以考虑使用动态规划来求解：  第一个特性是一个复杂问题的最优解由数个小问题的最优解构成，可以通过寻找子问题的最优解来得到复杂问题的最优解； 子问题在复杂问题内重复出现，使得子问题的解可以被存储起来重复利用。  马尔可夫决策过程（MDP）具有上述两个属性：Bellman方程把问题递归为求解子问题，价值函数就相当于存储了一些子问题的解，可以复用">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_1.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_2.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_5.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_3.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_4.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_6.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_9.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_8.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_10.png">
+<meta property="og:updated_time" content="2017-09-22T09:12:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从Fictitious Play 到 NFSP">
-<meta name="twitter:description" content="博弈论Normal-form game在博弈论中，Normal-form game是对game的一种描述。Normal-form game通过矩阵来表示game。下图就是一个payoff矩阵：Normal-form game是一种静态模型，这个模型假设每个player仅选择一次action或策略。Normal-form game适用于描述不需要考虑博弈进程的完全信息静态(Complete info">
-<meta name="twitter:image" content="https://gyh75520.github.io/assets/img/NFSP/payoff.png">
+<meta name="twitter:title" content="David Silver 强化学习 3 动态规划解决MDP的Planning问题">
+<meta name="twitter:description" content="简介 Introduction当问题具有下列特性时，通常可以考虑使用动态规划来求解：  第一个特性是一个复杂问题的最优解由数个小问题的最优解构成，可以通过寻找子问题的最优解来得到复杂问题的最优解； 子问题在复杂问题内重复出现，使得子问题的解可以被存储起来重复利用。  马尔可夫决策过程（MDP）具有上述两个属性：Bellman方程把问题递归为求解子问题，价值函数就相当于存储了一些子问题的解，可以复用">
+<meta name="twitter:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_1.png">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
   
@@ -157,20 +146,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-从Fictitious Play 到 NFSP" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-David_Silver_RL_3" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      从Fictitious Play 到 NFSP
+      David Silver 强化学习 3 动态规划解决MDP的Planning问题
     </h1>
   
 
         
-        <a href="/2017/07/27/从Fictitious Play 到 NFSP/" class="archive-article-date">
-  	<time datetime="2017-07-27T13:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
+        <a href="/2017/09/21/David_Silver_RL_3/" class="archive-article-date">
+  	<time datetime="2017-09-21T13:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-21</time>
 </a>
         
       </header>
@@ -180,58 +169,29 @@
           
           	<div id="toc" class="toc-article">
           	  <strong class="toc-title">文章目录</strong>
-          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#博弈论"><span class="toc-number">1.</span> <span class="toc-text">博弈论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Normal-form-game"><span class="toc-number">1.1.</span> <span class="toc-text">Normal-form game</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extensive-form-game"><span class="toc-number">1.2.</span> <span class="toc-text">Extensive-form game</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extensive-form-game和Normal-form-game的转换"><span class="toc-number">1.3.</span> <span class="toc-text">Extensive-form game和Normal-form game的转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FSP-in-Extensive-Form-Games"><span class="toc-number">2.</span> <span class="toc-text">FSP in Extensive-Form Games</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Extensive-Form-定义扩充"><span class="toc-number">2.1.</span> <span class="toc-text">Extensive-Form 定义扩充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Normal-Form-定义扩充"><span class="toc-number">2.2.</span> <span class="toc-text">Normal-Form 定义扩充</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fictitious-Play"><span class="toc-number">3.</span> <span class="toc-text">Fictitious Play</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Realization-equivalence"><span class="toc-number">4.</span> <span class="toc-text">Realization-equivalence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extensive-Form-Fictitious-Play"><span class="toc-number">5.</span> <span class="toc-text">Extensive-Form Fictitious Play</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fictitious-Self-Play"><span class="toc-number">6.</span> <span class="toc-text">Fictitious Self-Play</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Neural-Fictitious-Self-Play"><span class="toc-number">7.</span> <span class="toc-text">Neural Fictitious Self-Play</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#REF："><span class="toc-number">8.</span> <span class="toc-text">REF：</span></a></li></ol>
+          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介-Introduction"><span class="toc-number">1.</span> <span class="toc-text">简介 Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#策略迭代-Policy-Iteration"><span class="toc-number">2.</span> <span class="toc-text">策略迭代 Policy Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#策略改善-Policy-Improvment-理论证明"><span class="toc-number">2.1.</span> <span class="toc-text">策略改善 Policy Improvment 理论证明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#值迭代-Value-Iteration"><span class="toc-number">3.</span> <span class="toc-text">值迭代 Value Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化原则-Principle-of-Optimality"><span class="toc-number">3.1.</span> <span class="toc-text">优化原则 Principle of Optimality</span></a></li></ol></li></ol>
           	</div>
           
-        <h2 id="博弈论"><a href="#博弈论" class="headerlink" title="博弈论"></a>博弈论</h2><h3 id="Normal-form-game"><a href="#Normal-form-game" class="headerlink" title="Normal-form game"></a>Normal-form game</h3><p>在博弈论中，Normal-form game是对game的一种描述。Normal-form game通过矩阵来表示game。<br>下图就是一个payoff矩阵：<br><img src="https://gyh75520.github.io/assets/img/NFSP/payoff.png" alt="payoff"><br>Normal-form game是一种静态模型，这个模型假设每个player仅选择一次action或策略。<br>Normal-form game适用于描述不需要考虑博弈进程的完全信息静态(Complete information static)博弈。<br><a id="more"></a></p>
+        <h2 id="简介-Introduction"><a href="#简介-Introduction" class="headerlink" title="简介 Introduction"></a>简介 Introduction</h2><p>当问题具有下列特性时，通常可以考虑使用动态规划来求解：</p>
 <ul>
-<li><strong>静态博弈</strong><br>players同时进行决策</li>
-<li><strong>动态博弈</strong><br>players的决策顺序有先后</li>
-<li><strong>完全信息(Complete information)</strong><br>在完全信息博弈中，players的游戏结构和players的payoff矩阵是众所周知的，但players可能看不到其他players所做的所有动作。</li>
-<li><strong>完美信息(Perfect information)</strong><br>在完美信息博弈中，每个player可以观测到其他players的动作，但可能缺乏关于他人的payoff或游戏结构的信息。</li>
+<li>第一个特性是一个复杂问题的最优解由数个小问题的最优解构成，可以通过寻找子问题的最优解来得到复杂问题的最优解；</li>
+<li>子问题在复杂问题内重复出现，使得子问题的解可以被存储起来重复利用。</li>
 </ul>
-<h3 id="Extensive-form-game"><a href="#Extensive-form-game" class="headerlink" title="Extensive-form game"></a>Extensive-form game</h3><p>Extensive-form game是一种动态模型。通过使用树这种图形来表示game。不仅给出了博弈结果，还描述了博弈过程，如给出博弈中参与人的行动顺序，以及决策环境和行动空间等。<br><strong>完美信息下的Extensive-form game:</strong><br><img src="https://gyh75520.github.io/assets/img/NFSP/图1.png" alt="图1"><br>If player 1 plays D, player 2 will play U’ to maximise his payoff and so player 1 will only receive 1. However, if player 1 plays U, player 2 maximises his payoff by playing D’ and player 1 receives 2. Player 1 prefers 2 to 1 and so will play U and player 2 will play D’</p>
-<p><strong>非完美信息下的Extensive-form game:</strong></p>
-<p><strong>信息集</strong> 是一组决策节点：</p>
+<p>马尔可夫决策过程（MDP）具有上述两个属性：Bellman方程把问题递归为求解子问题，价值函数就相当于存储了一些子问题的解，可以复用。因此可以使用动态规划来求解MDP。</p>
+<p>我们用动态规划算法来求解一类称为“规划 Planning”的问题。“规划”指的是在了解整个MDP的基础上求解最优策略，也就是清楚模型结构的基础上：包括状态行为空间、转换矩阵、奖励等。这类问题不是典型的强化学习问题，我们可以用规划来解决 Predict 和 Control 问题。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_1.png" alt="p_1"></p>
+<h2 id="策略迭代-Policy-Iteration"><a href="#策略迭代-Policy-Iteration" class="headerlink" title="策略迭代 Policy Iteration"></a>策略迭代 Policy Iteration</h2><p>这个解决途径主要分为两步：</p>
 <ul>
-<li>集合中的每个节点都只属于一个player；</li>
-<li>当player到达信息集时，player不能区分信息集中的节点。即，如果信息集包含多个节点，则该集合所属的player不知道集合中的哪个节点已经到达。</li>
+<li>Policy Evaluation:基于当前的Policy计算出每个状态的value function $V$ （迭代计算直到收敛）</li>
+<li>Policy Improvment:基于当前的value function，采用贪心算法来找到当前最优的Policy $\pi$</li>
 </ul>
-<p>下图的虚线连接的两个节点2代表player2的一个信息集，player2不知道player1采取的是U还是D。<br>补充：在扑克游戏中，player不知道的是对方的手牌信息而不是这个例子中的动作。<br><img src="https://gyh75520.github.io/assets/img/NFSP/图二.png" alt="图二"><br>player 2 cannot observe player 1’s move. Player 1 would like to fool player 2 into thinking he has played U when he has actually played D so that player 2 will play D’ and player 1 will receive 3.</p>
-<p>ref : <a href="https://en.wikipedia.org/wiki/Extensive-form_game" target="_blank" rel="external">https://en.wikipedia.org/wiki/Extensive-form_game</a></p>
-<h3 id="Extensive-form-game和Normal-form-game的转换"><a href="#Extensive-form-game和Normal-form-game的转换" class="headerlink" title="Extensive-form game和Normal-form game的转换"></a>Extensive-form game和Normal-form game的转换</h3><p>下图是Extensive-form game的一个例子：<br><img src="https://gyh75520.github.io/assets/img/NFSP/图3.png" alt="图3"><br>player1有三个信息集，每个信息集里面有两种行动，所以player1有8种策略；player2有两个信息集，每个信息集里面有两种行动，所以player2有4种策略。<br>所以转换成Normal-form game是一个横8纵4的矩阵.</p>
-<h2 id="FSP-in-Extensive-Form-Games"><a href="#FSP-in-Extensive-Form-Games" class="headerlink" title="FSP in Extensive-Form Games"></a>FSP in Extensive-Form Games</h2><h3 id="Extensive-Form-定义扩充"><a href="#Extensive-Form-定义扩充" class="headerlink" title="Extensive-Form 定义扩充"></a>Extensive-Form 定义扩充</h3><ul>
-<li><strong>Chance</strong><br>Chance被认为是一个特别的player，遵循一个固定的随机策略，决定了chance节点进入每个分支的概率分布。（如扑克游戏中的发牌）。</li>
-<li><strong>Information State</strong><br>我们假设游戏具有perfect recall，即每个player当前的信息状态u隐含了之前的信息状态和行动序列: <img src="https://gyh75520.github.io/assets/img/NFSP/图5.png" alt="图5"></li>
-<li><strong>Behavioural Strategy</strong><br>在给定Information State时，动作action的概率分布。Behavioural Strategy <img src="https://gyh75520.github.io/assets/img/NFSP/图4.png" alt="图4"> 输出player i在信息状态u下，动作的概率分布。<h3 id="Normal-Form-定义扩充"><a href="#Normal-Form-定义扩充" class="headerlink" title="Normal-Form 定义扩充"></a>Normal-Form 定义扩充</h3></li>
-<li><strong>Pure Strategy</strong><br>player在可能遇到的所有情况下都有一个确定的动作action。(payoff矩阵中的每一行和列都是一个Pure Strategy)</li>
-<li><strong>Mixed Strategy</strong><br>Mixed Strateg<img src="https://gyh75520.github.io/assets/img/NFSP/图7.png" alt="图7">是Player i的Pure Strategy的概率分布。</li>
-</ul>
-<h2 id="Fictitious-Play"><a href="#Fictitious-Play" class="headerlink" title="Fictitious Play"></a>Fictitious Play</h2><p><img src="https://gyh75520.github.io/assets/img/NFSP/!图20.png" alt="!图20"><br>在normal form下：<br>当前策略 = 现有策略和bestResponse的加权平均。</p>
-<h2 id="Realization-equivalence"><a href="#Realization-equivalence" class="headerlink" title="Realization-equivalence"></a>Realization-equivalence</h2><p><img src="https://gyh75520.github.io/assets/img/NFSP/图8.png" alt="图8"><br>也就是说，Extensive-Form下的Behavioural Strategy和Normal-form下的Mixed Strategy存在一种等价。<br><strong>Extensive-Form也可以使用Normal-form下的Fictitious Play来求纳什均衡解。</strong></p>
-<h2 id="Extensive-Form-Fictitious-Play"><a href="#Extensive-Form-Fictitious-Play" class="headerlink" title="Extensive-Form Fictitious Play"></a>Extensive-Form Fictitious Play</h2><p><img src="https://gyh75520.github.io/assets/img/NFSP/图12.png" alt="图12"> 代表到信息状态u的sequence<br><img src="https://gyh75520.github.io/assets/img/NFSP/图11.png" alt="图11"><br><img src="https://gyh75520.github.io/assets/img/NFSP/图13.png" alt="图13">  = sequence 中每个节点选择每个action的概率乘积</p>
-<p><img src="https://gyh75520.github.io/assets/img/NFSP/图9.png" alt="图9"><br>下图是对Lemma 6的一个计算的验证。<br><img src="https://gyh75520.github.io/assets/img/NFSP/图14.png" alt="图14"><br><img src="https://gyh75520.github.io/assets/img/NFSP/图10.png" alt="图10"></p>
-<p><strong>我们通过Theorem7更新Behavioural Strategy，可以收敛到纳什均衡。</strong></p>
-<p><strong>具体算法XFP：</strong><br><img src="https://gyh75520.github.io/assets/img/NFSP/图15.png" alt="图15"></p>
-<ol>
-<li>计算bestResponse</li>
-<li>更新策略，使用Theorem7</li>
-</ol>
-<p>重复上面的过程</p>
-<h2 id="Fictitious-Self-Play"><a href="#Fictitious-Self-Play" class="headerlink" title="Fictitious Self-Play"></a>Fictitious Self-Play</h2><p>XFP会有维度灾难。generalised weakened fictitious play只需要近似bestResponse，甚至允许更新中的一些扰动。</p>
-<p>Fictitious Self-Play：</p>
-<ol>
-<li>使用强化学习去计算bestResponse</li>
-<li>使用监督学习更新策略</li>
-</ol>
-<p><img src="https://gyh75520.github.io/assets/img/NFSP/图16.png" alt="图16"><br>样本的采集 GENERATEDAT()方法需要在理解一下。</p>
-<h2 id="Neural-Fictitious-Self-Play"><a href="#Neural-Fictitious-Self-Play" class="headerlink" title="Neural Fictitious Self-Play"></a>Neural Fictitious Self-Play</h2><p>强化学习和监督学习都使用神经网络去学习出一个函数。<br><img src="https://gyh75520.github.io/assets/img/NFSP/图17.png" alt="图17"></p>
-<p>FSP中样本采集的混合策略<img src="https://gyh75520.github.io/assets/img/NFSP/18.png" alt="图18"> ，在NSFP中是函数，不能简单相加。<br>转换成<img src="https://gyh75520.github.io/assets/img/NFSP/图19.png" alt="图19"> ，使用概率完成上面式子中的加操作。</p>
-<h2 id="REF："><a href="#REF：" class="headerlink" title="REF："></a>REF：</h2><ul>
-<li>Topics in Algorithmic Game Theory February 8, 2010 Lecturer: Constantinos Daskalakis Lecture 2</li>
-<li>Fictitious Self-Play in Extensive-Form Games</li>
-<li>Deep Reinforcement Learning from Self-play in imperfect-information games</li>
-</ul>
+<p>如此反复多次，最终得到最优策略 $\pi^{star}$ 和最优状态价值函数 $V^{star} $ ( star 代表 * )。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_2.png" alt="p_2"></p>
+<p>下图是一个叫Small Gridworld的例子，左上角和右下角是终点，γ=1，移动一步 reward=-1，起始的random policy是朝每个能走的方向概率相同。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_5.png" alt="p_5"></p>
+<h3 id="策略改善-Policy-Improvment-理论证明"><a href="#策略改善-Policy-Improvment-理论证明" class="headerlink" title="策略改善 Policy Improvment 理论证明"></a>策略改善 Policy Improvment 理论证明</h3><p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_3.png" alt="p_3"><br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_4.png" alt="p_4"><br>思考：很多时候，策略的更新较早就收敛至最优策略，而状态价值的收敛要慢很多，是否有必要一定要迭代计算直到状态价值得到收敛呢？</p>
+<h2 id="值迭代-Value-Iteration"><a href="#值迭代-Value-Iteration" class="headerlink" title="值迭代 Value Iteration"></a>值迭代 Value Iteration</h2><h3 id="优化原则-Principle-of-Optimality"><a href="#优化原则-Principle-of-Optimality" class="headerlink" title="优化原则 Principle of Optimality"></a>优化原则 Principle of Optimality</h3><p>一个最优策略可以被分解为两部分：从状态 s 到下一个状态 s’ 采取了最优行为 $A_*$ ；在状态 s’ 时遵循一个最优策略。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_6.png" alt="p_6"></p>
+<p>从上面原理出发，如果已知子问题的最优值 v∗(s′)，那么就能通过第一个Bellman Optimality Equation将 v∗(s) 也推出来。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_9.png" alt="p_9"><br>因此从终点开始向起点推就能把全部状态最优值推出来。<br>Value Iteration 通过迭代的方法，通过这一步的 $v_k (s’)$ 更新下一步的 $v_{k+1}(s)$ ，最终收敛到最优的 v∗ ，需要注意的是中间生成的value function的值不对应着任何 policy。</p>
+<p>考虑下面这个Shortest Path例子，左上角是终点，要求的是剩下每一个格子距离终点的最短距离，每走一步，reward=-1<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_8.png" alt="p_8"></p>
+<p>因此，针对MDP要解决的两个问题，有如下几种方式来解决。针对prediction，因为它的目标是在已知的Policy下得到收敛的value function，因此针对问题不断迭代计算Bellman Expectation Equation就够了，但是control则需要同时获得最优的policy，那么在Iterative Policy Evaluation的基础上加入一个选择Policy的过程就行了，也就是上面的Policy Iteration，另外Value Iteration虽然在迭代的过程中没有显式计算出policy，但是在得到最优的value function之后就能推导出最优的policy，因此也能用做解决control问题。</p>
+<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_3/p_10.png" alt="p_10"></p>
 
       
 
@@ -267,14 +227,6 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">博弈论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
         		</li>
       		
 		</ul>
@@ -330,7 +282,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://gyh75520.github.io/2017/07/27/从Fictitious Play 到 NFSP/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://gyh75520.github.io/2017/09/21/David_Silver_RL_3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -344,18 +296,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/14/David_Silver_RL_1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          David Silver 强化学习 1 Introduction
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/22/opencv3 --python3 mac配置/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">opencv3 --python3 mac下配置</div>
+    <a href="/2017/09/15/Apprenticeship_learing/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">学徒学习 Apprenticeship learning via inverse reinforcement learning</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -374,19 +317,6 @@
             </div>
         </div>
         
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#博弈论"><span class="toc-number">1.</span> <span class="toc-text">博弈论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Normal-form-game"><span class="toc-number">1.1.</span> <span class="toc-text">Normal-form game</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extensive-form-game"><span class="toc-number">1.2.</span> <span class="toc-text">Extensive-form game</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extensive-form-game和Normal-form-game的转换"><span class="toc-number">1.3.</span> <span class="toc-text">Extensive-form game和Normal-form game的转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FSP-in-Extensive-Form-Games"><span class="toc-number">2.</span> <span class="toc-text">FSP in Extensive-Form Games</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Extensive-Form-定义扩充"><span class="toc-number">2.1.</span> <span class="toc-text">Extensive-Form 定义扩充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Normal-Form-定义扩充"><span class="toc-number">2.2.</span> <span class="toc-text">Normal-Form 定义扩充</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fictitious-Play"><span class="toc-number">3.</span> <span class="toc-text">Fictitious Play</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Realization-equivalence"><span class="toc-number">4.</span> <span class="toc-text">Realization-equivalence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extensive-Form-Fictitious-Play"><span class="toc-number">5.</span> <span class="toc-text">Extensive-Form Fictitious Play</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fictitious-Self-Play"><span class="toc-number">6.</span> <span class="toc-text">Fictitious Self-Play</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Neural-Fictitious-Self-Play"><span class="toc-number">7.</span> <span class="toc-text">Neural Fictitious Self-Play</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#REF："><span class="toc-number">8.</span> <span class="toc-text">REF：</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
         
     </div>
 </aside>
