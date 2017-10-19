@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_22.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_23.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_24.png">
-<meta property="og:updated_time" content="2017-10-19T12:46:20.000Z">
+<meta property="og:updated_time" content="2017-10-19T12:49:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="David Silver 强化学习 4 模型无关预测 Model-Free Prediction">
 <meta name="twitter:description" content="简介 Introduction上节课中通过动态规划能够解决已知 environment 的 MDP 问题，也就是已知 $S,A,P,R,\gamma$，其中根据是否已知 policy 将问题又划分成了 prediction 和 control 问题，本质上来说这种 known MDP 问题已知 environment 即转移矩阵与 reward 函数，但是很多问题中 environment 是未知">
@@ -276,10 +276,8 @@
 <p>稍微解释一下上面式子的含义：在一开始，每个episode中的所有状态都有一个初始资格迹，然后时间开始走。到下一个timestep，被访问到的那个状态，其资格迹为前一个时刻该状态资格迹乘上一个（decay param 乘 discount param），然后加1，表示当前时刻，该状态的资格迹变大；其他未被访问的状态，其资格迹都只是在原有基础上乘以（decay param*discount param），不用加1,表明它们的资格迹都退化了。</p>
 <p>我们把λ成为“迹退化参数”，把上式这种更新方式的资格迹叫做“累加型资格迹”。因为它在状态被访问的时候累加，不被访问的时候退化。如下图：</p>
 <p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_19.png" alt="p_19"></p>
-<p>常规的TD误差如下式：</p>
-<p>$\delta_t = R_{t+1} + \gamma V_t(S_{t+1})-V_t(S_t)$</p>
-<p>但是在TD(λ)的后向视角中，这个误差却可以影响所有“最近”访问过的状态的，对于这些状态来说，TD误差如下：</p>
-<p> $\Delta V_t(s) = \alpha \delta_tZ_t(s) \;\;for \; all \; s\in S$</p>
+<p>常规的TD误差如下式：<br>$\delta_t = R_{t+1} + \gamma V_t(S_{t+1})-V_t(S_t)$</p>
+<p>但是在TD(λ)的后向视角中，这个误差却可以影响所有“最近”访问过的状态的，对于这些状态来说，TD误差如下：<br> $\Delta V_t(s) = \alpha \delta_tZ_t(s) \;\;for \; all \; s\in S$</p>
 <p> 可以这么说：后向视角的TD(λ)，才是真正的TD(λ)。我们来更形象地表述一下后向视角的过程：每次在当前访问的状态得到一个误差量的时候，这个误差量都会根据之前每个状态的资格迹来分配当前误差。这就像是一个小人，拿着当前的误差，然后对准前面的状态们按比例扔回去，就像下图一样：</p>
 <p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_20.png" alt=" p_20"></p>
 <p>λ=0:TD(λ)退化成TD(0)，除了当前状态，其他所有状态的资格迹为0。这时候，小人不再向前面扔误差量，而是只给当前状态了。随着λ变大，但是小于1,更多状态的误差被当前误差所影响，越远的，影响越小。我们称越远的状态被分配的credit（可以理解为信用）越少。</p>
