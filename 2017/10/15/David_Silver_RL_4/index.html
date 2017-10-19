@@ -32,6 +32,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_15.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_16.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_17.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_26.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_18.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_25.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_19.png">
@@ -40,7 +41,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_22.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_23.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_24.png">
-<meta property="og:updated_time" content="2017-10-19T12:35:35.000Z">
+<meta property="og:updated_time" content="2017-10-19T12:46:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="David Silver 强化学习 4 模型无关预测 Model-Free Prediction">
 <meta name="twitter:description" content="简介 Introduction上节课中通过动态规划能够解决已知 environment 的 MDP 问题，也就是已知 $S,A,P,R,\gamma$，其中根据是否已知 policy 将问题又划分成了 prediction 和 control 问题，本质上来说这种 known MDP 问题已知 environment 即转移矩阵与 reward 函数，但是很多问题中 environment 是未知">
@@ -198,15 +199,9 @@
 <p>该策略下某一状态 s 的价值：<br>$v_{\pi}(s) = E_{\pi} [ G_{t} | S_{t} = s ]$</p>
 <p>在状态转移过程中，可能发生一个状态经过一定的转移后又一次或多次返回该状态，此时在一个Episode里如何计算这个状态发生的次数和计算该Episode的收获呢？可以有如下两种方法：</p>
 <h4 id="首次访问蒙特卡洛策略评估"><a href="#首次访问蒙特卡洛策略评估" class="headerlink" title="首次访问蒙特卡洛策略评估"></a>首次访问蒙特卡洛策略评估</h4><p>在给定一个策略，使用一系列完整Episode评估某一个状态s时，对于每一个Episode，仅当该状态第一次出现时列入计算:</p>
-<p>状态出现的次数加1： $N(s) \leftarrow N(s) + 1$</p>
-<p>总的收获值更新： $S(s) \leftarrow S(s) + G_{t}$</p>
-<p>状态s的价值： $V(s) = S(s) / N(s)$</p>
-<p>当 $N(s) \rightarrow \infty$ 时， $V(s) \rightarrow v_{\pi}(s)$</p>
+<p>状态出现的次数加1： $N(s) \leftarrow N(s) + 1$<br>总的收获值更新： $S(s) \leftarrow S(s) + G_{t}$<br>状态s的价值： $V(s) = S(s) / N(s)$<br>当 $N(s) \rightarrow \infty$ 时， $V(s) \rightarrow v_{\pi}(s)$</p>
 <h4 id="每次访问蒙特卡洛策略评估"><a href="#每次访问蒙特卡洛策略评估" class="headerlink" title="每次访问蒙特卡洛策略评估"></a>每次访问蒙特卡洛策略评估</h4><p>在给定一个策略，使用一系列完整Episode评估某一个状态s时，对于每一个Episode，状态s每次出现在状态转移链时，计算的具体公式与上面的一样，但具体意义不一样。</p>
-<p>状态出现的次数加1： $N(s) \leftarrow N(s) + 1$</p>
-<p>总的收获值更新： $S(s) \leftarrow S(s) + G_{t}$</p>
-<p>状态s的价值： $V(s) = S(s) / N(s)$</p>
-<p>当 $N(s) \rightarrow \infty$ 时， $V(s) \rightarrow v_{\pi}(s)$</p>
+<p>状态出现的次数加1： $N(s) \leftarrow N(s) + 1$<br>总的收获值更新： $S(s) \leftarrow S(s) + G_{t}$<br>状态s的价值： $V(s) = S(s) / N(s)$<br>当 $N(s) \rightarrow \infty$ 时， $V(s) \rightarrow v_{\pi}(s)$</p>
 <h3 id="累进更新平均值-Incremental-Mean"><a href="#累进更新平均值-Incremental-Mean" class="headerlink" title="累进更新平均值 Incremental Mean"></a>累进更新平均值 Incremental Mean</h3><p>这里提到了在实际操作时常用的一个实时更新均值的办法，使得在计算平均收获时不需要存储所有既往收获，而是每得到一次收获，就计算其平均收获。</p>
 <p>理论公式如下：<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_1.png" alt="p_1"></p>
 <p>这个公式比较简单。把这个方法应用于蒙特卡洛策略评估，就得到下面的蒙特卡洛累进更新。</p>
@@ -215,13 +210,9 @@
 <p>在处理非静态问题时，使用这个方法跟踪一个实时更新的平均值是非常有用的，可以扔掉那些已经计算过的 Episode 信息。此时可以引入参数 $\alpha$ 来更新状态价值：<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_4.png" alt="p_4"></p>
 <p>以上就是蒙特卡洛学习方法的主要思想和描述，由于蒙特卡洛学习方法有许多缺点（后文会细说），因此实际应用并不多。接下来介绍实际常用的TD学习方法。</p>
 <h2 id="时序差分学习-Temporal-Difference-Learning"><a href="#时序差分学习-Temporal-Difference-Learning" class="headerlink" title="时序差分学习 Temporal-Difference Learning"></a>时序差分学习 Temporal-Difference Learning</h2><p>时序差分学习简称TD学习，它的特点如下：和蒙特卡洛学习一样，它也从Episode学习，不需要了解模型本身；<font color="red">但是它可以学习不完整的 Episode </font>，通过自身的引导（bootstrapping），猜测 Episode 的结果，同时持续更新这个猜测。</p>
-<p>我们已经学过，在Monte-Carlo学习中，使用实际的收获（return） $G_{t} $来更新价值（Value）：</p>
-<p>$V(S_{t}) \leftarrow V(S_{t}) + \alpha (G_{t} - V(S_{t}))$</p>
-<p>在 TD 学习中，算法在估计某一个状态的价值时，用的是离开该状态的即刻奖励 $R_{t+1}$ 与下一状态 $S_{t+1}$ 的预估状态价值乘以衰减系数 $\gamma$ 组成，这符合 Bellman 方程的描述：</p>
-<p>$V(S_{t}) \leftarrow V(S_{t}) + \alpha (R_{t+1} + \gamma V(S_{t+1}) - V(S_{t}))$</p>
-<p>式中：</p>
-<p>$R_{t+1} + \gamma V(S_{t+1})$  称为 TD 目标值</p>
-<p>$\delta_{t} = R_{t+1} + \gamma V(S_{t+1}) - V(S_{t})$ 称为 TD 误差</p>
+<p>我们已经学过，在Monte-Carlo学习中，使用实际的收获（return） $G_{t} $来更新价值（Value）：<br>$V(S_{t}) \leftarrow V(S_{t}) + \alpha (G_{t} - V(S_{t}))$</p>
+<p>在 TD 学习中，算法在估计某一个状态的价值时，用的是离开该状态的即刻奖励 $R_{t+1}$ 与下一状态 $S_{t+1}$ 的预估状态价值乘以衰减系数 $\gamma$ 组成，这符合 Bellman 方程的描述：<br>$V(S_{t}) \leftarrow V(S_{t}) + \alpha (R_{t+1} + \gamma V(S_{t+1}) - V(S_{t}))$</p>
+<p>式中：<br>$R_{t+1} + \gamma V(S_{t+1})$  称为 TD 目标值<br>$\delta_{t} = R_{t+1} + \gamma V(S_{t+1}) - V(S_{t})$ 称为 TD 误差</p>
 <p>BootStrapping 指的就是TD目标值 $R_{t+1} + \gamma V(S_{t+1})$  代替收获 $G_t$ 的过程，暂时把它翻译成“引导”。</p>
 <p><strong>示例——驾车返家</strong></p>
 <p>想象一下你下班后开车回家，需要预估整个行程花费的时间。假如一个人在驾车回家的路上突然碰到险情：对面迎来一辆车感觉要和你相撞，严重的话他可能面临死亡威胁，但是最后双方都采取了措施没有实际发生碰撞。如果使用蒙特卡洛学习，路上发生的这一险情可能引发的负向奖励不会被考虑进去，不会影响总的预测耗时；但是在TD学习时，碰到这样的险情，这个人会立即更新这个状态的价值，随后会发现这比之前的状态要糟糕，会立即考虑决策降低速度赢得时间，也就是说你不必像蒙特卡洛学习那样直到他死亡后才更新状态价值，那种情况下也无法更新状态价值。</p>
@@ -230,7 +221,7 @@
 <p>基于上表所示的数据，下图展示了蒙特卡洛学习和TD学习两种不同的学习策略来更新价值函数（各个状态的价值）。这里使用的是从某个状态预估的到家还需耗时来间接反映某状态的价值：某位置预估的到家时间越长，该位置价值越低，在优化决策时需要避免进入该状态。对于蒙特卡洛学习过程，驾驶员在路面上碰到各种情况时，他不会更新对于回家的预估时间，等他回到家得到了真实回家耗时后，他会重新估计在返家的路上着每一个主要节点状态到家的时间，在下一次返家的时候用新估计的时间来帮助决策；而对于TD学习，在一开始离开办公室的时候你可能会预估总耗时30分钟，但是当你取到车发现下雨的时候，你会立刻想到原来的预计过于乐观，因为既往的经验告诉你下雨会延长你的返家总时间，此时你会更新目前的状态价值估计，从原来的30分钟提高到40分钟。同样当你驾车离开高速公路时，会一路根据当前的状态（位置、路况等）对应的预估返家剩余时间，直到返回家门得到实际的返家总耗时。这一过程中，你会根据状态的变化实时更新该状态的价值。</p>
 <p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_6.png" alt="p_6"></p>
 <h2 id="Monte-Carlo-VS-Temporal-Difference"><a href="#Monte-Carlo-VS-Temporal-Difference" class="headerlink" title="Monte-Carlo VS. Temporal Difference"></a>Monte-Carlo VS. Temporal Difference</h2><p>在谈两种算法的优劣前，先谈谈 Bias/Variance tradeoff 的问题。平衡 Bias/Variance 是机器学习比较经典的一个问题，bias 是指预测结果与真实结果的差值，variance 是指训练集每次预测结果之间的差值，bias 过大会导致欠拟合它衡量了模型是否准确，variance 过大会导致过拟合衡量了模型是否稳定。如果 $G_t$ 和 $R_{t+1} + \gamma v_{\pi} (S_{t+1})$ 跟真实值一样，那么就是无偏差估计。因为在MC算法中，它是将最终获得的 reward 返回到了前面的状态，因此是真实值，但是它采样的 episode 并不能代表所有的情况，所以会导致比较大的 variance 。而 TD的 $R_{t+1} + \gamma v_{\pi} (S_{t+1})$ 跟真实值是有偏差的，在计算的过程基于随机的状态、转移概率、reward 等等，涵盖了一些随机的采样，因此 variance 比较小。</p>
-<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_7.png" alt="p_7"></p>
+<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_7.png" width="400" height="225"></p>
 <p><strong>示例——AB</strong><br>已知：现有两个状态(A和B)，MDP未知，衰减系数为1，有如下表所示8个完整Episode的经验及对应的即时奖励，其中除了第1个Episode有状态转移外，其余7个均只有一个状态。</p>
 <p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_8.png" alt="p_8"></p>
 <p>问题：依据仅有的Episode，计算状态A，B的价值分别是多少，即V(A)=？， V(B)=？</p>
@@ -255,7 +246,7 @@
 <p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_14.png" alt="p_14"></p>
 <p>TD：采样，经历可不完整，用喜爱状态的预估状态价值预估收获再更新预估价值</p>
 <p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_15.png" alt="p_15"><br>DP：没有采样，根据完整模型，依靠预估数据更新状态价值</p>
-<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_16.png" alt="p_16"></p>
+<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_16.png" width="400" height="323"></p>
 <p>上图从两个维度解释了四种算法的差别，多了一个穷举法。<br>这两个维度分别是：采样深度和广度。</p>
 <ul>
 <li>当使用单个采样，同时不走完整个Episode就是TD；</li>
@@ -274,12 +265,14 @@
 <p>$V(S_t) \leftarrow V(S_t) + \alpha(G_t^{\lambda} - V(S_t))$</p>
 <p>下图是各步收获的权重分配图</p>
 <p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_17.png" alt="p_17"></p>
+<p>对于每个访问到的state，我们都是从它开始向前看所有的未来reward，并决定如何结合这些reward来更新当前的state。每次我们更新完当前state，我们就到下一个state，永不再回头关心前面的state。这种感觉就像下图一样：</p>
+<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_26.png" alt="p_26"></p>
 <h3 id="TD-λ-对于权重分配的图解"><a href="#TD-λ-对于权重分配的图解" class="headerlink" title="TD(λ)对于权重分配的图解"></a>TD(λ)对于权重分配的图解</h3><p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_18.png" alt="p_18"></p>
 <p>对于 n=3 的 3-步收获，赋予其在 $\lambda$ 收获中的权重如左侧阴影部分面积，对于终止状态的 T-步 收获，T以后的所有阴影部分面积。而所有节段面积之和为1。这种几何级数的设计也考虑了算法实现的计算方便性。</p>
 <p>在实际任务中这类算法却很少用，因为不便于实现：在n-step TD中，你需要等待 n 步之后观测得到的reward和state。如果n很大，这个等待过程就是个问题，存在很大的滞后性，这是一个待解决问题。那么n-step TD有什么意义呢？n-step TD的思想可以让我们更好理解接下来的”资格迹“方法。</p>
 <h3 id="后向认知-TD-λ-The-Backward-View-of-TD-λ"><a href="#后向认知-TD-λ-The-Backward-View-of-TD-λ" class="headerlink" title="后向认知 TD(λ) The Backward View of TD(λ)"></a>后向认知 TD(λ) The Backward View of TD(λ)</h3><p>TD(λ)的后向视角非常有意义，因为它在概念上和计算上都是可行而且简单的。具体来说，前向视角只提供了一个非常好但却无法直接实现的思路，因为它在每一个timestep都需要用到很多步之后的信息，这在工程上很不高效。而后向视角恰恰解决了这个问题，采用一种带有明确因果性的递增机制来实现TD(λ)，最终的效果是在on-line case和前向视角近似，在off-line case和前向视角精确一致。</p>
 <p>后向视角的实现过程中，引入了一个额外的和每个state都相关的存储变量，它的名字就叫做“资格迹”。在t时刻的状态s对应的资格迹，标记为 $Z_t(s) \in \mathbb{R}^+$ 。资格迹的更新方式如下：</p>
-<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_25.png" alt="p_25"></p>
+<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_25.png" width="300" height="68"></p>
 <p>稍微解释一下上面式子的含义：在一开始，每个episode中的所有状态都有一个初始资格迹，然后时间开始走。到下一个timestep，被访问到的那个状态，其资格迹为前一个时刻该状态资格迹乘上一个（decay param 乘 discount param），然后加1，表示当前时刻，该状态的资格迹变大；其他未被访问的状态，其资格迹都只是在原有基础上乘以（decay param*discount param），不用加1,表明它们的资格迹都退化了。</p>
 <p>我们把λ成为“迹退化参数”，把上式这种更新方式的资格迹叫做“累加型资格迹”。因为它在状态被访问的时候累加，不被访问的时候退化。如下图：</p>
 <p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_19.png" alt="p_19"></p>
