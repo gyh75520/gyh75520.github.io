@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_22.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_23.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_4/p_24.png">
-<meta property="og:updated_time" content="2017-10-19T12:49:28.000Z">
+<meta property="og:updated_time" content="2017-10-19T12:50:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="David Silver 强化学习 4 模型无关预测 Model-Free Prediction">
 <meta name="twitter:description" content="简介 Introduction上节课中通过动态规划能够解决已知 environment 的 MDP 问题，也就是已知 $S,A,P,R,\gamma$，其中根据是否已知 policy 将问题又划分成了 prediction 和 control 问题，本质上来说这种 known MDP 问题已知 environment 即转移矩阵与 reward 函数，但是很多问题中 environment 是未知">
@@ -190,7 +190,7 @@
           	</div>
           
         <h2 id="简介-Introduction"><a href="#简介-Introduction" class="headerlink" title="简介 Introduction"></a>简介 Introduction</h2><p>上节课中通过动态规划能够解决已知 environment 的 MDP 问题，也就是已知 $S,A,P,R,\gamma$，其中根据是否已知 policy 将问题又划分成了 prediction 和 control 问题，本质上来说这种 known MDP 问题已知 environment 即转移矩阵与 reward 函数，但是很多问题中 environment 是未知的，不清楚做出了某个 action 之后会变到哪一个 state 也不知道这个 action 好还是不好，也就是说不清楚 environment 体现的 model 是什么，在这种情况下需要解决的 prediction 和 control 问题就是Model-free prediction和Model-free control。显然这种新的问题只能从与 environment 的交互得到的 experience 中获取信息。</p>
-<p>这节课要解决的问题是Model-free prediction，即未知environment的Policy evaluation，在给定的 policy 下，每个state的 value function 是多少。</p>
+<p>这节课要解决的问题是Model-free prediction，即未知environment的Policy evaluation，在给定的 policy 下，每个state的 value function 是多少。<br><a id="more"></a></p>
 <h2 id="蒙特卡洛强化学习-Monte-Carlo-Reinforcement-Learning"><a href="#蒙特卡洛强化学习-Monte-Carlo-Reinforcement-Learning" class="headerlink" title="蒙特卡洛强化学习 Monte-Carlo Reinforcement Learning"></a>蒙特卡洛强化学习 Monte-Carlo Reinforcement Learning</h2><p>蒙特卡洛强化学习是假设每个 state 的 value function 取值等于多个 episodes 的 return Gt 的平均值，<font color="red">它需要每个 episode 是完整的流程，即一定要执行到终止状态。<font></font></font></p>
 <h3 id="蒙特卡洛策略评估-Monte-Carlo-Policy-Evaluation"><a href="#蒙特卡洛策略评估-Monte-Carlo-Policy-Evaluation" class="headerlink" title="蒙特卡洛策略评估 Monte-Carlo Policy Evaluation"></a>蒙特卡洛策略评估 Monte-Carlo Policy Evaluation</h3><p><strong>目标：</strong> 在给定策略下，从一系列的完整Episode经历中学习得到该策略下的状态价值函数。</p>
 <p>数学描述如下：</p>
