@@ -15,22 +15,22 @@
 <meta property="og:url" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/index.html">
 <meta property="og:site_name" content="Howard的博客">
 <meta property="og:description" content="简介 Introduction上一讲主要讲解了在模型未知的情况下如何进行预测。所谓的预测就是评估一个给定的策略，也就是确定一给定策略下的状态（或状态行为对）的价值函数。这一讲的内容主要是在模型未知的条件下如何优化价值函数，这一过程也称作模型无关的控制。 现实中有很多此类的例子，比如控制一个大厦内的多个电梯使得效率最高；控制直升机的特技飞行，机器人足球世界杯上控制机器人球员，围棋游戏等等。所有的这些">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_5/p_1.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312110508853.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312110651765.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312110852723.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312153802986.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312154821604.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312160930328.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-2018031216430743.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312164625851.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-2018031216471082.png">
-<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312165401584.png">
-<meta property="og:updated_time" content="2018-03-12T09:08:00.873Z">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_5/p_1.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312110508853.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312110651765.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312110852723.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312153802986.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312154821604.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312160930328.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-2018031216430743.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312164625851.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-2018031216471082.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/2018/03/11/David_Silver_RL_5/assets/markdown-img-paste-20180312165401584.jpg">
+<meta property="og:updated_time" content="2018-03-12T09:09:34.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="David Silver 强化学习 5 模型无关控制 Model-Free Control">
 <meta name="twitter:description" content="简介 Introduction上一讲主要讲解了在模型未知的情况下如何进行预测。所谓的预测就是评估一个给定的策略，也就是确定一给定策略下的状态（或状态行为对）的价值函数。这一讲的内容主要是在模型未知的条件下如何优化价值函数，这一过程也称作模型无关的控制。 现实中有很多此类的例子，比如控制一个大厦内的多个电梯使得效率最高；控制直升机的特技飞行，机器人足球世界杯上控制机器人球员，围棋游戏等等。所有的这些">
-<meta name="twitter:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_5/p_1.png">
+<meta name="twitter:image" content="https://gyh75520.github.io/assets/img/David_Silver_RL_5/p_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
   
@@ -180,7 +180,7 @@
 <p><strong>另一类是脱离策略学习（Off-policy Learning）:</strong> 其基本思想是，虽然个体有一个自己的策略，但是个体并不针对这个策略进行采样，而是基于另一个策略进行采样，这另一个策略可以是先前学习到的策略，也可以是人类的策略等一些较为优化成熟的策略，通过观察基于这类策略的行为，或者说通过对这类策略进行采样，得到这类策略下的各种行为，继而得到一些奖励，然后更新价值函数，即在自己的策略形成的价值函数的基础上观察别的策略产生的行为，以此达到学习的目的。这种学习方式类似于“站在别人的肩膀上可以看得更远”。由于这些策略是已有的策略，这里姑且翻译为“脱离策略”。</p>
 <h2 id="On-Policy-Monte-Carlo-Control"><a href="#On-Policy-Monte-Carlo-Control" class="headerlink" title="On-Policy Monte-Carlo Control"></a>On-Policy Monte-Carlo Control</h2><p>在本节中我们使用的主要思想仍然是动态规划的思想。先来回顾下动态规划是如何进行策略迭代的。</p>
 <p>通用策略迭代（回顾）</p>
-<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_5/p_1.png" alt="p_1"></p>
+<p><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_5/p_1.jpg" alt="p_1"></p>
 <p>通用策略迭代的核心是在两个交替的过程之间进行策略优化。一个过程是策略评估，另一个是改善策略。如上图的三角形区域所示，从一个策略π和一个价值函数Ｖ开始，每一次箭头向上代表着利用当前策略进行价值函数的更新，每一次箭头向下代表着根据更新的价值函数贪婪地选择新的策略，说它是贪婪的，是因为每次都采取转移到可能的、状态函数最高的新状态的行为。最终将收敛至最优策略和最优价值函数。</p>
 <p>注意使用动态规划算法来改善策略是需要知道某一状态的所有后续状态及状态间转移概率：<br>$\pi ^{‘}(s)= \arg\max_{a\in A} R_s^a + P_{ss^{‘}}^a V(s^{‘})$</p>
 <h3 id="不基于模型控制的两个条件"><a href="#不基于模型控制的两个条件" class="headerlink" title="不基于模型控制的两个条件"></a>不基于模型控制的两个条件</h3><p>那么这种方法是否适用于模型未知的蒙特卡洛学习呢？答案是否定的，这其中至少存在两个问题。其一是在模型未知的条件下无法知道当前状态的所有后续状态，进而无法确定在当前状态下采取怎样的行为更合适。解决这一问题的方法是，使用状态行为对下的价值Q(s,a)来代替状态价值 ：</p>
@@ -188,12 +188,12 @@
 <p>这样做的目的是可以改善策略而不用知道整个模型，只需要知道在某个状态下采取什么什么样的行为价值最大即可。具体是这样：我们从一个初始的 Q 和策略 $\pi$ 开始，先根据这个策略更新每一个状态行为对的 Q 值，s 随后基于更新的 Q 确定改善的贪婪算法。</p>
 <p>即使这样，至少还存在一个问题，即当我们每次都使用贪婪算法来改善策略的时候，将很有可能由于没有足够的采样经验而导致产生一个并不是最优的策略，我们需要不时的尝试一些新的行为，这就是探索（Exploration）。</p>
 <p><strong>$\epsilon$-贪婪探索</strong>的目标使得某一状态下所有可能的行为都有一定非零几率被选中执行，也就保证了持续的探索，$1-\epsilon$ 的概率下选择当前认为最好的行为，而 $\epsilon$ 的概率在所有可能的行为中选择（也包括那个当前最好的行为）。数学表达式如下：</p>
-<p><img src="assets/markdown-img-paste-20180312110508853.png" alt="p_2"></p>
+<p><img src="assets/markdown-img-paste-20180312110508853.jpg" alt="p_2"></p>
 <p><strong>定理：</strong> 使用Ɛ-贪婪探索策略，对于任意一个给定的策略\pi，我们在评估这个策略的同时也总在改善它。</p>
-<p><strong>证明：</strong><br><img src="assets/markdown-img-paste-20180312110651765.png" alt="p_3"></p>
+<p><strong>证明：</strong><br><img src="assets/markdown-img-paste-20180312110651765.jpg" alt="p_3"></p>
 <p><strong>注：在证明上述定理过程中使用的不等式是在经过合理、精心设计的。</strong></p>
 <p>解决了上述两个问题，我们最终看到蒙特卡洛控制的全貌：使用Ｑ函数进行策略评估，使用Ɛ-贪婪探索来改善策略。该方法最终可以收敛至最优策略。如下图所示：</p>
-<p><img src="assets/markdown-img-paste-20180312110852723.png" alt="p_4"></p>
+<p><img src="assets/markdown-img-paste-20180312110852723.jpg" alt="p_4"></p>
 <p>图中每一个向上或向下的箭头都对应着多个 Episode 。也就是说我们一般在经历了多个 Episode 之后才进行依次Ｑ函数更新或策略改善。实际上我们也可以在每经历一个 Episode 之后就更新Ｑ函数或改善策略。但不管使用那种方式，在Ɛ-贪婪探索算下我们始终只能得到基于某一策略下的近似Ｑ函数，且该算法没没有一个终止条件，因为它一直在进行探索。因此我们必须关注以下两个方面：一方面我们不想丢掉任何更好信息和状态，另一方面随着我们策略的改善我们最终希望能终止于某一个最优策略，因为事实上最优策略不应该包括一些随机行为选择。为此引入了另一个理论概念：<strong>GLIE</strong>。</p>
 <p><strong>GLIE</strong><br>GLIE(Greedy in the Limit with Infinite Exploration)，直白的说是在有限的时间内进行无限可能的探索。具体表现为：所有已经经历的状态行为对（state-action pair）会被无限次探索；另外随着探索的无限延伸，贪婪算法中Ɛ值趋向于０。例如如果我们取 $\epsilon = 1/k$（ k 为探索的 Episode 数目），那么该Ɛ贪婪蒙特卡洛控制就具备 GLIE 特性。</p>
 <p>基于GLIE的蒙特卡洛控制流程如下：</p>
@@ -205,32 +205,32 @@
 <p><strong>定理：GLIE 蒙特卡洛控制能收敛至最优的状态行为价值函数。</strong></p>
 <h2 id="On-Policy-Temporal-Difference-Control"><a href="#On-Policy-Temporal-Difference-Control" class="headerlink" title="On-Policy Temporal-Difference Control"></a>On-Policy Temporal-Difference Control</h2><p>上一讲提到TD相比MC有很多优点：低变异性，可以在线实时学习，可以学习不完整Episode等。因此很自然想到是否可以在控制问题上使用TD学习而不是MC学习？答案是肯定的，这就是下文要讲解的SARSA。</p>
 <h3 id="SARSA"><a href="#SARSA" class="headerlink" title="SARSA"></a>SARSA</h3><p><strong>SARSA</strong> 的名称来源于下图所示的序列描述：针对一个状态S，以及一个特定的行为A，进而产生一个状态行为对(S,A)，与环境交互，环境收到个体的行为后会告诉个体即时奖励R以及后续进入的状态S’；接下来个体遵循现有策略产生一个行为A’，根据当前的状态行为价值函数得到后一个状态行为对(S’,A’)的价值（Q），利用这个Q值更新前一个状态行为对(S,A)的价值。</p>
-<p><img src="assets/markdown-img-paste-20180312153802986.png" alt="p_5"></p>
+<p><img src="assets/markdown-img-paste-20180312153802986.jpg" alt="p_5"></p>
 <p>更直观的解释是这样：一个Agent处在某一个状态S，在这个状态下它可尝试各种不同的行为，当遵循某一策略时，会根据当前策略选择一个行为A，个体实际执行这个行为，与环境发生实际交互，环境会根据其行为给出即时奖励R，并且进入下一个状态S’，在这个后续状态S’，再次遵循当前策略，产生一个行为A’，此时，个体并不执行该行为，而是通过自身当前的状态行为价值函数得到该S’A’状态行为对的价值，利用该价值同时结合个体S状态下采取行为A所获得的即时奖励来更新个体在S状态下采取A行为的（状态）行为价值。</p>
 <p>与蒙特卡洛控制不同的时，每一个时间步，也就是在单个Episode内每一次个体在状态S_t采取一个行为后都要更新Q值，同样使用 $\epsilon$ -贪婪探索的形式来改善策略。</p>
 <p>$Q(S,A) \gets Q(S,A) + \alpha(R+ \gamma Q(S^{‘},A^{‘})-Q(S,A))$</p>
-<h3 id="On-Policy的-SARSA-算法"><a href="#On-Policy的-SARSA-算法" class="headerlink" title="On-Policy的 SARSA 算法"></a>On-Policy的 SARSA 算法</h3><p><img src="assets/markdown-img-paste-20180312154821604.png" alt="p_6"></p>
+<h3 id="On-Policy的-SARSA-算法"><a href="#On-Policy的-SARSA-算法" class="headerlink" title="On-Policy的 SARSA 算法"></a>On-Policy的 SARSA 算法</h3><p><img src="assets/markdown-img-paste-20180312154821604.jpg" alt="p_6"></p>
 <p>定理：满足如下两个条件时，Sarsa算法将收敛至最优行为价值函数。</p>
 <p>条件一：任何时候的策略 $\pi_t(a|s)$ 符合 GLIE 特性;</p>
 <p>条件二：步长系数αt满足：$\sum_{t=1}^{\infty}{a_t} = \infty $ 且 $\sum_{t=1}^{\infty}{a_t^2} &lt; \infty $</p>
 <p>Sarsa(λ)算法：<a href="https://zhuanlan.zhihu.com/p/28108498" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/28108498</a></p>
 <h2 id="Off-Policy-Learning"><a href="#Off-Policy-Learning" class="headerlink" title="Off-Policy Learning"></a>Off-Policy Learning</h2><p>现时策略学习的特点就是当前遵循的策略就是个体学习改善的策略。Off-Policy学习（Off-Policy Learning）则指的是在遵循一个策略\mu(a|s)的同时评估另一个策略\pi(a|s)，也就是计算确定这另一个策略下的状态价值函数v_{\pi}(s)或状态行为价值函数q_{\pi}(s, a)。为什么要这么做呢？因为这样可以较容易的从人类经验或其他个体的经验中学习，也可以从一些旧的策略中学习，可以比较两个策略的优劣。其中可能也是最主要的原因就是遵循一个探索式策略的基础上优化现有的策略。同样根据是否经历完整的Episode可以将其分为基于蒙特卡洛的和基于TD的。基于蒙特卡洛的Off-Policy学习仅有理论上的研究价值，在实际中毫无用处。在解释这一结论时引入了“重要性采样（importance sampling）”这个概念，这里就不详述了，有兴趣的读者可以参考原讲义。这里主要讲解常用的TD下的Off-Policy学习。</p>
 <h3 id="Off-Policy-TD学习"><a href="#Off-Policy-TD学习" class="headerlink" title="Off-Policy TD学习"></a>Off-Policy TD学习</h3><p>Off-PolicyTD学习的任务就是使用TD方法在遵循一个策略 $\mu(a|s)$ 的同时评估另一个策略 $\pi(a|s)$。具体数学表示为：</p>
-<p><img src="assets/markdown-img-paste-20180312160930328.png" alt="p_7"></p>
+<p><img src="assets/markdown-img-paste-20180312160930328.jpg" alt="p_7"></p>
 <p>这个公式可以这样解释：个体处在状态S_t中，基于策略 $\mu$ 产生了一个行为 $A_t$ ，执行该行为后进入新的状态 $S_{t+1}$，那么在当前策略下如何根据新状态的价值调整原来状态的价值呢？Off-Policy的方法就是，在状态S_t时比较分别依据另一个策略 $\pi$ 和当前遵循的策略 $\mu$ 产生行为 $A_t$ 的概率大小，如果策略 $\pi$ 得到的概率值与遵循当前策略 $\mu$ 得到的概率值接近，说明根据状态 $S_{t+1}$ 价值来更新 $S_t$ 的价值同时得到两个策略的支持，这一更新操作比较有说服力。同时也说明在状态S_t时，两个策略有接近的概率选择行为 $A_t$。假如这一概率比值很小，则表明如果依照被评估的策略，选择 $A_t$ 的机会很小，这时候我们在更新 $S_t$ 价值的时候就不能过多的考虑基于当前策略得到的状态 $S_{t+1}$ 的价值。同样概率比值大于1时的道理也类似。这就相当于借鉴被评估策略的经验来更新我们自己的策略。</p>
 <p>应用这种思想最好的方法是基于 TD(0) 的Q-学习（Q-learning）。它的要点在于，更新一个状态行为对的Q价值时，采用的不是当前遵循策略的下一个状态行为对的Q价值，而是采用的待评估策略产生的下一个状态行为对的Q价值。公式如下：</p>
 <p>$Q(S_t,A_t) \gets Q(S_t,A_t) + \alpha(R_{t+1}+ \gamma Q(S_{t+1},A^{‘})-Q(S_t,A_t))$</p>
 <p>式中，TD目标是基于另一个估策略 $\pi$ 产生的行为A’得到的Q价值。Q学习最主要的表现形式是：个体遵循的策略是基于当前状态行为价值函数Q(s,a)的一个 $\epsilon-greedy$ 策略，而目标策略是基于当前状态行为价值函数Q(s,a)不包含 $\epsilon$ 的单纯greedy策略：</p>
 <p>$ \pi (S_{t+1})= \arg\max_{a^{‘}} Q(S_{t+1},s^{‘})$</p>
 <p>这样Q学习的TD目标值可以被大幅简化：</p>
-<p><img src="assets/markdown-img-paste-2018031216430743.png" alt="p_8"></p>
+<p><img src="assets/markdown-img-paste-2018031216430743.jpg" alt="p_8"></p>
 <p>这样在状态 $S_t$ 依据Ɛ-greedy遵循策略得到的行为 $A_t$ 的 Q 价值将朝着 $S_{t+1}$ 状态所具有的最大Q价值的方向做一定比例的更新。这种算法能够使 greedy 策略 $\pi$ 最终收敛到最佳策略。由于个体实际与环境交互的时候遵循的是 $\epsilon-greedy$ 策略，它能保证经历足够丰富的新状态。</p>
 <p>定理：Q学习控制将收敛至最优状态行为价值函数：$Q(s,a) \rightarrow q_*(s,a)$。</p>
-<p>下图是Q学习具体的更新公式和图解：<br><img src="assets/markdown-img-paste-20180312164625851.png" alt="p_9"></p>
+<p>下图是Q学习具体的更新公式和图解：<br><img src="assets/markdown-img-paste-20180312164625851.jpg" alt="p_9"></p>
 <p>下图是Q学习的算法流程：</p>
-<p><img src="assets/markdown-img-paste-2018031216471082.png" alt="p_10"></p>
+<p><img src="assets/markdown-img-paste-2018031216471082.jpg" alt="p_10"></p>
 <h2 id="总结DP与TD关系"><a href="#总结DP与TD关系" class="headerlink" title="总结DP与TD关系"></a>总结DP与TD关系</h2><p>下面两张图概括了各种DP算法和各种TD算法，同时也揭示了各种不同算法之间的区别和联系。总的来说TD是采样+有数据引导(bootstrap)，DP是全宽度+实际数据。如果从Bellman期望方程角度看：聚焦于状态本身价值的是迭代法策略评估（DP）和TD学习，聚焦于状态行为对价值函数的则是Q-策略迭代（DP）和SARSA；如果从针对状态行为价值函数的Bellman优化方程角度看，则是Q-价值迭代（DP）和Q学习。</p>
-<p><img src="assets/markdown-img-paste-20180312165401584.png" alt="p_11"></p>
+<p><img src="assets/markdown-img-paste-20180312165401584.jpg" alt="p_11"></p>
 
       
 
