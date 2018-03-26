@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
   <title>事后经验回放 Hindsight Experience Reply | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="提出一种新的经验回放方法，能够在稀疏且binary reward 环境中训练 RL 算法。 idea人类在学习的时候，很多情况下不能完全也不需要完全达到自己特定的目标，才能学到特定的经验和技术。人类在学习的时侯，可能会尝试不同的手段和方法来做一件事，虽然可能这个方法在特定的任务上T不奏效，但这样的方法可能完成了其他的任务T’，当你下次需要做个任务T’时，你可以用这些经验来完成。比如在一个射击靶子游">
+  <meta name="description" content="提出一种新的经验回放方法，能够在稀疏且binary reward 环境中训练 RL 算法。">
 <meta name="keywords" content="RL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="事后经验回放 Hindsight Experience Reply">
 <meta property="og:url" content="https://gyh75520.github.io/2018/03/22/Hindsight_Experience_Reply/index.html">
 <meta property="og:site_name" content="Howard的博客">
-<meta property="og:description" content="提出一种新的经验回放方法，能够在稀疏且binary reward 环境中训练 RL 算法。 idea人类在学习的时候，很多情况下不能完全也不需要完全达到自己特定的目标，才能学到特定的经验和技术。人类在学习的时侯，可能会尝试不同的手段和方法来做一件事，虽然可能这个方法在特定的任务上T不奏效，但这样的方法可能完成了其他的任务T’，当你下次需要做个任务T’时，你可以用这些经验来完成。比如在一个射击靶子游">
+<meta property="og:description" content="提出一种新的经验回放方法，能够在稀疏且binary reward 环境中训练 RL 算法。">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Hindsight_Experience_Repl/p_1.jpg">
-<meta property="og:updated_time" content="2018-03-22T14:00:19.871Z">
+<meta property="og:updated_time" content="2018-03-26T08:06:36.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事后经验回放 Hindsight Experience Reply">
-<meta name="twitter:description" content="提出一种新的经验回放方法，能够在稀疏且binary reward 环境中训练 RL 算法。 idea人类在学习的时候，很多情况下不能完全也不需要完全达到自己特定的目标，才能学到特定的经验和技术。人类在学习的时侯，可能会尝试不同的手段和方法来做一件事，虽然可能这个方法在特定的任务上T不奏效，但这样的方法可能完成了其他的任务T’，当你下次需要做个任务T’时，你可以用这些经验来完成。比如在一个射击靶子游">
+<meta name="twitter:description" content="提出一种新的经验回放方法，能够在稀疏且binary reward 环境中训练 RL 算法。">
 <meta name="twitter:image" content="https://gyh75520.github.io/assets/img/Hindsight_Experience_Repl/p_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
@@ -164,11 +164,11 @@
           	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#idea"><span class="toc-number">1.</span> <span class="toc-text">idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-number">2.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验"><span class="toc-number">3.</span> <span class="toc-text">实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些局限"><span class="toc-number">4.</span> <span class="toc-text">一些局限</span></a></li></ol>
           	</div>
           
-        <p>提出一种新的经验回放方法，能够在稀疏且binary reward 环境中训练 RL 算法。</p>
+        <p>提出一种新的经验回放方法，能够在稀疏且binary reward 环境中训练 RL 算法。<br><a id="more"></a></p>
 <h2 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h2><p>人类在学习的时候，很多情况下不能完全也不需要完全达到自己特定的目标，才能学到特定的经验和技术。人类在学习的时侯，可能会尝试不同的手段和方法来做一件事，虽然可能这个方法在特定的任务上T不奏效，但这样的方法可能完成了其他的任务T’，当你下次需要做个任务T’时，你可以用这些经验来完成。比如在一个射击靶子游戏中，靶子随机出现某个位置，射中reward = 0 否则为 -1 。你可能很多都枪射歪了，这对强化学习来说，这些样本学不到任何有用的经验。但是如果把射歪的位置看成靶子的位置，这对强化学习来说就是一个有用的样本。将射歪的位置看成靶子的位置，相当于设置了一个新的 Goal。</p>
 <p>所以基于上面的思路，如果我们的目的是做一类比较接近的goal的话，或者我们能构造出与当前goal比较接近的一系列goal的话，我们就有可能利用另外的goal来衡量policy在环境中的trajectory <s_0, a_0,="" s_1,="" a_1,="" ...a_{n-1},="" s_n=""> 的好坏，虽然在大部分的goal中这个轨迹可能是比较差的，但是如果我们的goal是要达到 s_n 的话，那么这个policy其实好的。然后利用这个trajectory来进行学习，这里值得注意一下，我个人的理解是：对于这些goal需要具有一定的联系（内在的相似性），这样这个trajectory训练出来的效果才有可能对于完成另外goal有帮助。</s_0,></p>
-<p>所以既然感觉有点浪费，就会想要利用起来，这部分也就是HER做的事情：如果我们能够知道r(s, a, g)的话，那么对于上面采样出来的 \tau 中的 (s, a, r(a, s, g), s’, g) ，我们可以选择不同的goal，让这里面的reward变成1，就是意味着：这个transition tuples能够有效地帮助这个goal进行学习。那么replay buffer中reward为1的transition tuples数目就得到了一定的提升，可能就能够有效地帮助agent学习。</p>
-<p>下面是HER的算法，简单地解释一下就是：利用当前policy在环境中交互获得trajectory  \tau ，然后将 (s, a, r(a, s, g), s’, g) 存储在replay buffer中，然后再挑选一些其他的goal对这个trajectory \tau 中的g和r做修改，然后存储在replay buffer中，之后就是普通的基于replay buffer算法中常见的从buffer中sample，然后训练等过程中。</p>
+<p>所以既然感觉有点浪费，就会想要利用起来，这部分也就是HER做的事情：如果我们能够知道r(s, a, g)的话，那么对于上面采样出来的 $\tau$ 中的 (s, a, r(a, s, g), s’, g) ，我们可以选择不同的goal，让这里面的reward变成1，就是意味着：这个transition tuples能够有效地帮助这个goal进行学习。那么replay buffer中reward为1的transition tuples数目就得到了一定的提升，可能就能够有效地帮助agent学习。</p>
+<p>下面是HER的算法，简单地解释一下就是：利用当前policy在环境中交互获得trajectory  $\tau$ ，然后将 (s, a, r(a, s, g), s’, g) 存储在replay buffer中，然后再挑选一些其他的goal对这个trajectory $\tau$ 中的g和r做修改，然后存储在replay buffer中，之后就是普通的基于replay buffer算法中常见的从buffer中sample，然后训练等过程中。</p>
 <h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>下面是HER的算法，简单地解释一下就是：利用当前policy在环境中交互获得 trajectory  $\tau$ ，然后将 (s, a, r(a, s, g), s’, g) 存储在 replay buffer 中，然后再挑选一些其他的 goal 对这个 trajectory $\tau$ 中的 g 和 r 做修改，然后存储在r eplay buffer 中，之后就是普通的基于replay buffer 算法中常见的从 buffer 中 sample，然后训练等过程中。</p>
 <p><img src="https://gyh75520.github.io/assets/img/Hindsight_Experience_Repl/p_1.jpg" alt="p_1"></p>
 <p>那么关于如果挑选其他的goal就是一项很玄学的地方了，在论文里面提出了几种不同的方法：</p>
@@ -441,19 +441,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mac</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">博弈论</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mac</a>
               </li>
             
             <div class="clearfix"></div>
