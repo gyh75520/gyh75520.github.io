@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180531203708248.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180531204636443.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180531204720236.png">
-<meta property="og:updated_time" content="2018-05-31T13:07:45.980Z">
+<meta property="og:updated_time" content="2018-05-31T13:16:03.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度后续强化学习 Deep Successor Reinforcement Learning">
 <meta name="twitter:description" content="一般地，在只给定原始输入观察和奖赏值的情况下，通过基于模型（model-based）或者模型无关 （model-free）的DRL算法可以学习到鲁棒的值函数。后续状态表示法 （Successor Representation， SR）为学习值函数提供了第 3 种选择。">
@@ -187,12 +187,18 @@
 <p>本文作者设计的结构如下：<br><img src="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-2018053020554326.png" alt=""></p>
 <p>第一部分，状态 $s_t$ 通过卷积层（参数为 $\theta$ )，得到高阶特征，然后平铺成 512 维度特征 $\phi(s_t)$。然后使用一个简单的线性回归得到奖赏预测 $R(s_t) \approx \phi(s_t) \cdot w$ 。w 表示权值向量。</p>
 <p>第二部分 ，基于 $\phi(s_t)$ 使用一个参数为 $\alpha$ 的深度神经网络 $u_\alpha $ 来近似表示 $m(s_t,a) \approx u_\alpha(\phi(s_t,),a)$。</p>
-<p>为了更好的理解图中的 $m_{s,a}$,<br>$Q^{\pi} = \sum_{s’ \in S} M(s,s’,a)R(s’)$<br>$Q^{\pi} = \sum_{s’ \in S} M(s,s’,a)\phi(s’) <em> w$<br>因为 w 一旦训练好之后就是固定的，所以<br>$Q^{\pi} = (\sum_{s’ \in S} M(s,s’,a)\phi(s’)) </em> w$<br>我们只要构造一个网络 $m(s,a) \approx \sum_{s’ \in S} M(s,s’,a)\phi(s’)$<br>$Q^{\pi} = m(s,a) \cdot w$</p>
+<p>为了更好的理解图中的 $m_{s,a}$,<br>$Q^{\pi} = \sum_{s’ \in S} M(s,s’,a)R(s’)$</p>
+<p>$Q^{\pi} = \sum_{s’ \in S} M(s,s’,a)\phi(s’) * w$</p>
+<p>因为 w 一旦训练好之后就是固定的，所以<br>$Q^{\pi} = (\sum_{s’ \in S} M(s,s’,a)\phi(s’)) * w$<br>我们只要构造一个网络 $m(s,a) \approx \sum_{s’ \in S} M(s,s’,a)\phi(s’)$<br>$Q^{\pi} = m(s,a) \cdot w$</p>
 <p>这样就可以免去对所有状态的遍历！</p>
 <p>因为参数 $\theta$ 训练后用来获取 $\phi(s)$, $\phi(s_t)$ 同时是第一部分和第二部分的输入，这就要求$\phi(s)$ ：<br>1）能够准确预测 状态 s 的 reward<br>2）能够区分不同的状态</p>
 <p>第一点只要最小化损失函数 $L^r_t(w,\theta) = (R(s_t)-\phi_{s_t}w)^2$，第二点我们需要使用一个深度卷积自动编码器（反卷基）重建图像，定义一个L2损失函数：$L^a_t(\theta’,\theta) = (g_{\tilde{\theta}}(\phi_{s_t})-s_t)^2$</p>
-<p>因为 $$Q(s_t,a) = R(s_t) + \gamma max_{a’}Q(s_{t+1,a’})$$<br>$$m_{s_t,a}\cdot w = \phi_{s_t} \cdot w + \gamma m_{s_{t+1,a’}}\cdot w$$<br>$$m_{s_t,a} = \phi_{s_t}  + \gamma m_{s_{t+1,a’}}$$<br>其中 $a’ = argmax_am_{s_{t+1},a} \cdot w$</p>
-<p>所以successor map 部分的 Loss 为:<br>$L^m_t(w,\theta) = \mathbb{E}[(\phi_{s_t}+\gamma u_{\alpha_{prev}}(\phi_{s_t+1},a’) - u_{\alpha}(\phi_{s_t},a))^2]$</p>
+<p>因为</p>
+<p>$Q(s_t,a) = R(s_t) + \gamma max_{a’}Q(s_{t+1,a’})$</p>
+<p>$m_{s_t,a}\cdot w = \phi_{s_t} \cdot w + \gamma m_{s_{t+1,a’}}\cdot w$</p>
+<p>$m_{s_t,a} = \phi_{s_t}  + \gamma m_{s_{t+1,a’}}$</p>
+<p>其中 $a’ = argmax_am_{s_{t+1},a} \cdot w$</p>
+<p>所以<br>successor map 部分的 Loss 为:<br>$L^m_t(w,\theta) = \mathbb{E}[(\phi_{s_t}+\gamma u_{\alpha_{prev}}(\phi_{s_t+1},a’) - u_{\alpha}(\phi_{s_t},a))^2]$</p>
 <p>我们先最小化 $L^r_t(w,\theta)+L^a_t(\theta’,\theta)$ 得到最优的参数$(\theta^{opt} ,w^{opt} )$,然后固定这两个参数我们最小化$L^m_t(w,\theta)$,得到最优的 $\alpha^{opt} $。</p>
 <h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180530212851606.png" alt=""></p>
 <p>这部分类似SARSA的过程。</p>
