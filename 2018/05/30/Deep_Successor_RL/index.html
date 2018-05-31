@@ -6,18 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
-  <title>Archives: 2016 | Howard的博客</title>
+  <title>深度后续强化学习 Deep Successor Reinforcement Learning | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="幽幽微醺淡淡咖啡香">
-<meta name="keywords" content="增强学习,深度学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Howard的博客">
-<meta property="og:url" content="https://gyh75520.github.io/archives/2016/index.html">
+  <meta name="description" content="一般地，在只给定原始输入观察和奖赏值的情况下，通过基于模型（model-based）或者模型无关 （model-free）的DRL算法可以学习到鲁棒的值函数。后续状态表示法 （Successor Representation， SR）为学习值函数提供了第 3 种选择。">
+<meta name="keywords" content="RL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度后续强化学习 Deep Successor Reinforcement Learning">
+<meta property="og:url" content="https://gyh75520.github.io/2018/05/30/Deep_Successor_RL/index.html">
 <meta property="og:site_name" content="Howard的博客">
-<meta property="og:description" content="幽幽微醺淡淡咖啡香">
+<meta property="og:description" content="一般地，在只给定原始输入观察和奖赏值的情况下，通过基于模型（model-based）或者模型无关 （model-free）的DRL算法可以学习到鲁棒的值函数。后续状态表示法 （Successor Representation， SR）为学习值函数提供了第 3 种选择。">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180530201634600.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-2018053020554326.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180530212851606.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180531203708248.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180531204636443.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180531204720236.png">
+<meta property="og:updated_time" content="2018-05-31T12:58:15.387Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Howard的博客">
-<meta name="twitter:description" content="幽幽微醺淡淡咖啡香">
+<meta name="twitter:title" content="深度后续强化学习 Deep Successor Reinforcement Learning">
+<meta name="twitter:description" content="一般地，在只给定原始输入观察和奖赏值的情况下，通过基于模型（model-based）或者模型无关 （model-free）的DRL算法可以学习到鲁棒的值函数。后续状态表示法 （Successor Representation， SR）为学习值函数提供了第 3 种选择。">
+<meta name="twitter:image" content="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180530201634600.png">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
   
@@ -135,60 +143,203 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Deep_Successor_RL" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/10/17/first/" class="archive-article-date">
-  	<time datetime="2016-10-17T15:33:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/17/first/">HEXO+Github搭建博客</a>
+    <h1 class="article-title" itemprop="name">
+      深度后续强化学习 Deep Successor Reinforcement Learning
     </h1>
   
 
-        <div class="article-info info-on-right">
+        
+        <a href="/2018/05/30/Deep_Successor_RL/" class="archive-article-date">
+  	<time datetime="2018-05-30T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
           
+          	<div id="toc" class="toc-article">
+          	  <strong class="toc-title">文章目录</strong>
+          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#model-based-和-model-free"><span class="toc-number">1.</span> <span class="toc-text">model-based 和 model-free</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Successor-Representation"><span class="toc-number">2.</span> <span class="toc-text">Successor Representation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deep-Successor-Reinforcement-Learning"><span class="toc-number">3.</span> <span class="toc-text">Deep Successor Reinforcement Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-number">4.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动子目标提取"><span class="toc-number">5.</span> <span class="toc-text">自动子目标提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验"><span class="toc-number">6.</span> <span class="toc-text">实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+          	</div>
+          
+        <p>一般地，在只给定原始输入观察和奖赏值的情况下，通过基于模型（model-based）或者模型无关 （model-free）的DRL算法可以学习到鲁棒的值函数。<br>后续状态表示法 （Successor Representation， SR）<br>为学习值函数提供了第 3 种选择。<br><a id="more"></a></p>
+<h2 id="model-based-和-model-free"><a href="#model-based-和-model-free" class="headerlink" title="model-based 和 model-free"></a>model-based 和 model-free</h2><p><img src="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180530201634600.png" alt=""><br>（图片来自论文：The successor representation in human reinforcement learning）</p>
+<p><strong>MB:</strong>  Agent 学习环境模型，利用这个模型，我们就可以进行动态规划。如果状态和动作空间巨大，对计算力就会有很大的要求。</p>
+<p><strong>MF:</strong> Agent 不需要对环境进行建模，将长期动作值直接存储起来，一个经典的例子就是Q-Learning ，对动作值函数 Q 存储起来。因缓存了值函数，所以计算就很高效。</p>
+<p><strong>SR:</strong> 结合了 MF 的高效性和 MB 的灵活性。对突出奖赏(distal reward)的变化十分敏感。有能力分解出更有价值的子目标。</p>
+<h2 id="Successor-Representation"><a href="#Successor-Representation" class="headerlink" title="Successor Representation"></a>Successor Representation</h2><p>SR 将值函数分 解为两个部分：</p>
+<ul>
+<li>后续状态映射图（successor map）</li>
+<li>奖赏预测（reward predictor）</li>
+</ul>
+<p>后续状态映射图表示在给定当前状态下到达未来某一状态占有率的期望。奖赏预测表示从状态到奖赏 值的映射。在 SR 中，这两个部分以内积的形式构成值函数．</p>
+<p>$$ Q^\pi(s,a) = \mathbb{E}[\sum^{\infty}_{t=0}\gamma^tR(s_t)|s_0 = a,a_0 =a]$$<br>$$ M(s,s’,a)=\mathbb{E}[\sum^{\infty}_{t=0}\gamma^t1[s_t=s’]|s_0=s,a_0=a]$$ 其中 $1[.]$当参数为true时=1<br>$$ Q^{\pi} = \sum_{s’ \in S} M(s,s’,a)R(s’) $$<br>我们可以看到，Q 值的计算是每个时间step下带有折扣因子$\gamma$的reward之和。而SR的计算方式是先计算一个状态在未来占有率的期望，乘上 $R(s)$ 就得了该状态在未来的reward，然后将所有状态的 reward 累加起来。</p>
+<h2 id="Deep-Successor-Reinforcement-Learning"><a href="#Deep-Successor-Reinforcement-Learning" class="headerlink" title="Deep Successor Reinforcement Learning"></a>Deep Successor Reinforcement Learning</h2><p>理解了SR ， 我们就希望能够将 SR 和深度学习模型结合起来。</p>
+<p>很自然的想法，我们可以构造 $M(s,s’,a)$ 网络，输入是 s 和 s‘，输出是各个动作的 M 值（假设动作空间是离散的）。同样的，$R(s)$ 网络的输入是 s ，输出是该状态 s 下的 reward。</p>
+<p>问题就是大部分环境下，状态是连续的，很明显，遍历所有状态的 M和 R 值然后计算 Q 值是不现实的。</p>
+<p>本文作者设计的结构如下：<br><img src="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-2018053020554326.png" alt=""></p>
+<p>第一部分，状态 $s_t$ 通过卷积层（参数为 $\theta$ )，得到高阶特征，然后平铺成 512 维度特征 $\phi(s_t)$。然后使用一个简单的线性回归得到奖赏预测 $R(s_t) \approx \phi(s_t) \cdot w$ 。w 表示权值向量。</p>
+<p>第二部分 ，基于 $\phi(s_t)$ 使用一个参数为 $\alpha$ 的深度神经网络 $u_\alpha $ 来近似表示 $m(s_t,a) \approx u_\alpha(\phi(s_t,),a)$。</p>
+<p>为了更好的理解图中的 $m_{s,a}$,<br>$Q^{\pi} = \sum_{s’ \in S} M(s,s’,a)R(s’)$<br>$Q^{\pi} = \sum_{s’ \in S} M(s,s’,a)\phi(s’) <em> w$<br>因为 w 一旦训练好之后就是固定的，所以<br>$Q^{\pi} = (\sum_{s’ \in S} M(s,s’,a)\phi(s’)) </em> w$<br>我们只要构造一个网络 $m(s,a) \approx \sum_{s’ \in S} M(s,s’,a)\phi(s’)$<br>$Q^{\pi} = m(s,a) \cdot w$</p>
+<p>这样就可以免去对所有状态的遍历！</p>
+<p>因为参数 $\theta$ 训练后用来获取 $\phi(s)$, $\phi(s_t)$ 同时是第一部分和第二部分的输入，这就要求$\phi(s)$ ：<br>1）能够准确预测 状态 s 的 reward<br>2）能够区分不同的状态</p>
+<p>第一点只要最小化损失函数 $L^r_t(w,\theta) = (R(s_t)-\phi_{s_t}w)^2$，第二点我们需要使用一个深度卷积自动编码器（反卷基）重建图像，定义一个L2损失函数：$L^a_t(\theta’,\theta) = (g_{\tilde{\theta}}(\phi_{s_t})-s_t)^2$</p>
+<p>因为 $Q(s_t,a) = R(s_t) + \gamma max_{a’}Q(s_{t+1,a’})$<br>$m_{s_t,a}\cdot w = \phi_{s_t} \cdot w + \gamma m_{s_{t+1,a’}}\cdot w$<br>$m_{s_t,a} = \phi_{s_t}  + \gamma m_{s_{t+1,a’}}$<br>其中 $a’ = argmax_am_{s_{t+1},a} \cdot w$</p>
+<p>所以successor map 部分的 Loss 为:<br>$L^m_t(w,\theta) = \mathbb{E}[(\phi_{s_t}+\gamma u_{\alpha_{prev}}(\phi_{s_t+1},a’) - u_{\alpha}(\phi_{s_t},a))^2]$</p>
+<p>我们先最小化 $L^r_t(w,\theta)+L^a_t(\theta’,\theta)$ 得到最优的参数$(\theta^<em> ,w^</em> )$,然后固定这两个参数我们最小化$L^m_t(w,\theta)$,得到最优的 $\alpha^* $。</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180530212851606.png" alt=""></p>
+<p>这部分类似SARSA的过程。</p>
+<h2 id="自动子目标提取"><a href="#自动子目标提取" class="headerlink" title="自动子目标提取"></a>自动子目标提取</h2><p><img src="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180531203708248.png" alt=""></p>
+<p>给定一个随机策略，训练 DSR 直到收敛，我们可以获得大量的序列 $\tau = {m_{s_1,a_1},m_{s_2,a_2}…,m{s_n,a_n}}$。通过归一化割(Nomalized cut)算法 得到一些 subgoal。</p>
+<p>这种方法的一个固有局限性是，由于随机策略，子目标候选常常非常嘈杂。此外，子目标提取算法应该是非参数的而且处理灵活数量的子目标。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>在两个游戏环境和DQN的比较：<br><img src="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180531204636443.png" alt=""><br><br>为了证明SR对突出奖赏(distal reward)的变化十分敏感。<br><img src="https://gyh75520.github.io/assets/img/DSR/markdown-img-paste-20180531204720236.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>第一篇将SR和深度学习模型结合。<br>DSR可以自动提取子目标，这就可以与分层强化学习相结合。</p>
+<p><strong>REF:</strong> Kulkarni T D, Saeedi A, Gautam S, et al. Deep Successor Reinforcement Learning[J]. 2016.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HEXO</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://gyh75520.github.io/2018/05/30/Deep_Successor_RL/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/03/22/Hindsight_Experience_Reply/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">事后经验回放 Hindsight Experience Reply</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -211,8 +362,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
