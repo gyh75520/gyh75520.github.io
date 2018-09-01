@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-20180830204719765.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-2018083020485273.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-20180830191626393.png">
-<meta property="og:updated_time" content="2018-08-30T13:07:23.919Z">
+<meta property="og:updated_time" content="2018-09-01T05:49:36.921Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UNREAL（UNsupervised REinforcement and Auxiliary Learning）算法">
 <meta name="twitter:description" content="作者通过添加辅助任务增强了A3C（Asynchronous Actor Critic）算法。这些辅助任务共享网络参数，但是它们的价值函数是通过 n-step 的 off-policy 的 Q-Learning 来学习的。辅助任务只用于学习更好的表示，而不直接影响主任务的任务control。这种改进被称为UNREAL（Unsupervised Reinforcement and Auxiliary">
@@ -177,14 +177,14 @@
 <p>如何定义该任务的 pseudo-reward：<br>将网络输入的 84x84 RGB 图片裁剪成 80x80 的图片，将裁剪的图片以 4x4 cell 为单位分成 20x20 个 gird，每个 cell 的 reward 通过计算每个pixel 和 channels 的像素差的平均值得到。网络最后的输出是 $N_{act}$ x20x20 的 $Q^{aux}$。</p>
 <p>具体的网络结构参照图</p>
 <h3 id="特征控制（Feature-Control）"><a href="#特征控制（Feature-Control）" class="headerlink" title="特征控制（Feature Control）"></a>特征控制（Feature Control）</h3><p>隐藏层激活控制则是控制隐藏层神经元的激活数量，目的是使其激活量越多越好。这类似于人类大脑细胞的开发，神经元使用得越多，可能越聪明，也因此能够做出更好的选择。</p>
-<p>类似于 Pixel Control 对 pseudo-reward 的定义，我们计算隐藏层的神经元激活数量作为reward。网络最后的输出也是 $N_{act}$ x20x20 的 $Q^{aux}$。</p>
-<p>为了更好的理解辅助控制任务，我们和另外两种很自然的辅助任务的方法做比较。</p>
-<p>第一个baseline是pixel reconstruction loss，类似于DSR中对 $\phi(s_i)$进行反卷积，能够使得网络能够更好的区分不同的状态。</p>
-<p>第二个baseline是input change prediction loss，这个可以被看作是预测立即的reward，reward的计算类似Pixel Control。（ pixel control 是control任务,它预测的是Q值）。</p>
+<p>类似于 Pixel Control 对 pseudo-reward 的定义，我们计算隐藏层的神经元激活数量作为reward。网络最后的输出也是 $N_{act}$ x20x20 的 $Q^{aux}$。</p>
+<p>为了更好的理解辅助控制任务，我们和另外两种很自然的辅助任务的方法做比较。</p>
+<p>第一个baseline是pixel reconstruction loss，类似于DSR中对 $\phi(s_i)$进行反卷积，能够使得网络能够更好的区分不同的状态。</p>
+<p>第二个baseline是input change prediction loss，这个可以被看作是预测立即的reward，reward的计算类似Pixel Control。（ pixel control 是control任务,它预测的是Q值）。</p>
 <p><img src="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-20180830191626393.png" alt="p_3"><br>从上图可以看出，pixel reconstruction 可以加速初始的学习，但是会损坏最后的得分。因为它过于专注于重建视觉输入中不相关的部分而没有专注于和奖励有关的部分。</p>
-<h2 id="AUXILIARY-REWARD-TASKS"><a href="#AUXILIARY-REWARD-TASKS" class="headerlink" title="AUXILIARY REWARD TASKS"></a>AUXILIARY REWARD TASKS</h2><p>因为在很多场景下，回馈 r 并不是每时每刻都能获取的（比如在 Labyrinth 中吃到苹果才能得1分），所以让神经网络能够预测回馈值会使其具有更好的表达能力。<br>为了学习到最大化reward的polcy，Agent 需要能识别出那些可能会产生高 reward 的状态。对 rewarding 状态有良好表示的 Agent能够学习到更好的价值函数，这也意味着Agent能够更容易和更好的学习到策略。</p>
+<h2 id="AUXILIARY-REWARD-TASKS"><a href="#AUXILIARY-REWARD-TASKS" class="headerlink" title="AUXILIARY REWARD TASKS"></a>AUXILIARY REWARD TASKS</h2><p>因为在很多场景下，回馈 r 并不是每时每刻都能获取的（比如在 Labyrinth 中吃到苹果才能得1分），所以让神经网络能够预测回馈值会使其具有更好的表达能力。<br>为了学习到最大化reward的policy，Agent 需要能识别出那些可能会产生高 reward 的状态。对 rewarding 状态有良好表示的 Agent能够学习到更好的价值函数，这也意味着Agent能够更容易和更好的学习到策略。</p>
 <p>与学习价值函数和学习策略不同，Reward Prediction 任务仅仅只是用来优化Agent 的 features，因此加入 Reward Prediction 不会对原有的价值函数和策略产生偏差。</p>
-<p>在 UNREAL 算法中，使用历史连续多帧的图像输入来预测下一步的 reward 作为训练目标，这是一个三分类任务，预测值为 +，0，- 的概率。至关重要的是，由于奖励往往是稀疏的，我们使用 skewed 技术使得 $P(r != 0) = P(r = 0)= 0.5$。能这么做的原因，我猜测是因为这只是一个监督学习。我们只需要将 replay memory 分割成两个集合，分别是reward = 0 的样本和 reward ！= 0 的样本。</p>
+<p>在 UNREAL 算法中，使用历史连续多帧的图像输入来预测下一步的 reward 作为训练目标，这是一个三分类任务，预测值为 +，0，- 的概率。至关重要的是，由于奖励往往是稀疏的，我们使用 skewed 技术使得 $P(r != 0) = P(r = 0)= 0.5$。能这么做的原因，我猜测是因为这只是一个监督学习。我们只需要将 replay memory 分割成两个集合，分别是reward = 0 的样本和 reward ！= 0 的样本。</p>
 <p>另一个细节是，这里并没有用 LSTM。作者也解释了原因，大概是说这个 auxiliary task，reward prediction 的目的是关注 immediate reward, rather than long-term returns。</p>
 <h2 id="Value-Function-Replay"><a href="#Value-Function-Replay" class="headerlink" title="Value Function Replay"></a>Value Function Replay</h2><p>相当于从replay buffer中重新采样进行 V 值函数回归。这一部分相当于将A3C输出的V值网络训练的更好，V值网络更好，策略网络也会更好。</p>
 <h2 id="UNREAL"><a href="#UNREAL" class="headerlink" title="UNREAL"></a>UNREAL</h2><p>结合上述的辅助任务，得到UNREAL算法，Loss函数如下：<br>$$L_{UNREAL}(\theta)= L_{A3C}+\lambda_{VR} L_{VR} + \lambda_{PC} \sum_cL_{Q}^{(c)}+\lambda_{RP} L_{RP}$$</p>
