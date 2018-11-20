@@ -6,23 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
-  <title>UNREAL（UNsupervised REinforcement and Auxiliary Learning）算法 | Howard的博客</title>
+  <title>Tag: RL | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="作者通过添加辅助任务增强了A3C（Asynchronous Actor Critic）算法。这些辅助任务共享网络参数，但是它们的价值函数是通过 n-step 的 off-policy 的 Q-Learning 来学习的。辅助任务只用于学习更好的表示，而不直接影响主任务的任务control。这种改进被称为UNREAL（Unsupervised Reinforcement and Auxiliary">
-<meta name="keywords" content="RL">
-<meta property="og:type" content="article">
-<meta property="og:title" content="UNREAL（UNsupervised REinforcement and Auxiliary Learning）算法">
-<meta property="og:url" content="https://gyh75520.github.io/2018/08/30/Unreal/index.html">
+  <meta name="description" content="幽幽微醺淡淡咖啡香">
+<meta name="keywords" content="增强学习,深度学习">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Howard的博客">
+<meta property="og:url" content="https://gyh75520.github.io/tags/RL/page/2/index.html">
 <meta property="og:site_name" content="Howard的博客">
-<meta property="og:description" content="作者通过添加辅助任务增强了A3C（Asynchronous Actor Critic）算法。这些辅助任务共享网络参数，但是它们的价值函数是通过 n-step 的 off-policy 的 Q-Learning 来学习的。辅助任务只用于学习更好的表示，而不直接影响主任务的任务control。这种改进被称为UNREAL（Unsupervised Reinforcement and Auxiliary">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-20180830204719765.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-2018083020485273.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-20180830191626393.png">
-<meta property="og:updated_time" content="2018-09-01T06:03:04.096Z">
+<meta property="og:description" content="幽幽微醺淡淡咖啡香">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="UNREAL（UNsupervised REinforcement and Auxiliary Learning）算法">
-<meta name="twitter:description" content="作者通过添加辅助任务增强了A3C（Asynchronous Actor Critic）算法。这些辅助任务共享网络参数，但是它们的价值函数是通过 n-step 的 off-policy 的 Q-Learning 来学习的。辅助任务只用于学习更好的表示，而不直接影响主任务的任务control。这种改进被称为UNREAL（Unsupervised Reinforcement and Auxiliary">
-<meta name="twitter:image" content="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-20180830204719765.png">
+<meta name="twitter:title" content="Howard的博客">
+<meta name="twitter:description" content="幽幽微醺淡淡咖啡香">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
   
@@ -140,93 +135,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Unreal" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      UNREAL（UNsupervised REinforcement and Auxiliary Learning）算法
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/07/27/从Fictitious Play 到 NFSP/" class="archive-article-date">
+  	<time datetime="2017-07-27T13:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/07/27/从Fictitious Play 到 NFSP/">从Fictitious Play 到 NFSP</a>
     </h1>
   
 
-        
-        <a href="/2018/08/30/Unreal/" class="archive-article-date">
-  	<time datetime="2018-08-30T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+        <div class="article-info info-on-right">
           
-          	<div id="toc" class="toc-article">
-          	  <strong class="toc-title">文章目录</strong>
-          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#idea"><span class="toc-number">1.</span> <span class="toc-text">idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络结构"><span class="toc-number">2.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AUXILIARY-CONTROL-TASKS"><span class="toc-number">3.</span> <span class="toc-text">AUXILIARY CONTROL TASKS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#像素控制（Pixel-Control）"><span class="toc-number">3.1.</span> <span class="toc-text">像素控制（Pixel Control）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征控制（Feature-Control）"><span class="toc-number">3.2.</span> <span class="toc-text">特征控制（Feature Control）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AUXILIARY-REWARD-TASKS"><span class="toc-number">4.</span> <span class="toc-text">AUXILIARY REWARD TASKS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Value-Function-Replay"><span class="toc-number">5.</span> <span class="toc-text">Value Function Replay</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UNREAL"><span class="toc-number">6.</span> <span class="toc-text">UNREAL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验"><span class="toc-number">7.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验设置"><span class="toc-number">7.1.</span> <span class="toc-text">实验设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">7.2.</span> <span class="toc-text">结果</span></a></li></ol></li></ol>
-          	</div>
-          
-        <p>作者通过添加辅助任务增强了A3C（Asynchronous Actor Critic）算法。这些辅助任务共享网络参数，但是它们的价值函数是通过 n-step 的 off-policy 的 Q-Learning 来学习的。辅助任务只用于学习更好的表示，而不直接影响主任务的任务control。这种改进被称为UNREAL（Unsupervised Reinforcement and Auxiliary Learning），在性能和训练效率方面优于A3C。<br><a id="more"></a></p>
-<h2 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h2><p>A3C 算法充分使用了 Actor-Critic 框架，是一套完善的算法，因此，我们很难通过改变算法框架的方式来对算法做出改进。UNREAL 算法在 A3C 算法的基础上，另辟蹊径，通过在训练 A3C 的同时，训练多个辅助任务来改进算法。UNREAL 算法的基本思想来源于我们人类的学习方式。人要完成一个任务，往往通过完成其他多种辅助任务来实现。比如说我们要收集邮票，可以自己去买，也可以让朋友帮忙获取，或者和其他人交换的方式得到。UNREAL 算法通过设置多个辅助任务，同时训练同一个 A3C 网络，从而加快学习的速度，并进一步提升性能。</p>
-<p>UNREAL 算法本质上是通过训练多个面向同一个最终目标的任务来提升行动网络的表达能力和水平，符合人类的学习方式。值得注意的是，UNREAL 虽然增加了训练任务，但并没有通过其他途径获取别的样本，是在保持原有样本数据不变的情况下对算法进行提升，这使得 UNREAL 算法被认为是一种无监督学习的方法。基于 UNREAL 算法的思想，可以根据不同任务的特点针对性地设计辅助任务，来改进算法。</p>
-<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p><img src="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-20180830204719765.png" alt="p_1"></p>
-<p>更详细的网络结构（来自 <a href="https://github.com/miyosuda/unreal）" target="_blank" rel="external">https://github.com/miyosuda/unreal）</a> ：</p>
-<p><img src="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-2018083020485273.png" alt="p_2"></p>
-<h2 id="AUXILIARY-CONTROL-TASKS"><a href="#AUXILIARY-CONTROL-TASKS" class="headerlink" title="AUXILIARY CONTROL TASKS"></a>AUXILIARY CONTROL TASKS</h2><p>包括像素控制和隐藏层激活控制。</p>
-<h3 id="像素控制（Pixel-Control）"><a href="#像素控制（Pixel-Control）" class="headerlink" title="像素控制（Pixel Control）"></a>像素控制（Pixel Control）</h3><p>像素控制是指控制输入图像的变化，使得图像的变化最大。因为图像变化大往往说明Agent在执行重要的环节，通过控制图像的变化能够改善动作的选择。</p>
-<p>如何定义该任务的 pseudo-reward：<br>将网络输入的 84x84 RGB 图片裁剪成 80x80 的图片，将裁剪的图片以 4x4 cell 为单位分成 20x20 个 gird，每个 cell 的 reward 通过计算每个pixel 和 channels 的像素差的平均值得到。网络最后的输出是 $N_{act}$ x20x20 的 $Q^{aux}$。</p>
-<p>具体的网络结构参照图</p>
-<h3 id="特征控制（Feature-Control）"><a href="#特征控制（Feature-Control）" class="headerlink" title="特征控制（Feature Control）"></a>特征控制（Feature Control）</h3><p>隐藏层激活控制则是控制隐藏层神经元的激活数量，目的是使其激活量越多越好。这类似于人类大脑细胞的开发，神经元使用得越多，可能越聪明，也因此能够做出更好的选择。</p>
-<p>类似于 Pixel Control 对 pseudo-reward 的定义，我们计算隐藏层的神经元激活数量作为reward。网络最后的输出也是 $N_{act}$ x20x20 的 $Q^{aux}$。</p>
-<p>为了更好的理解辅助控制任务，我们和另外两种很自然的辅助任务的方法做比较。</p>
-<p>第一个baseline是pixel reconstruction loss，类似于DSR中对 $\phi(s_i)$进行反卷积，能够使得网络能够更好的区分不同的状态。</p>
-<p>第二个baseline是input change prediction loss，这个可以被看作是预测立即的reward，reward的计算类似Pixel Control。（ pixel control 是control任务,它预测的是Q值）。</p>
-<p><img src="https://gyh75520.github.io/assets/img/UNREAL/markdown-img-paste-20180830191626393.png" alt="p_3"><br>从上图可以看出，pixel reconstruction 可以加速初始的学习，但是会损坏最后的得分。因为它过于专注于重建视觉输入中不相关的部分而没有专注于和奖励有关的部分。</p>
-<h2 id="AUXILIARY-REWARD-TASKS"><a href="#AUXILIARY-REWARD-TASKS" class="headerlink" title="AUXILIARY REWARD TASKS"></a>AUXILIARY REWARD TASKS</h2><p>因为在很多场景下，回馈 r 并不是每时每刻都能获取的（比如在 Labyrinth 中吃到苹果才能得1分），所以让神经网络能够预测回馈值会使其具有更好的表达能力。<br>为了学习到最大化reward的policy，Agent 需要能识别出那些可能会产生高 reward 的状态。对 rewarding 状态有良好表示的 Agent能够学习到更好的价值函数，这也意味着Agent能够更容易和更好的学习到策略。</p>
-<p>与学习价值函数和学习策略不同，Reward Prediction 任务仅仅只是用来优化Agent 的 features，因此加入 Reward Prediction 不会对原有的价值函数和策略产生偏差。</p>
-<p>在 UNREAL 算法中，使用历史连续多帧的图像输入来预测下一步的 reward 作为训练目标，这是一个三分类任务，预测值为 +，0，- 的概率。至关重要的是，由于奖励往往是稀疏的，我们使用 skewed 技术使得 $P(r != 0) = P(r = 0)= 0.5$。能这么做的原因，我猜测是因为这只是一个监督学习。我们只需要将 replay memory 分割成两个集合，分别是reward = 0 的样本和 reward ！= 0 的样本。</p>
-<p>另一个细节是，这里并没有用 LSTM。作者也解释了原因，大概是说这个 auxiliary task，reward prediction 的目的是关注 immediate reward, rather than long-term returns。</p>
-<h2 id="Value-Function-Replay"><a href="#Value-Function-Replay" class="headerlink" title="Value Function Replay"></a>Value Function Replay</h2><p>相当于从replay buffer中重新采样进行 V 值函数回归。这一部分相当于将A3C输出的V值网络训练的更好，V值网络更好，策略网络也会更好。</p>
-<h2 id="UNREAL"><a href="#UNREAL" class="headerlink" title="UNREAL"></a>UNREAL</h2><p>结合上述的辅助任务，得到UNREAL算法，Loss函数如下：<br>$$L_{UNREAL}(\theta)= L_{A3C}+\lambda_{VR} L_{VR} + \lambda_{PC} \sum_cL_{Q}^{(c)}+\lambda_{RP} L_{RP}$$</p>
-<p>其中 VR = Value Function Replay, PC = Pixel Control, RP = Reward Prediction。<br>在实际的训练中，Loss被拆分成单独的部分训练。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>实验环境<br>Atari 和 3D迷宫游戏 Labyrinth</p>
-<h3 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h3><ul>
-<li>Agent 训练使用的是 n-step Returns，n = 20</li>
-<li>Replay Buffer 的大小 = 2000</li>
-<li>辅助控制任务使用 off-polcy RL 算法（例如，n-step Q-Learning），这样就可以使用经验回放</li>
-</ul>
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><strong>Labyrinth：</strong><br>38% -&gt; 83% human-normalized score.<br>Significantly faster learning, 11x across all levels.</p>
-<p><strong>Atari：</strong><br>表现更好，更robust。</p>
-<p><strong>REF:</strong> Jaderberg M, Mnih V, Czarnecki W M, et al. Reinforcement Learning with Unsupervised Auxiliary Tasks[J]. 2016.</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -234,116 +172,34 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">博弈论</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
+        		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://gyh75520.github.io/2018/08/30/Unreal/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/11/19/MADDPG/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MADDPG（Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments）算法
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/05/30/Deep_Successor_RL/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">深度后续强化学习 Deep Successor Reinforcement Learning</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    </div></section>
   
 
-  
-
-  
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/tags/RL/">&laquo; Prev</a><a class="page-number" href="/tags/RL/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -367,9 +223,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
