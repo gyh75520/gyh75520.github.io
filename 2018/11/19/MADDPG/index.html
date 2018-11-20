@@ -17,7 +17,7 @@
 <meta property="og:description" content="由于环境状态由多个Agent的行为共同决定，本身具有不稳定性（non-stationarity），这就导致 Q-learning 算法很难训练，policy gradient 算法的方差会随着智能体的增加变得更大。 本文提出了一种AC方法的变体 MADDPG ，每个 agent 学习的过程中都可以知晓其他 agent 的策略，进行中心化训练和非中心化执行，取得了显著效果。">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/MADDPG/markdown-img-paste-20181119221505375.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/MADDPG/markdown-img-paste-20181119221703394.png">
-<meta property="og:updated_time" content="2018-11-20T11:00:57.717Z">
+<meta property="og:updated_time" content="2018-11-20T11:07:01.341Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MADDPG（Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments）算法">
 <meta name="twitter:description" content="由于环境状态由多个Agent的行为共同决定，本身具有不稳定性（non-stationarity），这就导致 Q-learning 算法很难训练，policy gradient 算法的方差会随着智能体的增加变得更大。 本文提出了一种AC方法的变体 MADDPG ，每个 agent 学习的过程中都可以知晓其他 agent 的策略，进行中心化训练和非中心化执行，取得了显著效果。">
@@ -172,6 +172,7 @@
 <p>某种程度上来说，一个agent根据这种不稳定的环境状态来优化策略是毫无意义的，在当前状态优化的策略在下一个变化的环境状态中可能又无效了。这就导致不能直接使用经验回放(experience replay)的方法进行训练，这也是Q-learning失效的原因。对于policy gradient方法来说，随着agent数量增加，环境复杂度也增加，这就导致通过采样来估计梯度的优化方式，方差急剧增加。</p>
 <p>这些问题归根到底，是因为agent之间没有交互，不知道队友或者对手会采取什么策略，导致只根据自己的情况来选择动作，而忽略了整体。作者提出的解决方法也很简单：采用中心化的训练和非中心化的执行。即在训练的时候，引入可以观察全局的critic来指导actor训练，而测试的时候只使用有局部观测的actor采取行动。</p>
 <h2 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h2><p>既然在实际中不知道其他 agent 的信息，但是其他的 agent 的信息能够很好的帮助学习，很自然的就会想：那么我们就在训练的时候使用这些信息，实际运用的时候的不用这些信息，那就不就很自然地学习出一个更好的 agent 了。</p>
+<p>更进一步：我们想要在off-line的时候利用更多的信息学习出一个拥有比较好policy的agent，但是为了能够在实际的设置中使用，这个agent的policy的输入与输出在训练与实际使用的时候应该一样，所以无法直接把额外的信息直接结合在policy的输入中，那么有一种想法就是这些额外的信息既然无法直接用，那么就拿来做更准确的梯度的估计，那么很直观的想法就是用AC</p>
 <p>主要的原因是：AC分为actor，critic，如果实际使用中不进行训练的话，那么on-line与off-line的共同点就是actor，所以这里的actor我可以设计的尽可能通用，比如只采用自己的observation， $\pi_i(a|o_i)$ ，然后将额外的信息交给critic，让critic能够帮助 policy 算出更准确的梯度。</p>
 <h2 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法"></a>具体方法</h2><p>先画一个简图来说明DDPG结构的输入输出:<br><img src="https://gyh75520.github.io/assets/img/MADDPG/markdown-img-paste-20181119221505375.png" alt="p0"><br>当策略训练好后，只需要actor与环境交互，即只需要绿色的循环，其中actor的输入为环境状态$S$,输出为具体动作 $a$ 。而在训练过程中，需要critic获得当前的环境状态和actor采取的动作，组成状态动作对(S,a)作为输入，输出状态动作对的价值V（或Q）来评估当前动作的好坏，并帮助actor改进策略。</p>
 <p>接着是 MADDPG，以两个agent为例，同样画出输入输出的简图如下：<br><img src="https://gyh75520.github.io/assets/img/MADDPG/markdown-img-paste-20181119221703394.png" alt="p1"></p>
@@ -439,7 +440,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
+                <a href="javascript:void(0)" class="js-tag color4">博弈论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -451,11 +456,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">博弈论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
+                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
               </li>
             
             <div class="clearfix"></div>
