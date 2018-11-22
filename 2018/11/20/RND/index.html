@@ -17,7 +17,7 @@
 <meta property="og:description" content="传统上，Agent 从他们的经验中学习下一状态预测模型，并将预测误差用作内在 reward。与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在不熟悉的状态下，很难预测输出，因此奖励很高。 它可以应用于任何强化学习算法，实现简单而且高效。">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20181120203030185.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20181120203336994.png">
-<meta property="og:updated_time" content="2018-11-22T06:06:26.296Z">
+<meta property="og:updated_time" content="2018-11-22T06:13:07.584Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RND（Exploration by Random Network Distillation）算法">
 <meta name="twitter:description" content="传统上，Agent 从他们的经验中学习下一状态预测模型，并将预测误差用作内在 reward。与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在不熟悉的状态下，很难预测输出，因此奖励很高。 它可以应用于任何强化学习算法，实现简单而且高效。">
@@ -168,8 +168,8 @@
         <p>传统上，Agent 从他们的经验中学习下一状态预测模型，并将预测误差用作内在 reward。与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在不熟悉的状态下，很难预测输出，因此奖励很高。 它可以应用于任何强化学习算法，实现简单而且高效。<br><a id="more"></a></p>
 <h2 id="研究问题"><a href="#研究问题" class="headerlink" title="研究问题"></a>研究问题</h2><p>强化学习( RL )方法的目标是最大化策略的期望 return。当环境中有大量 reward 时，传统的探索方法很有效，这些奖励很容易通过随机的一系列行动找到，但是当奖励很少且很难找到时，这种方法往往会失效。</p>
 <p>经典的 DQN 算法在《蒙特祖玛的复仇》中无法取得任何得分。简单的探索策略极不太可能得到任何奖励，或者看到该级别的24个房间中的更多，从那时起，该游戏进展被许多人视为探索进步的代名词。</p>
-<p>之前有关 Curiosity-Driven 的文章大都是从经验中学习下一状态的预测模型，并将预测结果和实际结果的误差作为内在 reward 使用。</p>
-<p>基于 Curiosity-Driven 的 Next-State 预测模型<br><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20181120203030185.png" alt="p0"></p>
+<p>之前有关 Curiosity-Driven 的文章大都是从经验中学习下一状态的预测模型，并将预测结果和实际结果的误差作为内在 reward 使用。</p>
+<p>基于 Curiosity-Driven 的 Next-State 预测模型<br><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20181120203030185.png" alt="p0"></p>
 <h3 id="Noisy-TV-问题"><a href="#Noisy-TV-问题" class="headerlink" title="Noisy-TV 问题"></a>Noisy-TV 问题</h3><p>Agent 被安排在一个迷宫里，它的任务是找到最高奖励的对象（和在超市里找奶酪的道理一样）。迷宫中有一台电视，而 Agent 有它的遥控器。但是电视只有几个台（每个台放的节目不一样），每按一下遥控器，电视就会随机切换频道。在这种情况下， Agent 应该怎么做呢？</p>
 <p>对于基于误差的好奇心方程来说，调换频道会导致较大的奖励，因为每次换台都是无法预测的，充满惊喜。重要的是，当所有频道轮换一遍之后，随机选择仍会让 Agent 感到惊奇， Agent 仍然可能会预测错误。所以， Agent 为了获得不断的惊喜、得到奖励，就会一直站在电视机前不走。所以为了避免这种情况，该如何重新定义好奇心呢？</p>
 <p>因为 TV 上的节目是随机播放的，也就是下一状态根本无法预测，之前的 Curiosity-Driven 的预测模型无法解决这个问题。在《蒙特祖玛的复仇》游戏里，基于 与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在《蒙特祖玛的复仇》游戏中，基于 Curiosity-Driven 的算法会出现在两个房间来回切换的问题。</p>
@@ -182,7 +182,7 @@
 </ul>
 <p>第一点是必要的，泛化能力差就代表了预测误差高也就是好奇心高。第二点导致到了Noisy-TV问题，应该避免。同样的，第三点和第四点也要去除。</p>
 <p>于是提出了RND算法，引入的内在 reward 是基于预测下一状态下 固定且随机初始化的神经网络 的输出。<br><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20181120203336994.png" alt="p1"></p>
-<p>通过两张图片的对比可以发现，之前的 Curiosity-Driven 算法输入是 $(O_i,a_i)$,输出是下一状态的预测 $\hat{f_{i+1}}$，对于 Noisy-TV 问题，下一状态 $\hat{f_{i+1}}$ 是无法确定的，自然也就无法预测，永远会算出一个很高的好奇心，对应了第二点。</p>
+<p>通过两张图片的对比可以发现，之前的 Curiosity-Driven 算法输入是 $(O_i,a_i)$,输出是下一状态的预测 $\hat{f_{i+1}}$，对于 Noisy-TV 问题，下一状态 $\hat{f_{i+1}}$ 是无法确定的，自然也就无法预测，永远会算出一个很高的好奇心，对应了第二点。</p>
 <p>而RND模型预测的输出是确定的，规避了第二点。为了避免三号和四号因素，RND 选择和目标网络相同的架构。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><strong>超级马里奥：</strong></p>
 <ul>
