@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
-  <title>Archives: 2018 | Howard的博客</title>
+  <title>RND（Exploration by Random Network Distillation）算法 | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="幽幽微醺淡淡咖啡香">
-<meta name="keywords" content="增强学习,深度学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Howard的博客">
-<meta property="og:url" content="https://gyh75520.github.io/archives/2018/index.html">
+  <meta name="description" content="传统上，Agent 从他们的经验中学习下一状态预测模型，并将预测误差用作内在 reward。与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在不熟悉的状态下，很难预测输出，因此奖励很高。 它可以应用于任何强化学习算法，实现简单而且高效。">
+<meta name="keywords" content="RL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RND（Exploration by Random Network Distillation）算法">
+<meta property="og:url" content="https://gyh75520.github.io/2018/11/20/RND/index.html">
 <meta property="og:site_name" content="Howard的博客">
-<meta property="og:description" content="幽幽微醺淡淡咖啡香">
+<meta property="og:description" content="传统上，Agent 从他们的经验中学习下一状态预测模型，并将预测误差用作内在 reward。与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在不熟悉的状态下，很难预测输出，因此奖励很高。 它可以应用于任何强化学习算法，实现简单而且高效。">
+<meta property="og:image" content="https://gyh75520.github.io/2018/11/20/RND/assets/markdown-img-paste-20181120203030185.png">
+<meta property="og:image" content="https://gyh75520.github.io/2018/11/20/RND/assets/markdown-img-paste-20181120203336994.png">
+<meta property="og:updated_time" content="2018-11-22T06:02:20.901Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Howard的博客">
-<meta name="twitter:description" content="幽幽微醺淡淡咖啡香">
+<meta name="twitter:title" content="RND（Exploration by Random Network Distillation）算法">
+<meta name="twitter:description" content="传统上，Agent 从他们的经验中学习下一状态预测模型，并将预测误差用作内在 reward。与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在不熟悉的状态下，很难预测输出，因此奖励很高。 它可以应用于任何强化学习算法，实现简单而且高效。">
+<meta name="twitter:image" content="https://gyh75520.github.io/2018/11/20/RND/assets/markdown-img-paste-20181120203030185.png">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
   
@@ -135,36 +139,96 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-RND" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      RND（Exploration by Random Network Distillation）算法
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/20/RND/" class="archive-article-date">
+
+        
+        <a href="/2018/11/20/RND/" class="archive-article-date">
   	<time datetime="2018-11-20T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-20</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/20/RND/">RND（Exploration by Random Network Distillation）算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
           
+          	<div id="toc" class="toc-article">
+          	  <strong class="toc-title">文章目录</strong>
+          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#研究问题"><span class="toc-number">1.</span> <span class="toc-text">研究问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Noisy-TV-问题"><span class="toc-number">1.1.</span> <span class="toc-text">Noisy-TV 问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Random-Network-Distillation"><span class="toc-number">2.</span> <span class="toc-text">Random Network Distillation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验"><span class="toc-number">3.</span> <span class="toc-text">实验</span></a></li></ol>
+          	</div>
+          
+        <p>传统上，Agent 从他们的经验中学习下一状态预测模型，并将预测误差用作内在 reward。与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在不熟悉的状态下，很难预测输出，因此奖励很高。 它可以应用于任何强化学习算法，实现简单而且高效。<br><a id="more"></a></p>
+<h2 id="研究问题"><a href="#研究问题" class="headerlink" title="研究问题"></a>研究问题</h2><p>强化学习( RL )方法的目标是最大化策略的期望 return。当环境中有大量 reward 时，传统的探索方法很有效，这些奖励很容易通过随机的一系列行动找到，但是当奖励很少且很难找到时，这种方法往往会失效。</p>
+<p>经典的 DQN 算法在《蒙特祖玛的复仇》中无法取得任何得分。简单的探索策略极不太可能得到任何奖励，或者看到该级别的24个房间中的更多，从那时起，该游戏进展被许多人视为探索进步的代名词。</p>
+<p>之前有关 Curiosity-Driven 的文章大都是从经验中学习下一状态的预测模型，并将预测结果和实际结果的误差作为内在 reward 使用。</p>
+<p>基于 Curiosity-Driven 的 Next-State 预测模型<br><img src="assets/markdown-img-paste-20181120203030185.png" alt="p0"></p>
+<h3 id="Noisy-TV-问题"><a href="#Noisy-TV-问题" class="headerlink" title="Noisy-TV 问题"></a>Noisy-TV 问题</h3><p>Agent 被安排在一个迷宫里，它的任务是找到最高奖励的对象（和在超市里找奶酪的道理一样）。迷宫中有一台电视，而 Agent 有它的遥控器。但是电视只有几个台（每个台放的节目不一样），每按一下遥控器，电视就会随机切换频道。在这种情况下， Agent 应该怎么做呢？</p>
+<p>对于基于误差的好奇心方程来说，调换频道会导致较大的奖励，因为每次换台都是无法预测的，充满惊喜。重要的是，当所有频道轮换一遍之后，随机选择仍会让 Agent 感到惊奇， Agent 仍然可能会预测错误。所以， Agent 为了获得不断的惊喜、得到奖励，就会一直站在电视机前不走。所以为了避免这种情况，该如何重新定义好奇心呢？</p>
+<p>因为 TV 上的节目是随机播放的，也就是下一状态根本无法预测，之前的 Curiosity-Driven 的预测模型无法解决这个问题。在《蒙特祖玛的复仇》游戏里，基于 与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在《蒙特祖玛的复仇》游戏中，基于 Curiosity-Driven 的算法会出现在两个房间来回切换的问题。</p>
+<h2 id="Random-Network-Distillation"><a href="#Random-Network-Distillation" class="headerlink" title="Random Network Distillation"></a>Random Network Distillation</h2><p>对于预测模型，一般来说，预测误差和四个因素有关：</p>
+<ul>
+<li>预测器无法泛化，因为训练集不够</li>
+<li>预测目标是随机的</li>
+<li>缺少必要的输入信息</li>
+<li>模型能力不足以适应目标函数</li>
+</ul>
+<p>第一点是必要的，泛化能力差就代表了预测误差高也就是好奇心高。第二点导致到了Noisy-TV问题，应该避免。同样的，第三点和第四点也要去除。</p>
+<p>于是提出了RND算法，引入的内在 reward 是基于预测下一状态下 固定且随机初始化的神经网络 的输出。<br><img src="assets/markdown-img-paste-20181120203336994.png" alt="p1"></p>
+<p>通过两张图片的对比可以发现，之前的 Curiosity-Driven 算法输入是 $(O_i,a_i)$,输出是下一状态的预测 $\hat{f_{i+1}}$，对于 Noisy-TV 问题，下一状态 $\hat{f_{i+1}}$ 是无法确定的，自然也就无法预测，永远会算出一个很高的好奇心，对应了第二点。</p>
+<p>而RND模型预测的输出是确定的，规避了第二点。为了避免三号和四号因素，RND 选择和目标网络相同的架构。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><strong>超级马里奥：</strong></p>
+<ul>
+<li>Agent通过了11关，找到了许多隐藏的房间，并打败了库巴大魔王。</li>
+</ul>
+<p><strong>蒙特祖玛的复仇：</strong></p>
+<ul>
+<li>最好成绩，当然是24个房间都攻破，顺利通过第一关，得分17.5k。</li>
+<li>并且，多数情况下，智能体都能解锁20-22个房间，得分14.5k。</li>
+<li>对比一下，人类平均分是4.7k。</li>
+</ul>
+<p>等等</p>
+<p><strong>REF：</strong></p>
+<ul>
+<li>Exploration by Random Network Distillation</li>
+<li><a href="https://blog.openai.com/reinforcement-learning-with-prediction-based-rewards/" target="_blank" rel="external">https://blog.openai.com/reinforcement-learning-with-prediction-based-rewards/</a></li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -176,209 +240,104 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://gyh75520.github.io/2018/11/20/RND/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/19/MADDPG/" class="archive-article-date">
-  	<time datetime="2018-11-19T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/19/MADDPG/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MADDPG（Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments）算法</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/19/MADDPG/">MADDPG（Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments）算法</a>
-    </h1>
+        
+        
+    </div>
+</aside>
+
+
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/30/Unreal/" class="archive-article-date">
-  	<time datetime="2018-08-30T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/30/Unreal/">UNREAL（UNsupervised REinforcement and Auxiliary Learning）算法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/30/Deep_Successor_RL/" class="archive-article-date">
-  	<time datetime="2018-05-30T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/30/Deep_Successor_RL/">深度后续强化学习 Deep Successor Reinforcement Learning</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/22/Hindsight_Experience_Reply/" class="archive-article-date">
-  	<time datetime="2018-03-22T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/22/Hindsight_Experience_Reply/">事后经验回放 Hindsight Experience Reply</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/11/David_Silver_RL_5/" class="archive-article-date">
-  	<time datetime="2018-03-11T09:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/11/David_Silver_RL_5/">David Silver 强化学习 5 模型无关控制 Model-Free Control</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -401,8 +360,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

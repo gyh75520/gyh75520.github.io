@@ -137,6 +137,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-RND" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/20/RND/">RND（Exploration by Random Network Distillation）算法</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/20/RND/" class="archive-article-date">
+  	<time datetime="2018-11-20T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>传统上，Agent 从他们的经验中学习下一状态预测模型，并将预测误差用作内在 reward。与现有方法不同，RND引入的内在 reward 基于预测下一状态下固定且随机初始化的神经网络的输出。在不熟悉的状态下，很难预测输出，因此奖励很高。 它可以应用于任何强化学习算法，实现简单而且高效。<br>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/20/RND/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MADDPG" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -818,92 +892,6 @@
 
 
   
-    <article id="post-David_Silver_RL_1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/14/David_Silver_RL_1/">David Silver 强化学习 1 Introduction</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/14/David_Silver_RL_1/" class="archive-article-date">
-  	<time datetime="2017-08-14T13:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>强化学习的特点(不同于其他机器学习)：</p>
-<ul>
-<li>没有监督数据、只有奖励信号</li>
-<li>奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。</li>
-<li>时间（序列）是一个重要因素</li>
-<li>当前的行为影响后续接收到的数据   </li>
-</ul>
-<h2 id="The-RL-Problem"><a href="#The-RL-Problem" class="headerlink" title="The RL Problem"></a>The RL Problem</h2><h3 id="奖励-Reward"><a href="#奖励-Reward" class="headerlink" title="奖励 Reward"></a>奖励 Reward</h3><ul>
-<li>一个Reward $R_{t}$ 是信号的反馈，是一个标量</li>
-<li>它反映 Agent 在 t 时刻做得怎么样</li>
-<li>Agent 的工作就是最大化累计奖励</li>
-</ul>
-<p>强化学习主要基于这样的”奖励假设”：所有问题解决的目标都可以被描述成<font color="red">最大化累积奖励</font>。<br><img src="https://gyh75520.github.io/assets/img/David_Silver_RL_1/p_1.png" alt="p_1"><br>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/14/David_Silver_RL_1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1018,11 +1006,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">博弈论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
+                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1034,7 +1018,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
+                <a href="javascript:void(0)" class="js-tag color4">博弈论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
             
             <div class="clearfix"></div>
