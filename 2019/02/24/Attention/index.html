@@ -15,33 +15,33 @@
 <meta property="og:url" content="https://gyh75520.github.io/2019/02/24/Attention/index.html">
 <meta property="og:site_name" content="Howard的博客">
 <meta property="og:description" content="Attention Mechanism 非常流行，广泛用于机器翻译、语音识别、计算机视觉等很多领域。它之所以这么受欢迎，是因为 Attention 赋予了模型区分辨别的能力。深度学习中的注意力机制从本质上和人类的选择性视觉注意力机制类似，核心目标也是从众多信息中选择出对当前任务目标更关键的信息。 人类的注意力机制可以使我们专注于某个具有“高分辨率”的区域（即查看黄色方框中的尖耳），同时以">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190218144722944.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190218165007751.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190218214009589.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219135207783.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219141954838.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219142911315.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219205400712.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219211402246.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219212309638.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219212733601.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219213505157.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219214143650.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219214329906.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-2019021921552257.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190220161103389.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190220162058251.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190220165415225.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190220171033534.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190222163349633.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190222165140560.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190224154226526.png">
-<meta property="og:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190224164820534.png">
-<meta property="og:updated_time" content="2019-02-24T08:58:47.579Z">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190218144722944.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190218165007751.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190218214009589.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219135207783.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219141954838.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219142911315.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219205400712.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219211402246.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219212309638.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219212733601.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219213505157.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219214143650.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219214329906.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-2019021921552257.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220161103389.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220162058251.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220165415225.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220171033534.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190222163349633.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190222165140560.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190224154226526.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190224164820534.png">
+<meta property="og:updated_time" content="2019-02-24T09:00:40.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention">
 <meta name="twitter:description" content="Attention Mechanism 非常流行，广泛用于机器翻译、语音识别、计算机视觉等很多领域。它之所以这么受欢迎，是因为 Attention 赋予了模型区分辨别的能力。深度学习中的注意力机制从本质上和人类的选择性视觉注意力机制类似，核心目标也是从众多信息中选择出对当前任务目标更关键的信息。 人类的注意力机制可以使我们专注于某个具有“高分辨率”的区域（即查看黄色方框中的尖耳），同时以">
-<meta name="twitter:image" content="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190218144722944.png">
+<meta name="twitter:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190218144722944.png">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
   
@@ -186,12 +186,12 @@
           	</div>
           
         <p>Attention Mechanism 非常流行，广泛用于机器翻译、语音识别、计算机视觉等很多领域。它之所以这么受欢迎，是因为 Attention 赋予了模型区分辨别的能力。深度学习中的注意力机制从本质上和人类的选择性视觉注意力机制类似，核心目标也是从众多信息中选择出对当前任务目标更关键的信息。</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190218144722944.png" alt=""><br>人类的注意力机制可以使我们专注于某个具有“高分辨率”的区域（即查看黄色方框中的尖耳），同时以“低分辨率”感知周围的图像（观察背后的雪景和服装），最后调整聚焦点然后做出推断，这是一只狗。</p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190218144722944.png" alt=""><br>人类的注意力机制可以使我们专注于某个具有“高分辨率”的区域（即查看黄色方框中的尖耳），同时以“低分辨率”感知周围的图像（观察背后的雪景和服装），最后调整聚焦点然后做出推断，这是一只狗。</p>
 <p>给定图像的一小块，图像的其他区域包含了这一小块区域应该显示什么的线索。我们希望在黄色的方框中看到尖尖的耳朵，是因为我们看到了狗的鼻子，右边的尖耳朵以及柴犬的眼睛。然而，底部的毛衣和毯子不如那些狗的特征有用。</p>
 <p>同样地，我们可以用一句话或近距离的上下文来解释单词之间的关系，当我们看到吃的时候，我们期待着很快会遇到一个食物的单词。</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190218165007751.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190218165007751.png" alt=""></p>
 <p>对于上图来说，eating 和 apple 有着更高的 attention，与它更近的 green 反而 attention 低。</p>
-<h3 id="Seq2Seq-Model"><a href="#Seq2Seq-Model" class="headerlink" title="Seq2Seq Model"></a>Seq2Seq Model</h3><p>Seq2Seq 全名是Sequence to Sequence，也就是从序列到序列的过程。Seq2Seq常见情形为机器翻译，Seq2Seq 包含两部分 Encoder 和 Decoder。一旦将句子输入 Encoder ，即可从 Decoder 获得目标句。<br><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190218214009589.png" alt=""></p>
+<h3 id="Seq2Seq-Model"><a href="#Seq2Seq-Model" class="headerlink" title="Seq2Seq Model"></a>Seq2Seq Model</h3><p>Seq2Seq 全名是Sequence to Sequence，也就是从序列到序列的过程。Seq2Seq常见情形为机器翻译，Seq2Seq 包含两部分 Encoder 和 Decoder。一旦将句子输入 Encoder ，即可从 Decoder 获得目标句。<br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190218214009589.png" alt=""></p>
 <p>图中的 C 指的是 context vector ，context vector 可以想象成一个含有所有输入信息的向量，也就是 Encoder 当中最后一个 hidden state。Encoder 将输入句压缩成固定长度的 context vector ，context vector 即可完整表达输入句，再透过 Decoder 将 context vector 内的信息产生输出。</p>
 <p>这样做存在两个问题：</p>
 <ul>
@@ -201,16 +201,16 @@
 <h3 id="机器翻译中的-Attention-model"><a href="#机器翻译中的-Attention-model" class="headerlink" title="机器翻译中的 Attention model"></a>机器翻译中的 Attention model</h3><p>前面展示的 Encoder-Decoder 模型是没有体现出 注意力 的。观察下目标句子中每个单词的生成过程：<br>$$y_1 = G(C)$$<br>$$y_2 = G(C,y_1)$$<br>$$y_3 = G(C,y_1,y_2)$$</p>
 <p>其中 G 是非线性的变换函数。可以发现，在生成目标句子的单词时，无论生成哪个单词，它们使用的输入句子 Source 的语义编码 C 都是一样的，没有任何区别。这意味着 Source 中每个单词对生成某个目标单词 $y_i$ 来说影响力都是相同的，没有体现出注意力。</p>
 <p>在 Attention model 中，Encoder 和 Seq2Seq 一样是从输入句 $<x_1,x_2,x_3...x_m>$ 产生 $<h_1,h_2,h_3...h_m>$的 hidden state， 再计算目标句 $<y_1,y_2,y_3..y_m>$。差别就在于 context vector 怎么计算。</y_1,y_2,y_3..y_m></h_1,h_2,h_3...h_m></x_1,x_2,x_3...x_m></p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219135207783.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219135207783.png" alt=""></p>
 <p>$$C_i = \sum_{j=1}^{T_x} \alpha_{ij}h_j$$</p>
 <p>Context vector 是通过 attention score $\alpha$ 乘上输入句的 hidden state 加权求和。Attention score 用来衡量输入句中每个文字对目标句中的每个文字所带来的重要性的程度。</p>
 <p>$$ Attention  score  \alpha_{ij} = \frac{exp(e_{ij})}{\sum_{k=1}^{T_x}exp(e_{ik})} $$</p>
 <p>其中$$Socre  e_{ij}=a(s_{s_{i-1}},h_j)$$</p>
 <p>在计算 Score 中，a 代表Alignment model，它根据输入字位置 j 和输出字位置 i 计算这两者的关联程度计算出 $score  e_{ij}$。</p>
 <p>下表是几种常见的 attention mechanisms 和对应的 alignment score functions：</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219141954838.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219141954838.png" alt=""></p>
 <p>有了 $Score  e_{ij}$之后，即可通过 softmax 计算出 Attention score ，Context vector 也可以得到。我们可以将 Context vector 列为矩阵，通过此矩阵看到输入端文字和输出端文字间的对应关系。</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219142911315.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219142911315.png" alt=""></p>
 <p>x 轴和 y 轴分别对应输入轴和输出轴，每个像素表示输入句中的第 j 个文字对应目标句中的第 i 个文字的权重大小，即 Attention score （0:黑，1:白）。</p>
 <p>可以把 Attention 理解为从大量信息中有选择地筛选出少量最重要的信息并聚焦到这些重要信息上，忽略大多不重要的信息。其中聚焦的过程体现再权重系数的计算上，权重越大越聚焦于对应的特征值上，即权重代表了信息的重要性，而对应特征是其需要重点学习的知识。</p>
 <p>Attention 机制应用分为三步：</p>
@@ -223,25 +223,25 @@
 <div style="color:#F00"><br><br>1. 加权可以保留所有的分量做加权（soft attention）<br>2. 可以在分布中以某种采样策略选取部分分量做加权（hard attention）<br>3. 加权可以作用在原图上<br>4. 加权可以作用在空间尺度上，给不同空间区域加权<br>5. 加权可以作用在 Channel 尺度上，给不同通道特征加权<br>6. 加权可以作用在不同时刻的历史特征上 等<br></div>
 
 <p>soft 和 hard attention 的定义起源于 <a href="https://arxiv.org/abs/1502.03044" target="_blank" rel="external">Show, Attend and Tell: Neural Image Caption Generation with Visual Attention</a> 文章。图像标注（Image caption），就是从图片中自动生成一段描述性文字，类似于“看图说话”。机器不仅要检测出图像中的物体，而且要理解物体之间的相互关系，最后还要用合理的语言表达出来。</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219205400712.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219205400712.png" alt=""></p>
 <h4 id="Image-caption-model-with-LSTM"><a href="#Image-caption-model-with-LSTM" class="headerlink" title="Image caption model with LSTM"></a>Image caption model with LSTM</h4><p>在讨论 attention 之前，我们快速回顾以下如何使用 LSTM 进行图像标注，图像标注同样离不开 Encoder-Decoder 结构。</p>
 <p>Encoder使用 CNN 从图片提取特征 X ，作为 LSTM  cells（Decoder） 的输入。每个 LSTM cell 接受上一个隐状态 $h_{t-1}$ 和 图像特征 X ，输出新的隐状态 $h_{t}$。最后我们使用 $h_{t}$ 对下一个单词进行预测。</p>
 <p>$$h_t = f(x,h_{t-1})$$<br>$$next  word = g(h_t)$$</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219211402246.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219211402246.png" alt=""></p>
 <h4 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h4><p>LSTM 与 Attention 模型之间的关键区别在于 Attention 会关注特定区域和对象，而不是平等地处理整个图像。例如，标注的一开始，我们首先 Attention 走向我们的这个人。我们预测的第一个单词为 “A”，并将上下文更新为 “A”。我们保持 Attention 的区域不变，预测下一个单词为 “man”。对于接下来的预测，我们的 Attention 转移到他手里拿了什么。通过不停的探索和转移 Attention 区域，我们生成了这张图片的标注 “ A man holding a couple plastic containers is walking down an intersection towards me.”</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219212309638.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219212309638.png" alt=""></p>
 <p>从数学来看，我们替换 LSTM 模型中的 X：<br>$$h_t = f(x,h_{t-1})$$</p>
 <p>使用 Attention module：<br>$$h_t = f(attention(x,h_{t-1}),h_{t-1})$$</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219212733601.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219212733601.png" alt=""></p>
 <p>Attention module 的输入为 $h_{t-1}$ 和 四个 CNN 提取的高维空间区域（$x_1,x_2,x_3,x_4$）。为了更好的理解，下图将 features map 可视化为它可能表示的原图。</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219213505157.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219213505157.png" alt=""></p>
 <h4 id="Soft-attention"><a href="#Soft-attention" class="headerlink" title="Soft attention"></a>Soft attention</h4><p>Soft attention 的计算和前文介绍的机器翻译Attention model 方法一致。</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219214143650.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219214143650.png" alt=""></p>
 <p>由于使用了Attention机制，我们可以根据权重系数 $\alpha$ 的大小，得知在生成每个词时模型关注到了图片的哪个区域。下图展示了一些例子，每个句子都是模型自动生成的，在图片中用白色高亮标注了生成下划线单词时模型关注的区域：</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190219214329906.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219214329906.png" alt=""></p>
 <p>使用 Soft attention 的整个模型光滑、可微，利用反向传播来进行 end-to-end 训练。</p>
 <h4 id="Hard-attention"><a href="#Hard-attention" class="headerlink" title="Hard attention"></a>Hard attention</h4><p>在 Soft attention 中，我们为每个 $x_i$ 都计算了一个权重 $ Attention  score  \alpha$，并使用它作为计算 LSTM 输入的加权平均。而 Hard attention 使用 $\alpha$ 表示是否选择 $x_i$ 作为 LSTM 的输入。</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-2019021921552257.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-2019021921552257.png" alt=""></p>
 <p>Hard Attention是一个随机的过程。Hard Attention不会选择整个encoder的输出做为其输入，Hard Attention 会依概率 Si 来采样 encoder 输出的一部分来进行计算，而不是整个encoder的输出。为了实现梯度的反向传播，需要采用蒙特卡洛采样的方法来估计模块的梯度。</p>
 <p>Hard Attention 无法嵌入到网络中进行学习，这也导致 Soft Attention 更受欢迎。</p>
 <h4 id="相关论文："><a href="#相关论文：" class="headerlink" title="相关论文："></a>相关论文：</h4><p><strong>soft attention:</strong></p>
@@ -284,26 +284,26 @@
 <p>在 Attention model 是从输入句 $<x_1,x_2,x_3...x_m>$ 产生 $<h_1,h_2,h_3...h_m>$的 hidden state，通过 $Attention  socre  \alpha $ 乘上 input 的加权求和得到 Content vector C。有了 Content vector C 和 hidden state vector 即可计算目标句 $<y_1,y_2,y_3..y_m>$。</y_1,y_2,y_3..y_m></h_1,h_2,h_3...h_m></x_1,x_2,x_3...x_m></p>
 <p>我们从另外一个角度来看 Attention model ：</p>
 <p>输入句的每个文字是由一些列成对的 <key,value> 构成，而目标文字中每个字是 Query 。那么就可以用 Key 、 Value 、 Query 去重新解释如何计算 Context vector，通过计算 Query 和各个 Key 的相似性，得到 每个 Key 对应 Value 的权重系数，权重系数代表信息的重要性，即 Attention Score 。最后对 Value 进行加权求和，就可以得到最终的 Context vector。</key,value></p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190220161103389.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220161103389.png" alt=""></p>
 <p>The Transformer 计算 Attention 的方式有三种，如下图</p>
 <ol>
 <li>Encoder self attention 存在于 Encoder 中</li>
 <li>Decoder self attention 存在于 Decoder 中</li>
 <li>Encoder-Decoder attention 这种 Attention 和之前的 Attention 相似</li>
 </ol>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190220162058251.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220162058251.png" alt=""></p>
 <p><strong>计算 Encoder self attention</strong></p>
 <p>首先，创建 Encoder 的输入向量 Q 、 K 、 V，举个例子，“Are you very big?”中的每个单词的隐向量都有自己的 Q 、 K 、 V。</p>
 <p>接着计算 $score <q_t,k_s>$ ,和 Attention model 中的 $score  e_{ij}$ 类似。假设我们计算第一个单词 “Are” 的 self-attention ，我们将输入句中的每个单词 “Are” “you” “very” “big” 分别和 “Are” 去做比较，这个分数决定了我们在 encode 某个特定位置的单词时，应该给予多少 Attention 。所以，我们计算位置 1 的 Self-attention, 第一个分数是 $Similarity(Are,Are)$，第二个分数是$Similarity(Are,you)$，以此类推。</q_t,k_s></p>
 <p>然后将得到的分数做一层 softmax 得到 Attention Score。代表我们应该放多少 Attention 在这个位置。</p>
 <p>最后一步就是把 Attention Score 乘上 Value，然后加总得到 Context vector Z。<br>整个计算过程如下图所示：</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190220165415225.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220165415225.png" alt=""></p>
 <p><strong>计算 Decoder self attention</strong></p>
 <p>Decoder 的运作模式和 Encoder 类似，不同的地方在于，为了避免解码时，还在翻译前半段，就突然得到了后半段的句子，所以会在计算 self-attention 时的 softmax 前 mask 掉未来的位置。</p>
 <p><strong>Encoder-Decoder attention</strong></p>
 <p>Encoder-Decoder attention 和 Encoder/Decoder attention 不一样，它的Query 来自于 Decoder attention，而 Key 和 Value 则是来自于 Encoder 的 output。</p>
 <p><strong>Multi-head attention</strong></p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190220171033534.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220171033534.png" alt=""></p>
 <p>如果我们只计算一个 attention ，很难捕捉到句子中所有空间信息，为了优化模型，论文提出了一个新的做法：Multi-head attention。不仅仅对 Key 、 Value 、Query 做单一的 attention ，而是把 Key 、 Value 、Query 线性映射到不同的空间 h 次，再各自做 attention。这样就可以从不同的维度和表示的子空间里学习到相关的信息。</p>
 <p>通过 The Transformer ，我们可以使用 Multi-head attention 来解决并行化和计算复杂度过高的问题，依赖关系也可以通过 Self-attention 中单词与单词之间的比较方式来克服。</p>
 <h3 id="SNAIL"><a href="#SNAIL" class="headerlink" title="SNAIL"></a>SNAIL</h3><p>Transformer 模型没有 RNN 或者 CNN 结构，即使引入位置相关的编码，也是一种序列顺序的弱整合，对于位置敏感的任务，比如强化学习，这是一个问题。</p>
@@ -327,12 +327,12 @@
 <p>为了能够当作一个组件接入到以前的神经网络中去， Non-local 操作的输入和输出大小一致，具体来说，公式如下：</p>
 <p>$$y_i = \frac{1}{C(x)} \sum_{\forall j} f(x_i,x_j)g(x_j)$$</p>
 <p>公式中，输入是 x ，可以使图像、序列、视频等，输出是 y。 i 是输出特征图的一个位置，j 是输入所有可能位置索引， f 是相似性计算函数，计算输出中第 i 个位置和其他所有位置的相似性。 g 是一个简单的映射函数，可以看成计算一个点的特征，也就是说，为了计算输出层的一个点，需要将输入的每个点都考虑一遍，而且考虑的方式很像 attention ：输出的某个点在原图上的 attention ，而 mask 则是相似性给出。参看下图。</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190222163349633.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190222163349633.png" alt=""></p>
 <p>为了能让 Non-local操作作为一个组件，可以直接插入任意的神经网络中，作者把 Non-local 设计成 residual block 的形式，让 Non-local操作去学 x 的 residual：</p>
 <p>$$z_i = W_z  \cdot y_i + x_i$$</p>
 <p>$W_i$ 实际上是一个卷积操作，它的输出 channel 数跟 x 一致。这样以来，Non-local 操作就可以作为一个组件，组装到任意卷积神经网络中。</p>
 <p>嵌入在 action recognition 框架中的attention map 可视化效果：</p>
-<p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190222165140560.png" alt=""></p>
+<p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190222165140560.png" alt=""></p>
 <p>图中的箭头表示，之前若干帧中的某些像素对最后图（当前帧）的脚关节像素的贡献关系。由于是 soft-attention，其实每帧每个像素对其有贡献关系，图中黄色箭头是把贡献最大的关系描述出来。</p>
 <p><strong>跟全连接层的联系</strong></p>
 <p>我们知道，Non-local block 利用两个点的相似性对每个位置的特征做加权，而全连接层则是利用 position-related 的 weight 对每个位置做加权。于是，全连接层可以看成 Non-local block 的一个特例：</p>
@@ -352,7 +352,7 @@
 <h3 id="基于-Attention-的字符识别"><a href="#基于-Attention-的字符识别" class="headerlink" title="基于 Attention 的字符识别"></a>基于 Attention 的字符识别</h3><p>待补坑</p>
 <h3 id="基于-Attention-的图片生成"><a href="#基于-Attention-的图片生成" class="headerlink" title="基于 Attention 的图片生成"></a>基于 Attention 的图片生成</h3><p>待补坑</p>
 <h3 id="强化学习中结合-Attention"><a href="#强化学习中结合-Attention" class="headerlink" title="强化学习中结合 Attention"></a>强化学习中结合 Attention</h3><h4 id="Deep-Attention-Recurrent-Q-Networ"><a href="#Deep-Attention-Recurrent-Q-Networ" class="headerlink" title="Deep Attention Recurrent Q-Networ"></a>Deep Attention Recurrent Q-Networ</h4><p>最早结合 Attention 到 RL 中的文章</p>
-<p><a href="https://arxiv.org/abs/1512.01693" target="_blank" rel="external">Deep Attention Recurrent Q-Network</a> 在空间进行加权，这里的空间是图片输入 CNN 之后得到的特征空间 features map。具体做法如下图：<br><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190224154226526.png" alt=""></p>
+<p><a href="https://arxiv.org/abs/1512.01693" target="_blank" rel="external">Deep Attention Recurrent Q-Network</a> 在空间进行加权，这里的空间是图片输入 CNN 之后得到的特征空间 features map。具体做法如下图：<br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190224154226526.png" alt=""></p>
 <p>本文和  <a href="https://arxiv.org/abs/1502.03044" target="_blank" rel="external">Show, Attend and Tell: Neural Image Caption Generation with Visual Attention</a> 类似，通过计算隐状态 $h_t$ 和 $v_{t+1}$ 的相似性，得到 $Attention  Score  \alpha$, 然后计算 $v_{t+1}$ 的加权平均得到 $z_{t+1}$,作为 DQN（使用 LSTM）的输入。</p>
 <p>同样的，本文也有 Soft attention 和 Hard Attention 两种计算方式。</p>
 <h5 id="Soft-Attenton"><a href="#Soft-Attenton" class="headerlink" title="Soft Attenton"></a>Soft Attenton</h5><p>$the  context  z_t$ 表示为所有特征空间 $v_t^i$ 的加权和，i 代表特征空间每个特征。</p>
@@ -369,7 +369,7 @@
 <p>$$ \theta_{t+1}^g = \theta_t^g + \alpha \nabla_{\theta_t^g}log \pi_g(i_t|v_t,h_{t-1})(G_t - Y_t)$$</p>
 <p>其中 $Y_t = r_t + \gamma max_{a_{t+1}} Q(s_{t+1},a_{t+1})$，Advantage 部分为 $(G_t - Y_t)$</p>
 <p>除了 Attention Network，model 剩余的部分和 DQN 基本上一致</p>
-<h5 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h5><p><img src="https://gyh75520.github.io/assets/img/RND/markdown-img-paste-20190224164820534.png" alt=""></p>
+<h5 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h5><p><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190224164820534.png" alt=""></p>
 <p>可以看出，这种简单的设计并没有体现出加入 attention 的优势。</p>
 <h3 id="Multi-Agent-中结合-Attention"><a href="#Multi-Agent-中结合-Attention" class="headerlink" title="Multi-Agent 中结合 Attention"></a>Multi-Agent 中结合 Attention</h3><p>待补坑</p>
 <p>REF:</p>
@@ -636,15 +636,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">mac</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HEXO</a>
               </li>
              
               <li class="article-tag-list-item">
