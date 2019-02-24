@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190222165140560.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190224154226526.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190224164820534.png">
-<meta property="og:updated_time" content="2019-02-24T11:35:42.384Z">
+<meta property="og:updated_time" content="2019-02-24T11:40:44.007Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention">
 <meta name="twitter:description" content="Attention Mechanism 非常流行，广泛用于机器翻译、语音识别、计算机视觉等很多领域。它之所以这么受欢迎，是因为 Attention 赋予了模型区分辨别的能力。深度学习中的注意力机制从本质上和人类的选择性视觉注意力机制类似，核心目标也是从众多信息中选择出对当前任务目标更关键的信息。">
@@ -207,7 +207,7 @@
 <h3 id="机器翻译中的-Attention-model"><a href="#机器翻译中的-Attention-model" class="headerlink" title="机器翻译中的 Attention model"></a>机器翻译中的 Attention model</h3><p>前面展示的 Encoder-Decoder 模型是没有体现出 注意力 的。观察下目标句子中每个单词的生成过程：<br>$$y_1 = G(C)$$<br>$$y_2 = G(C,y_1)$$<br>$$y_3 = G(C,y_1,y_2)$$</p>
 <p>其中 G 是非线性的变换函数。可以发现，在生成目标句子的单词时，无论生成哪个单词，它们使用的输入句子 Source 的语义编码 C 都是一样的，没有任何区别。这意味着 Source 中每个单词对生成某个目标单词 $y_i$ 来说影响力都是相同的，没有体现出注意力。</p>
 <p>在 Attention model 中，Encoder 和 Seq2Seq 一样是从输入句 $ x_1,x_2,x_3…x_m$ 产生 $ h_1,h_2,h_3…h_m $的 hidden state， 再计算目标句 $ y_1,y_2,y_3..y_m $。差别就在于 context vector 怎么计算。</p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219135207783.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190219135207783.png" width="700" style="margin-bottom: 28px;"><br></div>
 
 <p>$$C_i = \sum_{j=1}^{T_x} \alpha_{ij}h_j$$</p>
 <p>Context vector 是通过 attention score $\alpha$ 乘上输入句的 hidden state 加权求和。Attention score 用来衡量输入句中每个文字对目标句中的每个文字所带来的重要性的程度。</p>
@@ -303,7 +303,7 @@
 <p>在 Attention model 是从输入句 $ x_1,x_2,x_3…x_m $ 产生 $ h_1,h_2,h_3…h_m $的 hidden state，通过 $Attention \; socre \; \alpha $ 乘上 input 的加权求和得到 Content vector C。有了 Content vector C 和 hidden state vector 即可计算目标句 $ y_1,y_2,y_3..y_m $。</p>
 <p>我们从另外一个角度来看 Attention model ：</p>
 <p>输入句的每个文字是由一些列成对的 <key,value> 构成，而目标文字中每个字是 Query 。那么就可以用 Key 、 Value 、 Query 去重新解释如何计算 Context vector，通过计算 Query 和各个 Key 的相似性，得到 每个 Key 对应 Value 的权重系数，权重系数代表信息的重要性，即 Attention Score 。最后对 Value 进行加权求和，就可以得到最终的 Context vector。</key,value></p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220161103389.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220161103389.png" width="700" style="margin-bottom: 28px;"><br></div>
 
 <p>The Transformer 计算 Attention 的方式有三种，如下图</p>
 <ol>
@@ -311,7 +311,7 @@
 <li>Decoder self attention 存在于 Decoder 中</li>
 <li>Encoder-Decoder attention 这种 Attention 和之前的 Attention 相似</li>
 </ol>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220162058251.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220162058251.png" width="700" style="margin-bottom: 28px;"><br></div>
 
 <p><strong>计算 Encoder self attention</strong></p>
 <p>首先，创建 Encoder 的输入向量 Q 、 K 、 V，举个例子，“Are you very big?”中的每个单词的隐向量都有自己的 Q 、 K 、 V。</p>
@@ -326,7 +326,7 @@
 <p><strong>Encoder-Decoder attention</strong></p>
 <p>Encoder-Decoder attention 和 Encoder/Decoder attention 不一样，它的Query 来自于 Decoder attention，而 Key 和 Value 则是来自于 Encoder 的 output。</p>
 <p><strong>Multi-head attention</strong></p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220171033534.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190220171033534.png" width="700" style="margin-bottom: 28px;"><br></div>
 
 <p>如果我们只计算一个 attention ，很难捕捉到句子中所有空间信息，为了优化模型，论文提出了一个新的做法：Multi-head attention。不仅仅对 Key 、 Value 、Query 做单一的 attention ，而是把 Key 、 Value 、Query 线性映射到不同的空间 h 次，再各自做 attention。这样就可以从不同的维度和表示的子空间里学习到相关的信息。</p>
 <p>通过 The Transformer ，我们可以使用 Multi-head attention 来解决并行化和计算复杂度过高的问题，依赖关系也可以通过 Self-attention 中单词与单词之间的比较方式来克服。</p>
