@@ -37,12 +37,12 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190222165140560.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190224154226526.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190224164820534.png">
-<meta property="og:image" content="https://gyh75520.github.io/2019/02/24/Attention/assets/markdown-img-paste-20190226160448293.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190226160448293.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-2019022616112879.png">
-<meta property="og:image" content="https://gyh75520.github.io/2019/02/24/Attention/markdown-img-paste-20190226164019314.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190226164019314.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190226165314865.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190225210609572.png">
-<meta property="og:updated_time" content="2019-03-01T13:31:06.064Z">
+<meta property="og:updated_time" content="2019-03-02T02:07:36.821Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention">
 <meta name="twitter:description" content="Attention Mechanism 非常流行，广泛用于机器翻译、语音识别、计算机视觉等很多领域。它之所以这么受欢迎，是因为 Attention 赋予了模型区分辨别的能力。深度学习中的注意力机制从本质上和人类的选择性视觉注意力机制类似，核心目标也是从众多信息中选择出对当前任务目标更关键的信息。">
@@ -406,7 +406,8 @@
 
 <p>可以看出，这种简单的设计并没有体现出加入 attention 的优势。</p>
 <h4 id="Control-of-Memory-Active-Perception-and-Action-in-Minecraft"><a href="#Control-of-Memory-Active-Perception-and-Action-in-Minecraft" class="headerlink" title="Control of Memory, Active Perception, and Action in Minecraft"></a>Control of Memory, Active Perception, and Action in Minecraft</h4><p><a href="https://arxiv.org/abs/1605.09128" target="_blank" rel="external">Control of Memory, Active Perception, and Action in Minecraft</a> 是对记忆进行加权，也就是对输入 state sequence 进行加权。</p>
-<p><img src="assets/markdown-img-paste-20190226160448293.png" alt=""></p>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190226160448293.png" width="600" style="margin-bottom: 28px;"><br></div>
+
 <p>如上所示，一共有<strong>I型迷宫、匹配迷宫、随机迷宫和带指示器的随机迷宫</strong>4种迷宫。每种迷宫的任务设计即有相似，又有区别：</p>
 <p><strong>I型迷宫：</strong> 在此迷宫中，有一个指示器，其颜色为绿色或黄色，两种颜色出现的几率一致。当指示器颜色为绿色时，史蒂夫需要前往蓝色处得到+1的奖励，如果去了红色处，则会得到-1的惩罚。当指示器颜色为绿色时，情况相反。</p>
 <p><strong>匹配迷宫：</strong> 在此迷宫中，有两个房间。如果两个房间中底板的图样一致，史蒂夫需要前往蓝色方块处，得到+1奖励，如果去了红色则-1。如果两个房间中底板的图样不一致，那么情况相反。</p>
@@ -424,7 +425,7 @@
 <p>本文设计了一个 Memory 结构，具体如下：</p>
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-2019022616112879.png" width="600" style="margin-bottom: 28px;"><br></div>
 
-<p>很明显可以看出这是一个 soft attention，整个 model 包含三个部分 <strong>Encoding, Memory and Context</strong></p>
+<p>很明显可以看出这是一个 soft attention，整个 model 包含三个部分 <strong>Encoding, Memory and Context</strong></p>
 <h5 id="Encoding"><a href="#Encoding" class="headerlink" title="Encoding"></a>Encoding</h5><p>这一步和DQN的神经网络一样，就是使用一个CNN来提取特征，不同的是这里只是到全连接层，目的是为了获取经过CNN压缩的图像特征信息。上图的 $\varphi$ 就是表示这个卷积处理的过程。</p>
 <p>$$ e_t = \phi^{enc}(x_t)$$</p>
 <h5 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h5><h6 id="Write"><a href="#Write" class="headerlink" title="Write:"></a>Write:</h6><p>$$M_t^{key}=W^{key}E_t$$<br>$$M_t^{val}=W^{val}E_t$$</p>
@@ -435,7 +436,7 @@
 <h5 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h5><p>加入 $ o_t$ 后，LSTM 的更新公式为<br>$$ [h_t,c_t] = LSTM([e_t,o_{t-1}],h_{t-1},c_{t-1})$$<br>也就是把上一个时刻提取的记忆也作为输入</p>
 <p>最后计算 Q 函数公式如下：<br>$$ q_t = \varphi^q(h_t,o_t)$$</p>
 <p>FRMQN 的结构如下：</p>
-<div align="center"><br><img src="markdown-img-paste-20190226164019314.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190226164019314.png" width="600" style="margin-bottom: 28px;"><br></div>
 
 <p>我们都知道LSTM也是一个记忆模块，那么为什么还专门弄一个 Memory 呢？</p>
 <p>LSTM影响的是 Context 上下文。而 Memory 则可以直接影响最后的Q值。两者的作用不一样。从功能实现上看，Memory更具化某一个记忆而且是最近的M次观察的记忆，而LSTM则是累积整个时间序列的记忆。</p>
@@ -443,38 +444,38 @@
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190226165314865.png" width="600" style="margin-bottom: 28px;"><br></div>
 
 <p>通过训练，使用FRMQN结构的算法最后能够在训练集的所有任务中顺利达成目标。而算法在面对其并没有见过的测试用的匹配迷宫时，凭借它在训练中的得到的“经验”，顺利达成任务的概率是91.8%。</p>
-<h4 id="Multi-focus-Attention-Network-for-Efficient-Deep-Reinforcement-Learning"><a href="#Multi-focus-Attention-Network-for-Efficient-Deep-Reinforcement-Learning" class="headerlink" title="Multi-focus Attention Network for Efficient Deep Reinforcement Learning"></a>Multi-focus Attention Network for Efficient Deep Reinforcement Learning</h4><p><a href="https://arxiv.org/abs/1712.04603v1" target="_blank" rel="external">Multi-focus Attention Network  for Efficient Deep Reinforcement Learning</a> 来自 AAAI 2017 Workshop on What’s next for AI in games 提出了一个 Multi-focus Attenion Network，可以应用到 Single Agent 和 Multi-Agent。</p>
+<h4 id="Multi-focus-Attention-Network-for-Efficient-Deep-Reinforcement-Learning"><a href="#Multi-focus-Attention-Network-for-Efficient-Deep-Reinforcement-Learning" class="headerlink" title="Multi-focus Attention Network for Efficient Deep Reinforcement Learning"></a>Multi-focus Attention Network for Efficient Deep Reinforcement Learning</h4><p><a href="https://arxiv.org/abs/1712.04603v1" target="_blank" rel="external">Multi-focus Attention Network  for Efficient Deep Reinforcement Learning</a> 来自 AAAI 2017 Workshop on What’s next for AI in games 提出了一个 Multi-focus Attenion Network，可以应用到 Single Agent 和 Multi-Agent。</p>
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190225210609572.png" width="600" style="margin-bottom: 28px;"><br></div>
 
 
 
-<p>上图是一个 grid world 导航任务的地图。每个 cell 代表这个地图的一个像素点，整个地图就是模型的输入。Agent A 按照（W1,W2,W3,W4) 的顺序依次访问每个 cell 。两幅图中，W1 的绝对位置不同，但是相对 A 的位置相同。因此，如果 RL model 学会了左边的图的策略，那么它在学右图的任务时应该可以 faster 。然而，这两张图对于 DQN 来说是完全两个不同的 states。所以，学习右图 A 到 W1 是一个独立的过程。前面介绍的 DARQN 算法，只有一层 attention ，只学习到了一种 entities 的关系。</p>
+<p>上图是一个 grid world 导航任务的地图。每个 cell 代表这个地图的一个像素点，整个地图就是模型的输入。Agent A 按照（W1,W2,W3,W4) 的顺序依次访问每个 cell 。两幅图中，W1 的绝对位置不同，但是相对 A 的位置相同。因此，如果 RL model 学会了左边的图的策略，那么它在学右图的任务时应该可以 faster 。然而，这两张图对于 DQN 来说是完全两个不同的 states。所以，学习右图 A 到 W1 是一个独立的过程。前面介绍的 DARQN 算法，只有一层 attention ，只学习到了一种 entities 的关系。</p>
 <p>于是，本文提出了 Multi-focus Attention Network，尝试学习多种 Attentions。</p>
-<h4 id="Multi-focus-Attention-Network"><a href="#Multi-focus-Attention-Network" class="headerlink" title="Multi-focus Attention Network"></a>Multi-focus Attention Network</h4><p>整个 model 分为四个部分，(a) Input segmentation, (b) Feature extraction, (c) Parallel attentions, (d) State-action value estimation。</p>
-<h5 id="Input-segmentation"><a href="#Input-segmentation" class="headerlink" title="Input segmentation"></a>Input segmentation</h5><p>这个模块将输入简单分成多个 segments ，将其称为 partial states。具体做法，将输入图像划分成均匀的 grid ，有规则的选择 cells 作为 partial state。</p>
-<h5 id="Feature-extraction"><a href="#Feature-extraction" class="headerlink" title="Feature extraction"></a>Feature extraction</h5><p>这个模块是为了构建 Key Value。</p>
-<p>对于每个 partial state，先通过一个公共的特征提取层，比如 CNN。</p>
+<h4 id="Multi-focus-Attention-Network"><a href="#Multi-focus-Attention-Network" class="headerlink" title="Multi-focus Attention Network"></a>Multi-focus Attention Network</h4><p>整个 model 分为四个部分，(a) Input segmentation, (b) Feature extraction, (c) Parallel attentions, (d) State-action value estimation。</p>
+<h5 id="Input-segmentation"><a href="#Input-segmentation" class="headerlink" title="Input segmentation"></a>Input segmentation</h5><p>这个模块将输入简单分成多个 segments ，将其称为 partial states。具体做法，将输入图像划分成均匀的 grid ，有规则的选择 cells 作为 partial state。</p>
+<h5 id="Feature-extraction"><a href="#Feature-extraction" class="headerlink" title="Feature extraction"></a>Feature extraction</h5><p>这个模块是为了构建 Key Value。</p>
+<p>对于每个 partial state，先通过一个公共的特征提取层，比如 CNN。</p>
 <p>$$ c_i = f_f(s_i) \; for \; all \; i \in (0,1,…,K)$$</p>
-<p>然后构建 Key 和 Value：</p>
+<p>然后构建 Key 和 Value：</p>
 <p>$$Key_i = W_{key} \cdot c_i$$<br>$$Val_i = f_v(W_{val} \cdot c_i)$$</p>
-<p>其中的 i 都表示第 i 个 partial states，$f_v$ 代表激活函数</p>
-<h5 id="Parallel-attentions"><a href="#Parallel-attentions" class="headerlink" title="Parallel attentions"></a>Parallel attentions</h5><p>为了学到不同的 Attentions，我们就要有不同的 Query ,这里不再使用 RNN 中隐状态作为 Query。本文定义了 N 个 selector vector $a_0,a_1,…,a_{N-1}$ 作为 N 个 Query。</p>
-<p>于是可以得到 N 个 Attention Score：</p>
+<p>其中的 i 都表示第 i 个 partial states，$f_v$ 代表激活函数</p>
+<h5 id="Parallel-attentions"><a href="#Parallel-attentions" class="headerlink" title="Parallel attentions"></a>Parallel attentions</h5><p>为了学到不同的 Attentions，我们就要有不同的 Query ,这里不再使用 RNN 中隐状态作为 Query。本文定义了 N 个 selector vector $a_0,a_1,…,a_{N-1}$ 作为 N 个 Query。</p>
+<p>于是可以得到 N 个 Attention Score：</p>
 <p>$$A_i^N = \frac{exp(a_n \cdot Key^T_i)}{\sum_j exp(a_n \cdot Key_j^T)} \; for \; all \;n \in (0,1,…,N-1)$$</p>
-<p>所有的 $a_n$ 都在训练之前随机初始化，为了让不同的 attention layers 学到不同的 attentions ，还加入了正则化，这里不再赘述。</p>
+<p>所有的 $a_n$ 都在训练之前随机初始化，为了让不同的 attention layers 学到不同的 attentions ，还加入了正则化，这里不再赘述。</p>
 <h5 id="State-action-value-estimation"><a href="#State-action-value-estimation" class="headerlink" title="State-action value estimation"></a>State-action value estimation</h5><p>很自然地，我们可以得到 N 个 context vector h：<br>$$ h_n = \sum_i Val_i \cdot A_i^n$$</p>
-<p>接着我们把 N 个 vector 拼接起来 ：<br>$$ g = concat(h_0,h_1,…,h_N) $$</p>
-<p>g 就是最后计算 Q 函数的输入：</p>
+<p>接着我们把 N 个 vector 拼接起来 ：<br>$$ g = concat(h_0,h_1,…,h_N) $$</p>
+<p>g 就是最后计算 Q 函数的输入：</p>
 <p>$$ Q = f_q(g)$$</p>
 <h4 id="Extension-to-the-Multi-Agent-Reinforcement-Learning"><a href="#Extension-to-the-Multi-Agent-Reinforcement-Learning" class="headerlink" title="Extension to the Multi-Agent Reinforcement Learning"></a>Extension to the Multi-Agent Reinforcement Learning</h4><p>在 Multi-Agent 的任务中，每个 Agent 观察的是 partially atates,是整个环境状态的一部分。</p>
-<h5 id="Input-segmentation-1"><a href="#Input-segmentation-1" class="headerlink" title="Input segmentation"></a>Input segmentation</h5><p>和 Single Agent 一样，不再赘述</p>
+<h5 id="Input-segmentation-1"><a href="#Input-segmentation-1" class="headerlink" title="Input segmentation"></a>Input segmentation</h5><p>和 Single Agent 一样，不再赘述</p>
 <h5 id="Feature-extraction-1"><a href="#Feature-extraction-1" class="headerlink" title="Feature extraction"></a>Feature extraction</h5><p>$$ c_i = f_f(s_i) \; for \; all \; i \in (0,1,…,K)$$</p>
-<p>然后构建 Key 和 Value，Query：</p>
+<p>然后构建 Key 和 Value，Query：</p>
 <p>$$Key_i = W_{key} \cdot c_i$$<br>$$Val_i = f_v(W_{val} \cdot c_i)$$<br>$$ a_i = W_a\cdot c_i$$</p>
-<p>这里的 i 不再表示第 i 个 partial states，而是表示第 i 个 Agent。注意到这里的 Query 和前面不一样了。</p>
-<p>于是可以得到 K 个 Agent 的 Attention Score：</p>
+<p>这里的 i 不再表示第 i 个 partial states，而是表示第 i 个 Agent。注意到这里的 Query 和前面不一样了。</p>
+<p>于是可以得到 K 个 Agent 的 Attention Score：</p>
 <p>$$A_j^i = \frac{exp(a_i \cdot Key^T_j)}{\sum_{j’} exp(a_i \cdot Key_{j’}^T)} \; for \; all \;i,j \in (0,1,…,K)$$</p>
-<p>$A_j^i$ 表示 Agent j 对 Agent i 的权重。越高表示Agent j 拥有对 Agent i 更有用的信息。</p>
+<p>$A_j^i$ 表示 Agent j 对 Agent i 的权重。越高表示Agent j 拥有对 Agent i 更有用的信息。</p>
 <h5 id="State-action-value-estimation-1"><a href="#State-action-value-estimation-1" class="headerlink" title="State-action value estimation"></a>State-action value estimation</h5><p>同样地，我们可以得到 K 个 Agent 的 context vector h：<br>$$h_i = \sum_j Val_j \cdot A_j^i \in (0,1,…,K)$$<br>$$g = concate(Val_i,h_i)$$<br>这里 $h_i$ 是第 i 个 Agent 的 communication feature</p>
 <p>最后计算每个Agent 的 Q 值：</p>
 <p>$$ Q_i = f_q(g_i)$$</p>
