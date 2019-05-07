@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507152245992.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507151134499.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507153401470.png">
-<meta property="og:updated_time" content="2019-05-07T08:39:29.289Z">
+<meta property="og:updated_time" content="2019-05-07T08:42:38.773Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Relational inductive biases, deep learning, and graph networks">
 <meta name="twitter:description" content="论文认为：组合泛化（combinatorial generalization）是AI中最首要的任务，要达到这个目的，结构化表征（structured representations）和计算能力（computations）很关键。如生物学中，将先天基因和后天孕育结合在一起，因此我们必须摒弃在”手动设计结构(hand-engineering)“和”端到端（end-to-end）”二选一的错误做法，而是">
@@ -308,18 +308,18 @@
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506200609113.png" width="600" style="margin-bottom: 28px;"><br></div>
 
 <h4 id="对每个边的状态进行的更新"><a href="#对每个边的状态进行的更新" class="headerlink" title="对每个边的状态进行的更新:"></a>对每个边的状态进行的更新:</h4><p>$$e_k^{‘} = \phi^e(e_k,v_{r_k},v_{s_k},u)$$<br>蓝色为输出, 黑色为输入</p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506201714332.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506201714332.png" width="200" style="margin-bottom: 28px;"><br></div>
 
 
 <h4 id="对每个点的状态进行的更新"><a href="#对每个点的状态进行的更新" class="headerlink" title="对每个点的状态进行的更新:"></a>对每个点的状态进行的更新:</h4><p>$$v_i^{‘} = \phi^v(\bar{e_i}^{‘},v_{i},u)$$<br>其中，$\bar{e_i}^{‘} = \rho^{e \rightarrow v}(E_i^{‘})$</p>
 <p>$\rho$ 是个聚合函数, 其接受参数为一个边的集合. 然后利用集合中所有边的信息去调整一个node的状态.</p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506202218845.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506202218845.png" width="200" style="margin-bottom: 28px;"><br></div>
 
 <h4 id="对全局状态进行跟新"><a href="#对全局状态进行跟新" class="headerlink" title="对全局状态进行跟新:"></a>对全局状态进行跟新:</h4><p>$$u^{‘} = \phi^u(\bar{e}^{‘},\bar{v}^{‘},u)$$<br>其中包含两个聚合函数：</p>
 <p>$\bar{e}^{‘} = \rho^{e \rightarrow u}(E_i)$<br>$\bar{v}^{‘} = \rho^{v \rightarrow u}(V_i)$</p>
 <p>第一个, 其接受参数为一个边的集合. 然后利用集合中所有边的信息去调整全局状态。</p>
 <p>第二个, 其接受参数为一个点的集合. 然后利用集合中所有点的信息去调整全局状态。</p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506203131564.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506203131564.png" width="200" style="margin-bottom: 28px;"><br></div>
 
 <p><strong>聚合函数需要具有的特点</strong></p>
 <ul>
@@ -364,7 +364,7 @@
 <p>第一个方式的例子:<br>知识图谱以及句法树以及社会网络问题, 这样的问题中, edge是根据其相连实体来确定的.也就是说, ​ 是基于一个知识图谱或者句法树等等.<br>第二个方式的例子:<br>例如, visual scenes, 自然语料库等等. 这样的初始的情况下我们不知道实体之间的任何关系.<br>具体的例子就是, 将句子中的每一个词汇视为一个node，将图片分 cell，每一个cell 代表一个实体。</p>
 <h3 id="Configurable-within-block-structure"><a href="#Configurable-within-block-structure" class="headerlink" title="Configurable within-block structure"></a>Configurable within-block structure</h3><p>通过对GN进行个性化的定制，我们可以得到不同的网络模型。</p>
 <h4 id="Full-GN-Block"><a href="#Full-GN-Block" class="headerlink" title="Full GN Block"></a>Full GN Block</h4><p>首先是完整的 GN Block：</p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507134345264.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507134345264.png" width="400" style="margin-bottom: 28px;"><br></div>
 
 <h4 id="Non-local-neural-network"><a href="#Non-local-neural-network" class="headerlink" title="Non-local neural network"></a>Non-local neural network</h4><p>先来简单介绍一下 NLNN：<br>Non-local neural network在捕捉长距离特征之间依赖关系的基础上提出了一种非局部信息统计的注意力机制。</p>
 <p>不管是 CV 任务还是 NLP 任务，都需要捕捉长范围依赖。在时序任务中，RNN 是一种主要的捕获长范围依赖手段，而在 CNN 中是通过堆叠多个卷积块来形成的大感受野。目前的卷积和循环结构都是在空间或者时间上的局部操作，长范围的依赖捕获是通过重复堆叠，并且反向传播得到，会有一些问题：</p>
@@ -388,10 +388,10 @@
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/Attention/markdown-img-paste-20190222163349633.png" width="600" style="margin-bottom: 28px;"><br></div>
 
 <p>从 GN 的角度来看：</p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507134458532.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507134458532.png" width="400" style="margin-bottom: 28px;"><br></div>
 
 <p>这里的 Entity(Node) 就是公式中的 x，Node的属性就是x的值。<br>两两 Node 之间包含双向的 Edge（很明显也存在双向的自边）。Edge 的属性是 $(a_k^{‘},b_k^{‘})$。</p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-2019050714112302.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-2019050714112302.png" width="800" style="margin-bottom: 28px;"><br></div>
 
 <p>显而易见，这里的 $\alpha^e$ 就是 $f$ 函数，$\beta^e$ 就是 $g$ 函数。<br>聚合函数 $\rho^{e\rightarrow v}$ 就是 NLNN 的表达式。</p>
 <h4 id="Relation-Networks"><a href="#Relation-Networks" class="headerlink" title="Relation Networks"></a>Relation Networks</h4><p>Visual reasoning是个非常重要的问题，由于ResNet等大杀器出现，visual recognition任务本身快要被解决，所以计算机视觉的研究方向逐渐往认知过程的更上游走，即逻辑推理。</p>
@@ -417,7 +417,7 @@
 <li>RNs作用在一个集合上。对输入和输出都是与顺序无关的（input/output invariation）</li>
 </ul>
 <p>从 GN 的角度来看：</p>
-<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507152245992.png" width="600" style="margin-bottom: 28px;"><br></div>
+<div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507152245992.png" width="400" style="margin-bottom: 28px;"><br></div>
 
 <p>这里的 Entity(Node) 就是公式中的 o，Node的属性就是 o 的值。<br>两两 Node 之间包含双向的 Edge（很明显也存在双向的自边），Edge 的属性就是$NN_e$的值。<br>$NN_e$ 就是 g 函数，$NN_u$ 就是 f 函数。</p>
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507151134499.png" width="600" style="margin-bottom: 28px;"><br></div>
@@ -688,19 +688,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mac</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">博弈论</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mac</a>
               </li>
             
             <div class="clearfix"></div>
