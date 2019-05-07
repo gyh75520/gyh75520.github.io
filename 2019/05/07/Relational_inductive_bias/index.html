@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507152245992.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507151134499.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507153401470.png">
-<meta property="og:updated_time" content="2019-05-07T08:42:38.773Z">
+<meta property="og:updated_time" content="2019-05-07T08:44:29.634Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Relational inductive biases, deep learning, and graph networks">
 <meta name="twitter:description" content="论文认为：组合泛化（combinatorial generalization）是AI中最首要的任务，要达到这个目的，结构化表征（structured representations）和计算能力（computations）很关键。如生物学中，将先天基因和后天孕育结合在一起，因此我们必须摒弃在”手动设计结构(hand-engineering)“和”端到端（end-to-end）”二选一的错误做法，而是">
@@ -180,9 +180,7 @@
           	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#研究问题"><span class="toc-number">1.</span> <span class="toc-text">研究问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关系归纳偏置（Relational-inductive-biases）"><span class="toc-number">2.</span> <span class="toc-text">关系归纳偏置（Relational inductive biases）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关系推理-relational-reasoning-："><span class="toc-number">2.1.</span> <span class="toc-text">关系推理(relational reasoning)：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#归纳偏置-Inductive-biases-："><span class="toc-number">2.2.</span> <span class="toc-text">归纳偏置(Inductive biases)：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系归纳偏置"><span class="toc-number">2.3.</span> <span class="toc-text">关系归纳偏置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rel-Inductive-bias-推广到深度模型"><span class="toc-number">3.</span> <span class="toc-text">Rel Inductive bias 推广到深度模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fully-connected"><span class="toc-number">3.1.</span> <span class="toc-text">Fully connected</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Convolutional-layers"><span class="toc-number">3.2.</span> <span class="toc-text">Convolutional layers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Recurrent-layers"><span class="toc-number">3.3.</span> <span class="toc-text">Recurrent layers</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computations-over-sets-and-graphs"><span class="toc-number">4.</span> <span class="toc-text">Computations over sets and graphs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Graph-Networks-Block"><span class="toc-number">5.</span> <span class="toc-text">Graph Networks Block</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#graph-的定义"><span class="toc-number">5.1.</span> <span class="toc-text">graph 的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Internal-structure-of-a-GN-block"><span class="toc-number">5.2.</span> <span class="toc-text">Internal structure of a GN block</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对每个边的状态进行的更新"><span class="toc-number">5.2.1.</span> <span class="toc-text">对每个边的状态进行的更新:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对每个点的状态进行的更新"><span class="toc-number">5.2.2.</span> <span class="toc-text">对每个点的状态进行的更新:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对全局状态进行跟新"><span class="toc-number">5.2.3.</span> <span class="toc-text">对全局状态进行跟新:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图网络中的关系归纳偏置-Relational-inductive-biases-in-graph-networks"><span class="toc-number">5.3.</span> <span class="toc-text">图网络中的关系归纳偏置(Relational inductive biases in graph networks)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Design-principles-for-graph-network-architectures"><span class="toc-number">6.</span> <span class="toc-text">Design principles for graph network architectures</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Attribute"><span class="toc-number">6.1.</span> <span class="toc-text">Attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Graph-structure"><span class="toc-number">6.2.</span> <span class="toc-text">Graph structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Configurable-within-block-structure"><span class="toc-number">6.3.</span> <span class="toc-text">Configurable within-block structure</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Full-GN-Block"><span class="toc-number">6.3.1.</span> <span class="toc-text">Full GN Block</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Non-local-neural-network"><span class="toc-number">6.3.2.</span> <span class="toc-text">Non-local neural network</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Relation-Networks"><span class="toc-number">6.3.3.</span> <span class="toc-text">Relation Networks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小结"><span class="toc-number">6.3.4.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Composable-multi-block-architectures"><span class="toc-number">6.4.</span> <span class="toc-text">Composable multi-block architectures</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
           	</div>
           
-        <p>论文认为：组合泛化（combinatorial generalization）是AI中最首要的任务，要达到这个目的，结构化表征（structured representations）和计算能力（computations）很关键。如生物学中，将先天基因和后天孕育结合在一起，因此我们必须摒弃在”手动设计结构(hand-engineering)“和”端到端（end-to-end）”二选一的错误做法，而是把两者结合起来：深度学习+基于结构的方法：图网络。</p>
-<a id="more"></a>
-<p>论文中提到的所谓的inductive bias，指的是人类对世界的先验知识，对应在网络中就是网络结构。图网络中的网络结构是固定不变的，我们可以将其理解为工程师放进去的一种先验的“偏见”，如果工程师认为A事件导致B事件发生，那么他就会在A、B之间放上一条连边，这就体现了A、B之间的因果关系，我们称之为推理能力。</p>
+        <p>论文认为：组合泛化（combinatorial generalization）是AI中最首要的任务，要达到这个目的，结构化表征（structured representations）和计算能力（computations）很关键。如生物学中，将先天基因和后天孕育结合在一起，因此我们必须摒弃在”手动设计结构(hand-engineering)“和”端到端（end-to-end）”二选一的错误做法，而是把两者结合起来：深度学习+基于结构的方法：图网络。<br><a id="more"></a></p>
 <h2 id="研究问题"><a href="#研究问题" class="headerlink" title="研究问题"></a>研究问题</h2><p>要探索的是：如何在深度学习结构中学习实体(entities)，关系(relations)，规则(rules)并组合起来，然后在其结构中实现关系归纳偏置(relational inductive biases)？</p>
 <p>对此，本文提出了一种可在AI中应用的新模块，即图网络，图网络通过提供一个接口用来操作结构化知识并处理结构上的行为。那么图网络如何实现关系推理(relational reasoning)和组合泛化(combinatorial generalization)呢？</p>
 <p>一种关键的人类的智能能力——以有限表示无穷(A key signature of human intelligence is the ability to make “in finite use of fi nite means”)。即用一些集合的元素（如句子，单词）进行无限的组合（组成句子，文章）。这也反映出了组合泛化原则：从已有的模块进行组合，来达到推理，预测等功能。</p>
@@ -688,19 +686,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">博弈论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">opencv3</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">mac</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">博弈论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
             
             <div class="clearfix"></div>
