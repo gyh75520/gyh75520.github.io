@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507152245992.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507151134499.png">
 <meta property="og:image" content="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507153401470.png">
-<meta property="og:updated_time" content="2019-05-07T08:57:21.336Z">
+<meta property="og:updated_time" content="2019-05-07T11:23:23.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Relational inductive biases, deep learning, and graph networks">
 <meta name="twitter:description" content="论文认为：组合泛化（combinatorial generalization）是AI中最首要的任务，要达到这个目的，结构化表征（structured representations）和计算能力（computations）很关键。如生物学中，将先天基因和后天孕育结合在一起，因此我们必须摒弃在”手动设计结构(hand-engineering)“和”端到端（end-to-end）”二选一的错误做法，而是">
@@ -184,25 +184,25 @@
         <p>论文认为：组合泛化（combinatorial generalization）是AI中最首要的任务，要达到这个目的，结构化表征（structured representations）和计算能力（computations）很关键。如生物学中，将先天基因和后天孕育结合在一起，因此我们必须摒弃在”手动设计结构(hand-engineering)“和”端到端（end-to-end）”二选一的错误做法，而是把两者结合起来：深度学习+基于结构的方法：图网络。<br><a id="more"></a></p>
 <h2 id="研究问题"><a href="#研究问题" class="headerlink" title="研究问题"></a>研究问题</h2><p>要探索的是：如何在深度学习结构中学习实体(entities)，关系(relations)，规则(rules)并组合起来，然后在其结构中实现关系归纳偏置(relational inductive biases)？</p>
 <p>对此，本文提出了一种可在AI中应用的新模块，即图网络，图网络通过提供一个接口用来操作结构化知识并处理结构上的行为。那么图网络如何实现关系推理(relational reasoning)和组合泛化(combinatorial generalization)呢？</p>
-<p>一种关键的人类的智能能力——以有限表示无穷(A key signature of human intelligence is the ability to make “in finite use of fi nite means”)。即用一些集合的元素（如句子，单词）进行无限的组合（组成句子，文章）。这也反映出了组合泛化原则：从已有的模块进行组合，来达到推理，预测等功能。</p>
-<p>人类组合泛化能力依赖于我们对结构化表示和关系推理的认知(Humans’ capacity for combinatorial generalization depends critically on our cognitive mechanisms for representing structure and reasoning about relations.)。人类使用分级制来提取行为和表示的差别和共性，同时面对新颖的问题，会采用相似技能与常规经验相组合（composing familiar skills and routines）来解决。即：我们通过对齐两个域之间的关系结构，并根据其中一个域来对另一个域相对应的知识得出一个推论或类比。</p>
+<p>一种关键的人类的智能能力——以<strong>有限表示无穷</strong> (A key signature of human intelligence is the ability to make “in finite use of fi nite means”)。即用一些集合的元素（如句子，单词）进行无限的组合（组成句子，文章）。这也反映出了组合泛化原则：从已有的模块进行组合，来达到推理，预测等功能。</p>
+<p><strong>人类组合泛化能力依赖于我们对结构化表示和关系推理的认知</strong>(Humans’ capacity for combinatorial generalization depends critically on our cognitive mechanisms for representing structure and reasoning about relations.)。人类使用分级制来提取行为和表示的差别和共性，同时面对新颖的问题，会采用相似技能与常规经验相组合（composing familiar skills and routines）来解决。即：我们通过对齐两个域之间的关系结构，并根据其中一个域来对另一个域相对应的知识得出一个推论或类比。</p>
 <p>我们在学习的时候(接受一个正确实例的时候), 可以做两个事情</p>
 <ul>
 <li>将新的知识放入已有的结构化知识框架.</li>
 <li>调整框架去适应新的知识.</li>
 </ul>
 <p>对比过去的AI算法，往往都陷入“端到端”的设计哲学中，并强调最小化先验表征和计算假设，并避免明确的结构和手工设计结构。正是由于深度学习刻意避开了组合性和明确的结构方法，而面对像复杂语言、场景理解、结构化数据推理、基础训练上的迁移学习和少量经验学习这些需要组合泛化功能实现的任务，深度学习在这些任务上就难以实现了。</p>
-<p>正如生物学里先天因素和后天因素是共同发挥作用的，本文认为“人工构造”（hand-engineering）和“端到端”学习也不是只能从中选择其一，本文主张结合两者的优点，从它们的互补优势中受益。</p>
-<p>整篇文章都是从关系归纳偏置(relational inductive biases)的视角来研究各种深度学习方法，表明现有的方法往往带有关系假设，这些假设并不总是显式的或立即可见的。然后，文章提出了一个基于实体和关系的推理的通用框架——称之为图网络——用于统一和扩展现有的对图进行操作的方法，并描述了使用图网络作为构建块构建强大架构的关键设计原则。</p>
+<p>正如生物学里先天因素和后天因素是共同发挥作用的，<strong>本文认为“人工构造”（hand-engineering）和“端到端”学习也不是只能从中选择其一，本文主张结合两者的优点，从它们的互补优势中受益。</strong></p>
+<p>整篇文章都是从<strong>关系归纳偏置(relational inductive biases)的视角</strong>来研究各种深度学习方法，表明现有的方法往往带有关系假设，这些假设并不总是显式的或立即可见的。然后，文章提出了一个基于实体和关系的推理的通用框架——称之为图网络——用于统一和扩展现有的对图进行操作的方法，并描述了使用图网络作为构建块构建强大架构的关键设计原则。</p>
 <h2 id="关系归纳偏置（Relational-inductive-biases）"><a href="#关系归纳偏置（Relational-inductive-biases）" class="headerlink" title="关系归纳偏置（Relational inductive biases）"></a>关系归纳偏置（Relational inductive biases）</h2><h3 id="关系推理-relational-reasoning-："><a href="#关系推理-relational-reasoning-：" class="headerlink" title="关系推理(relational reasoning)："></a>关系推理(relational reasoning)：</h3><div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506101340691.png" width="600" style="margin-bottom: 28px;"><br></div>
 
 <ul>
-<li>实体(entitiy)：具有属性的元素，比如具有大小和质量的物体。</li>
-<li>关系(relation)：实体之间的属性。两个物体之间的关系，比如具有相同的尺寸，A比B更重等。在这里，我们关注实体之间的配对关系。</li>
-<li>规则(rule)：将实体和关系映射到新的实体和关系的函数。</li>
+<li><strong>实体(entitiy)：</strong> 具有属性的元素，比如具有大小和质量的物体。</li>
+<li><strong>关系(relation)：</strong> 实体之间的属性。两个物体之间的关系，比如具有相同的尺寸，A比B更重等。在这里，我们关注实体之间的配对关系。</li>
+<li><strong>规则(rule)：</strong> 将实体和关系映射到新的实体和关系的函数。</li>
 </ul>
 <p>图模型能取得成功是因为捕获到了真实世界生成过程的稀疏结构，并且支持能够进行推理和学习的算法。</p>
-<h3 id="归纳偏置-Inductive-biases-："><a href="#归纳偏置-Inductive-biases-：" class="headerlink" title="归纳偏置(Inductive biases)："></a>归纳偏置(Inductive biases)：</h3><p>我们把在学习过程中，实体之间关系和相互作用施加约束叫做归纳偏置。</p>
+<h3 id="归纳偏置-Inductive-biases-："><a href="#归纳偏置-Inductive-biases-：" class="headerlink" title="归纳偏置(Inductive biases)："></a>归纳偏置(Inductive biases)：</h3><p>我们把在学习过程中，<strong>实体之间关系和相互作用施加约束叫做归纳偏置</strong>。</p>
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506105216286.png" width="600" style="margin-bottom: 28px;"><br></div>
 
 <p>学习过程涉及到寻找一个解空间中的解，归纳偏置(inductive biases)允许一个学习算法优先选择一个解决方案或者解释方案(solution or interpretation)。归纳偏置经常会以提高灵活性来提高样本复杂性，并可由偏差-方差来权衡理解。</p>
@@ -235,9 +235,9 @@
 
 <p>每个深度模型的entities, relations 和 rules都是不一样的, 为了更好的理解他们, 这里定义了几个术语.</p>
 <ul>
-<li>arguments : 是 rule functions的输入, 就是entities和relations</li>
-<li>reused, shared : 指的是 rule functions 是否被reused或者shared(也就是说不同relation(连线)之间是否使用相同的rules(激活函数,不同权重算不同函数)).</li>
-<li>interactions, isolation : 得出的结果是全部entities之间协作的结果的话就是interactions, 否则就是isolation.</li>
+<li><strong>arguments :</strong> 是 rule functions的输入, 就是entities和relations</li>
+<li><strong>reused, shared :</strong> 指的是 rule functions 是否被reused或者shared(也就是说不同relation(连线)之间是否使用相同的rules(激活函数,不同权重算不同函数)).</li>
+<li><strong>interactions, isolation :</strong>  得出的结果是全部entities之间协作的结果的话就是interactions, 否则就是isolation.</li>
 </ul>
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506162327469.png" width="600" style="margin-bottom: 28px;"><br></div>
 
@@ -279,11 +279,11 @@
 </ul>
 <p>图网络的设计理念：</p>
 <ul>
-<li><p>灵活表示(Flexible representations)</p>
+<li><p><strong>灵活表示(Flexible representations)</strong></p>
 </li>
-<li><p>可控内部结构 (Con gurable within-block structure)</p>
+<li><p><strong>可控内部结构 (Configurable within-block structure)</strong></p>
 </li>
-<li><p>可组合多块体系结构(Composable multi-block architectures)</p>
+<li><p><strong>可组合多块体系结构(Composable multi-block architectures)</strong></p>
 </li>
 </ul>
 <h3 id="graph-的定义"><a href="#graph-的定义" class="headerlink" title="graph 的定义"></a>graph 的定义</h3><div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190506195326428.png" width="600" style="margin-bottom: 28px;"><br></div>
@@ -291,11 +291,11 @@
 <p><strong>实体被定义为图的节点，关系为边。</strong></p>
 <p>图被定义为一个三元组，$G =(u,V,E)$</p>
 <ul>
-<li><p>$node  v_i$  : 拥有属性 attribute, 抽象含义是一个node, 具体值是 attribute ​$v_i$ 。 \<br>$V = { v}_{i =1: N_v} $, 是所有nodes的集合。</p>
+<li><p><strong>$node \; v_i$  :</strong> 拥有属性 attribute, 抽象含义是一个node, 具体值是 attribute ​$v_i$ 。<br>$V = { v}_{i =1: N_v} $, 是所有nodes的集合。</p>
 </li>
-<li><p>$edge e_k$ : 拥有属性, 抽象含义是一个 edge, 具体值是 attribute ​$e_k$。\<br>​$E = { ( e_k ,r_k ,s_k ) }_{k =1: N_e} $, 是所有edges的集合。</p>
+<li><p><strong>$edge\; e_k$ :</strong> 拥有属性, 抽象含义是一个 edge, 具体值是 attribute ​$e_k$。<br>​$E = { ( e_k ,r_k ,s_k ) }_{k =1: N_e} $, 是所有edges的集合。</p>
 </li>
-<li><p>$global attributes u$: 图的全局属性。</p>
+<li><p><strong>$global\; attributes\; u$:</strong> 图的全局属性。</p>
 </li>
 </ul>
 <p>上面是三个基本组成元素.</p>
@@ -406,7 +406,7 @@
 <li>Inputs: $O={o_1, …, o_n}$</li>
 <li><p>MLPs: $f_\phi, g_\theta$</p>
 <ul>
-<li><p>$g_\theta$: 使用一个全连接的神经网络来量化 $o_i$ 和 $o_j$ 的关系，任意两个对象之间的关系使用同一套参数 $g_\theta(<em>,</em>)$</p>
+<li><p>$g_\theta$: 使用一个全连接的神经网络来量化 $o_i$ 和 $o_j$ 的关系，任意两个对象之间的关系使用同一套参数 $g_\theta(,)$</p>
 </li>
 <li><p>$f_\phi (\sum_{i,j}g_\theta(o_i, o_j))$: 考虑所有组合的关系，相当于考虑一个完全连接图，在这个图上计算各个边的权重，把重要的关系凸显出来，f 函数就计算了这个重要关系的集合。</p>
 </li>
@@ -422,7 +422,7 @@
 <p>从 GN 的角度来看：</p>
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507152245992.png" width="400" style="margin-bottom: 28px;"><br></div>
 
-<p>这里的 Entity(Node) 就是公式中的 o，Node的属性就是 o 的值。<br>两两 Node 之间包含双向的 Edge（很明显也存在双向的自边），Edge 的属性就是$NN_e$的值。<br>$NN_e$ 就是 g 函数，$NN_u$ 就是 f 函数。</p>
+<p>这里的 Entity(Node) 就是公式中的 o，Node的属性就是 o 的值。<br>两两 Node 之间包含双向的 Edge（很明显也存在双向的自边），Edge 的属性就是$NN_e$的值。<br>$NN_e$ 就是 g 函数，$NN_u$ 就是 f 函数。</p>
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507151134499.png" width="600" style="margin-bottom: 28px;"><br></div>
 
 <h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>这篇文章给了我们一个抽象的理解深度模型方法的框架,看完之后加深了对很多模型的理解。</p>
@@ -432,7 +432,12 @@
 <div align="center"><br><img src="https://gyh75520.github.io/assets/img/ReL_Inductive_bias/markdown-img-paste-20190507153401470.png" width="600" style="margin-bottom: 28px;"><br></div>
 
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>私认为，GN 中最为关键的思想就是 Relations。本文将该框架对应于图的神经网络中各种最新的方法进行了归纳和扩展，图网络 GN 被设计为使用可定制的图到图的模块来构建复杂体系结构，它们的关系归纳偏置促进了组合泛化比其它标准机器学习构建块有更高的效率。</p>
-<h2 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h2>
+<h2 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h2><ul>
+<li><a href="https://arxiv.org/abs/1806.01261?context=cs" target="_blank" rel="external">Relational inductive biases, deep learning, and graph networks</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/40733008" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/40733008</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/38861547" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/38861547</a></li>
+</ul>
+
       
 
       
