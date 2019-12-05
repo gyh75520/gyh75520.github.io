@@ -6,18 +6,38 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gyh75520.github.io">
-  <title>Archives | Howard的博客</title>
+  <title>Spatial Transformer Networks | Howard的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="幽幽微醺淡淡咖啡香">
-<meta name="keywords" content="增强学习,深度学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Howard的博客">
-<meta property="og:url" content="https://gyh75520.github.io/archives/index.html">
+  <meta name="description" content="对人类来说，我们只需一眼便能快速识别我们所处的环境以及环绕在我们身边的物体。当我们看到一张图片或是环看四周的时候，无需刻意观察，多数时候也能立即描述出场景特征并标记出每一个对象。">
+<meta name="keywords" content="DL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spatial Transformer Networks">
+<meta property="og:url" content="https://gyh75520.github.io/2019/10/30/Spatial Transformer Networks/index.html">
 <meta property="og:site_name" content="Howard的博客">
-<meta property="og:description" content="幽幽微醺淡淡咖啡香">
+<meta property="og:description" content="对人类来说，我们只需一眼便能快速识别我们所处的环境以及环绕在我们身边的物体。当我们看到一张图片或是环看四周的时候，无需刻意观察，多数时候也能立即描述出场景特征并标记出每一个对象。">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/74c11ddegy1g9hijmrsdoj21mk0nqh9i.jpg">
+<meta property="og:image" content="https://gyh75520.github.io/assets/gif/497263C3E44AFF210B45DF1B489FFDDC.gif">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-0952070820fa8bcc0e2ff728c8ce1e71_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-162b5e2c3bcc2bf1c37d02dbe4ab0503_b.jpg">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn2/var1.png">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn2/var2.png">
+<meta property="og:image" content="https://gyh75520.github.io/assets/gif/96787121DA923221F2C9FAEDB715C034.gif">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn/scale.png">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn/rot.png">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn/shear.png">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn/affine.png">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/74c11ddely1g9gea3r4hdj213i0va1ky.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/74c11ddely1g9ino0ngzaj20dw0iiag9.jpg">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn2/stn_arch.png">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/74c11ddely1g9ilsa7wqcj209d08cgms.jpg">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn/stickman.png">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn/interpol.png">
+<meta property="og:image" content="https://kevinzakka.github.io/assets/stn2/mnist.png">
+<meta property="og:updated_time" content="2019-12-05T08:44:02.955Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Howard的博客">
-<meta name="twitter:description" content="幽幽微醺淡淡咖啡香">
+<meta name="twitter:title" content="Spatial Transformer Networks">
+<meta name="twitter:description" content="对人类来说，我们只需一眼便能快速识别我们所处的环境以及环绕在我们身边的物体。当我们看到一张图片或是环看四周的时候，无需刻意观察，多数时候也能立即描述出场景特征并标记出每一个对象。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/74c11ddegy1g9hijmrsdoj21mk0nqh9i.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Howard的博客" type="application/atom+xml">
   
@@ -135,36 +155,177 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Spatial Transformer Networks" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Spatial Transformer Networks
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/30/Spatial Transformer Networks/" class="archive-article-date">
+
+        
+        <a href="/2019/10/30/Spatial Transformer Networks/" class="archive-article-date">
   	<time datetime="2019-10-30T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/30/Spatial Transformer Networks/">Spatial Transformer Networks</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
           
+          	<div id="toc" class="toc-article">
+          	  <strong class="toc-title">文章目录</strong>
+          	  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题定义"><span class="toc-number">1.</span> <span class="toc-text">问题定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我们想要计算机做什么"><span class="toc-number">2.</span> <span class="toc-text">我们想要计算机做什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CNN"><span class="toc-number">3.</span> <span class="toc-text">CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#卷积层"><span class="toc-number">3.1.</span> <span class="toc-text">卷积层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#池化层"><span class="toc-number">3.2.</span> <span class="toc-text">池化层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么-CNN-能够成功？"><span class="toc-number">3.3.</span> <span class="toc-text">为什么 CNN 能够成功？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivation"><span class="toc-number">4.</span> <span class="toc-text">Motivation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CNN的问题"><span class="toc-number">4.1.</span> <span class="toc-text">CNN的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Image-Transformations"><span class="toc-number">5.</span> <span class="toc-text">Image Transformations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Identity-Transformation"><span class="toc-number">5.1.</span> <span class="toc-text">Identity Transformation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scaling"><span class="toc-number">5.2.</span> <span class="toc-text">Scaling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rotation"><span class="toc-number">5.3.</span> <span class="toc-text">Rotation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shear"><span class="toc-number">5.4.</span> <span class="toc-text">Shear</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Translation"><span class="toc-number">5.5.</span> <span class="toc-text">Translation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">5.6.</span> <span class="toc-text">Summary</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spatial-Transformer-Networks"><span class="toc-number">6.</span> <span class="toc-text">Spatial Transformer Networks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Localisation-Network"><span class="toc-number">6.1.</span> <span class="toc-text">Localisation Network</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parametrised-Sampling-Grid"><span class="toc-number">6.2.</span> <span class="toc-text">Parametrised Sampling Grid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Differentiable-Image-Sampling"><span class="toc-number">6.3.</span> <span class="toc-text">Differentiable Image Sampling</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#双线性插值-Bilinear-Interpolation"><span class="toc-number">6.3.1.</span> <span class="toc-text">双线性插值 Bilinear Interpolation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#算法"><span class="toc-number">6.3.2.</span> <span class="toc-text">算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果展示"><span class="toc-number">7.</span> <span class="toc-text">结果展示</span></a></li></ol>
+          	</div>
+          
+        <!--应用这些网络最经典最流行的案例是进行图像处理。在图像处理任务中，让我们看一下如何使用卷积神经网络进行图像分类。-->
+<p><img src="http://ww1.sinaimg.cn/large/74c11ddegy1g9hijmrsdoj21mk0nqh9i.jpg" alt="image.png"><br>对人类来说，我们只需一眼便能快速识别我们所处的环境以及环绕在我们身边的物体。当我们看到一张图片或是环看四周的时候，无需刻意观察，多数时候也能立即描述出场景特征并标记出每一个对象。<br><a id="more"></a></p>
+<p>当计算机看到一张图像（输入一张图像）时，它看的是一大堆像素值。根据图片的分辨率和尺寸，它将看到一个 32 x 32 x 3 的数组（3 指代的是 RGB 值）。为了讲清楚这一点，假设我们有一张 JPG 格式的 480 x 480 大小的彩色图片，那么它对应的数组就有 480 x 480 x 3 个元素。</p>
+<h2 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h2><p>当你提供给计算机这一数组后，它将输出描述该图像属于某一特定分类的概率的数字（比如：80% 是猫、15% 是狗、5% 是鸟）</p>
+<h2 id="我们想要计算机做什么"><a href="#我们想要计算机做什么" class="headerlink" title="我们想要计算机做什么"></a>我们想要计算机做什么</h2><p>我们想要计算机能够区分开所有提供给它的图片</p>
+<p>当我们看到一幅狗的图片时，如果有诸如爪子或四条腿之类的明显特征，我们便能将它归类为狗。同样地，计算机也可以通过寻找诸如边缘和曲线之类的低级特点来分类图片，继而通过一系列卷积层级建构出更为抽象的概念。这是 CNN（卷积神经网络）工作方式的大体概述。</p>
+<p>对于计算机视觉任务来说,我们希望模型可以对于物体姿势或位置的变化具有一定的不变性,从而在不同场景下实现对于物体的分析。传统 CNN 中使用卷积和 Pooling 操作在一定程度上实现了平移不变性,但这种人工设定的变换规则使得网络过分的依赖先验知识,既不能真正实现平移不变性(不变性对于平移的要求很高),又使得CNN对于旋转,扭曲等未人为设定的几何变换缺乏应有的特征不变性。</p>
+<h2 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h2><h3 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h3><p>下图的动画中，绿色表示原图像素值，红色数字表示卷积核中的参数，黄色表示卷积核在原图上滑动。右图表示卷积运算之后生成的feature map。</p>
+<p>卷积核在原图上滑动，进行卷积运算，得到特征图feature map</p>
+<p><img src="https://gyh75520.github.io/assets/gif/497263C3E44AFF210B45DF1B489FFDDC.gif" alt="Dec-01-2019 21-27-18.gif"></p>
+<p><strong>权值共享：</strong> 卷积核扫过整张图片的过程中，卷积核参数不变。</p>
+<p><strong>局部连接：</strong> feature map上每个值仅对应着原图的一小块区域，原图上的这块局部区域称作感受野（receptive field）</p>
+<p><img src="https://pic2.zhimg.com/v2-0952070820fa8bcc0e2ff728c8ce1e71_b.jpg" alt="a"></p>
+<h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p>用一个像素代替原图上邻近的若干像素，在保留 feature map 特征的同时压缩其大小</p>
+<p><img src="https://pic4.zhimg.com/v2-162b5e2c3bcc2bf1c37d02dbe4ab0503_b.jpg" alt=""></p>
+<h3 id="为什么-CNN-能够成功？"><a href="#为什么-CNN-能够成功？" class="headerlink" title="为什么 CNN 能够成功？"></a>为什么 CNN 能够成功？</h3><p>先来介绍两个概念：</p>
+<ul>
+<li><p><strong>平移不变性（translation invariant）</strong></p>
+<ul>
+<li>对输入进行平移不改变输出的结果。</li>
+</ul>
+</li>
+<li><p><strong>平移等价性（translation equivalence）</strong></p>
+<ul>
+<li>当输入发生平移时，输出也应该相应地进行平移</li>
+</ul>
+</li>
+</ul>
+<p>这对于图像分类问题来说肯定是最理想的，因为对于一个物体的平移并不应该改变它的类别。</p>
+<p>而对于其它问题，比如目标检测，语义分割来说，这个性质则不应该有，原因是当输入发生平移时，输出也应该相应地进行平移。这种性质又称为平移等价</p>
+<p>卷积层带来了平移等价性，池化层赋予了弱的平移不变性。<br><!--池化层带来了鲁棒性--></p>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>当处理分类任务时，通常希望我们的系统对输入变化具有鲁棒性。通过这种方式，如果输入经历了某种“转换”，那么我们的分类模型理论上应该吐出与转换前相同的类标签。</p>
+<p>我们的图像分类模型可能面临的“挑战”有:</p>
+<ul>
+<li><strong>scale variation:</strong> 现实世界和图像中尺寸的变化</li>
+<li><strong>viewpoint variation:</strong> 观察者的视角不同</li>
+<li><strong>deformation:</strong> 非刚体可能会变形并扭曲成不同寻常的形状</li>
+</ul>
+<p><img src="https://kevinzakka.github.io/assets/stn2/var1.png" alt=""><br><img src="https://kevinzakka.github.io/assets/stn2/var2.png" alt=""></p>
+<p>虽然对人类来说，对它们进行分类的任务似乎微不足道。</p>
+<p>但我们的计算机算法只能处理具有亮度值的原始3D数组，因此输入图像的微小变化就可以改变相应阵列中的每个像素值。因此，我们理想的图像分类模型在理论上应该能够将物体姿态和变形从纹理和形状中分离出来。</p>
+<h3 id="CNN的问题"><a href="#CNN的问题" class="headerlink" title="CNN的问题"></a>CNN的问题</h3><p>只要输入图片稍微改一个像素、平移一个像素，CNN的输出就会发生巨大的变化<br><img src="https://gyh75520.github.io/assets/gif/96787121DA923221F2C9FAEDB715C034.gif" alt="Dec-01-2019 22-35-07.gif"></p>
+<p>如果输入发生了扭曲等改变，CNN 的输出更加不会是不变的了。<br>对于 CNN 来说，只有一个局部的，预先定义好的池化层来提供微弱的平移不变性。<br><!--这就是一个改进的方向--></p>
+<hr>
+<p>那我们有什么办法能够加入平移不变性呢，先介绍一下仿射变换</p>
+<h2 id="Image-Transformations"><a href="#Image-Transformations" class="headerlink" title="Image Transformations"></a>Image Transformations</h2><p>在讨论仿射变换之前，我们首先讨论线性变换。<br>我们定义如下：</p>
+<ul>
+<li>向量 $K$ 包含两个坐标点：$\begin{bmatrix} x \\y \end{bmatrix}$</li>
+<li>矩阵 $M=\begin{bmatrix}a &amp; b \\c &amp; d \end{bmatrix} $</li>
+</ul>
+<p>线性变换 $T$ 被定义为矩阵的积 $K’ = T(K) = MK$。其中 a,b,c,d 是线性变换的参数。</p>
+<h3 id="Identity-Transformation"><a href="#Identity-Transformation" class="headerlink" title="Identity Transformation"></a>Identity Transformation</h3><p>如果 $M = \begin{bmatrix}<br>1 &amp; 0 \\<br>0 &amp; 1<br>\end{bmatrix} $</p>
+<p>$<br>K’ =  \begin{bmatrix}<br>1 &amp; 0 \\<br>0 &amp; 1<br>\end{bmatrix}\begin{bmatrix}<br>x \\<br>y<br>\end{bmatrix} =<br>\begin{bmatrix}<br>x \\<br>y<br>\end{bmatrix} = K$</p>
+<p>这意味着点 $K$ 点在平面上没有移动。</p>
+<h3 id="Scaling"><a href="#Scaling" class="headerlink" title="Scaling"></a>Scaling</h3><p><img src="https://kevinzakka.github.io/assets/stn/scale.png" alt=""></p>
+<p>如果 $M = \begin{bmatrix}<br>a &amp; 0 \\<br>0 &amp; e<br>\end{bmatrix} $</p>
+<p>$K’ =  \begin{bmatrix}<br>a &amp; 0 \\<br>0 &amp; e<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y<br>\end{bmatrix} =<br>\begin{bmatrix}<br>ax \\<br>ey<br>\end{bmatrix}$</p>
+<p>这意味这对 $K$ 点进行了缩放。 有一种特殊的缩放情况，称为各向同性缩放，其中 $x$ 和 $y$ 方向的缩放因子是相同的，比如 $s$，在这种情况下，放大图像对应于 $s&gt;1$，而缩小图像对应于$s&lt;1$。</p>
+<h3 id="Rotation"><a href="#Rotation" class="headerlink" title="Rotation"></a>Rotation</h3><p><img src="https://kevinzakka.github.io/assets/stn/rot.png" alt=""></p>
+<p>如果 $M = \begin{bmatrix}<br>\cos{\theta} &amp; -\sin{\theta} \\<br>\sin{\theta} &amp; \cos{\theta}<br>\end{bmatrix}$</p>
+<p>$K’ =  \begin{bmatrix}<br>\cos{\theta} &amp; -\sin{\theta} \\<br>\sin{\theta} &amp; \cos{\theta}<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y<br>\end{bmatrix} =<br>\begin{bmatrix}<br>x\cos{\theta}- y\sin{\theta} \\<br>x\sin{\theta} + y\cos{\theta}<br>\end{bmatrix}$</p>
+<p>将 $K$ 点进行旋转。</p>
+<h3 id="Shear"><a href="#Shear" class="headerlink" title="Shear"></a>Shear</h3><p><img src="https://kevinzakka.github.io/assets/stn/shear.png" alt=""></p>
+<p>当我们要剪切图像时，我们将 $y$ 方向偏移与 $x$ 成比例的距离，将 $x$ 方向偏移与 $y$ 成比例的距离。</p>
+<p>将   $M$ 设置为：</p>
+<p>$M =  \begin{bmatrix}<br>1 &amp; b \\<br>d &amp; 1<br>\end{bmatrix}$</p>
+<p>得到：</p>
+<p>$K’ =  \begin{bmatrix}<br>1 &amp; b \\<br>d &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y<br>\end{bmatrix} =<br>\begin{bmatrix}<br>x + by \\<br>y + dx<br>\end{bmatrix}$</p>
+<hr>
+<p>前面介绍的三种线性变换的缺点是不能表示平移，因为它不是线性变换。 但是，平移是非常重要且必要的变换，因此我们希望能够将其封装在矩阵表示中。</p>
+<h3 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h3><p>我们希望通过一种变换，将 $K$ 点分别向  $x$ 和 $y$ 的方向平移  $e$ 和 $f$ 的距离，即：</p>
+<p>$K’ = \begin{bmatrix}<br>x+e \\<br>y+f<br>\end{bmatrix} =<br>T(K)<br>$</p>
+<p>我们尝试用矩阵和向量运算构造一下：</p>
+<p>$\begin{bmatrix}<br>x+e \\<br>y+f<br>\end{bmatrix} =<br>\begin{bmatrix}<br>1 &amp; 0 \\<br>0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y<br>\end{bmatrix} +<br>\begin{bmatrix}<br>e \\<br>f<br>\end{bmatrix}<br>$</p>
+<p>将加号包括到矩阵积运算中：</p>
+<p>$\begin{bmatrix}<br>x+e \\<br>y+f<br>\end{bmatrix} =<br>\begin{bmatrix}<br>1 &amp; 0 &amp; e\\<br>0 &amp; 1 &amp; f<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y \\<br>1<br>\end{bmatrix}<br>$</p>
+<p>多添加两个参数 $e$ 和 $f$, 我们就可以得到平移变换。</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p><img src="https://kevinzakka.github.io/assets/stn/affine.png" alt=""></p>
+<p>我们可以推广我们的结果，并用6个参数矩阵表示我们的4个仿射变换(所有的线性变换都是仿射变换)</p>
+<p>$M=<br>  \begin{bmatrix}<br>    a &amp; b &amp; c \\<br>    d &amp; e &amp; f<br>  \end{bmatrix}$</p>
+<p>更有直觉性，让我们再来看看下面的猫的图片：</p>
+<p><img src="http://ww1.sinaimg.cn/large/74c11ddely1g9gea3r4hdj213i0va1ky.jpg" alt="image.png"></p>
+<p>如果我们的模型可以从左到右使用某种剪裁和尺度标准化组合来简化后续的分类任务，这不就是非常理想的吗？</p>
+<h2 id="Spatial-Transformer-Networks"><a href="#Spatial-Transformer-Networks" class="headerlink" title="Spatial Transformer Networks"></a>Spatial Transformer Networks</h2><center>如何添加仿射变换呢，大家先自己思考一下。<br><br><img src="http://ww1.sinaimg.cn/large/74c11ddely1g9ino0ngzaj20dw0iiag9.jpg" alt="image.png"></center>
+
+
+
+<p>应当是对输入做仿射变换得到的输出作为 CNN 新的输入。</p>
+<p>这个变换应当是根据输入的不同，有不同的变换，也就是仿射变换矩阵中6个参数的值应该是自适应的。</p>
+<p>是对像素点的位置做仿射变换，而不是像素值做仿射变换。</p>
+<p><img src="https://kevinzakka.github.io/assets/stn2/stn_arch.png" alt=""></p>
+<p>STN由上图所示的三个组件构成：</p>
+<ul>
+<li>localisation network</li>
+<li>grid generator</li>
+<li>sampler</li>
+</ul>
+<h3 id="Localisation-Network"><a href="#Localisation-Network" class="headerlink" title="Localisation Network"></a>Localisation Network</h3><p>Localisation Network 的目标是输出仿射变换的参数 $\theta$。</p>
+<ul>
+<li>输入: 特征图 U，形状为 (H, W, C)</li>
+<li>输出: 变换矩阵 $\theta$，形状为 (6,)</li>
+<li>结构: 全连接层，卷积层都可。</li>
+</ul>
+<h3 id="Parametrised-Sampling-Grid"><a href="#Parametrised-Sampling-Grid" class="headerlink" title="Parametrised Sampling Grid"></a>Parametrised Sampling Grid</h3><p>网格生成器的工作是输出参数化的采样网格，该网格是一组点，应在这些点上对输入图进行采样以产生所需的转换输出。<br>$$\begin{bmatrix}<br>x^{s}_i \\<br>y^{s}_i<br>\end{bmatrix} =<br>T_\theta (G_i) = A_\theta<br>\begin{bmatrix}<br>x^t_i \\<br>y^t_i \\<br>1<br>\end{bmatrix} =<br>\begin{bmatrix} \theta_{11} &amp; \theta_{12} &amp; \theta_{13} \\<br>\theta_{21} &amp; \theta_{22} &amp; \theta_{23}<br>\end{bmatrix}<br>\begin{bmatrix}<br>x^t_i \\<br>y^t_i \\<br>1<br>\end{bmatrix}$$</p>
+<p><img src="http://ww1.sinaimg.cn/large/74c11ddely1g9ilsa7wqcj209d08cgms.jpg" alt="image.png"></p>
+<h3 id="Differentiable-Image-Sampling"><a href="#Differentiable-Image-Sampling" class="headerlink" title="Differentiable Image Sampling"></a>Differentiable Image Sampling</h3><p>由于双线性插值是微分的，因此非常适合当前的任务。</p>
+<p>借助输入特征图和参数化的采样网格，我们可以进行双线性采样，并获得形状为（H’，W’，C’）的输出特征图 V。</p>
+<h4 id="双线性插值-Bilinear-Interpolation"><a href="#双线性插值-Bilinear-Interpolation" class="headerlink" title="双线性插值 Bilinear Interpolation"></a>双线性插值 Bilinear Interpolation</h4><p>当图像经历仿射变换(如旋转或缩放)时，图像中的像素会四处移动。当输出的像素位置没有直接映射到输入图像中的像素位置时，这就是问题。</p>
+<p><img src="https://kevinzakka.github.io/assets/stn/stickman.png" alt=""></p>
+<p>假设旋转图像后，我们需要找到位置（6.7，3.2）的像素值。 然而不存在这种位置的像素值。</p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><img src="https://kevinzakka.github.io/assets/stn/interpol.png" alt=""><br>我们的目标是计算点 $P$ 的像素值。</p>
+<p>我们先计算  $R_1$ 和 $R_2$ 的像素值:</p>
+<p>$$R_1 = \frac{x_2 - x}{x_2 - x_1}Q_{11} + \frac{x - x_1}{x_2 - x_1}Q_{21}$$</p>
+<p>$$R_2 = \frac{x_2 - x}{x_2 - x_1}Q_{12} + \frac{x - x_1}{x_2 - x_1}Q_{22}$$</p>
+<p>再计算点 $P$ 的像素值:<br>$$P = \frac{y_2 - y}{y_2 - y_1}R_1 + \frac{y - y_1}{y_2 - y_1}R_2$$</p>
+<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p><img src="https://kevinzakka.github.io/assets/stn2/mnist.png" alt=""></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -176,388 +337,103 @@
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/07/Relational_inductive_bias/" class="archive-article-date">
-  	<time datetime="2019-05-07T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/07/Relational_inductive_bias/">Relational inductive biases, deep learning, and graph networks</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/24/Attention/" class="archive-article-date">
-  	<time datetime="2019-02-24T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/24/Attention/">Attention</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/20/RND/" class="archive-article-date">
-  	<time datetime="2018-11-20T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/20/RND/">RND（Exploration by Random Network Distillation）算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
   </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/19/MADDPG/" class="archive-article-date">
-  	<time datetime="2018-11-19T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/19/MADDPG/">MADDPG（Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments）算法</a>
-    </h1>
-  
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://gyh75520.github.io/2019/10/30/Spatial Transformer Networks/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/30/Unreal/" class="archive-article-date">
-  	<time datetime="2018-08-30T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/30/Unreal/">UNREAL（UNsupervised REinforcement and Auxiliary Learning）算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/30/Deep_Successor_RL/" class="archive-article-date">
-  	<time datetime="2018-05-30T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/30/Deep_Successor_RL/">深度后续强化学习 Deep Successor Reinforcement Learning</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/22/Hindsight_Experience_Reply/" class="archive-article-date">
-  	<time datetime="2018-03-22T14:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/22/Hindsight_Experience_Reply/">事后经验回放 Hindsight Experience Reply</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/11/David_Silver_RL_5/" class="archive-article-date">
-  	<time datetime="2018-03-11T09:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/11/David_Silver_RL_5/">David Silver 强化学习 5 模型无关控制 Model-Free Control</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
+<div class="mask js-mask"></div>
       
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/15/David_Silver_RL_4/" class="archive-article-date">
-  	<time datetime="2017-10-15T13:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/15/David_Silver_RL_4/">David Silver 强化学习 4 模型无关预测 Model-Free Prediction</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/05/07/Relational_inductive_bias/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Relational inductive biases, deep learning, and graph networks</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -581,8 +457,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
