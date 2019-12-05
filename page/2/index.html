@@ -137,6 +137,86 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-David_Silver_RL_3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/21/David_Silver_RL_3/">David Silver 强化学习 3 动态规划解决MDP的Planning问题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/21/David_Silver_RL_3/" class="archive-article-date">
+  	<time datetime="2017-09-21T13:01:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介-Introduction"><a href="#简介-Introduction" class="headerlink" title="简介 Introduction"></a>简介 Introduction</h2><p>当问题具有下列特性时，通常可以考虑使用动态规划来求解：</p>
+<ul>
+<li>第一个特性是一个复杂问题的最优解由数个小问题的最优解构成，可以通过寻找子问题的最优解来得到复杂问题的最优解；</li>
+<li>子问题在复杂问题内重复出现，使得子问题的解可以被存储起来重复利用。</li>
+</ul>
+<p>马尔可夫决策过程（MDP）具有上述两个属性：Bellman方程把问题递归为求解子问题，价值函数就相当于存储了一些子问题的解，可以复用。因此可以使用动态规划来求解MDP。</p>
+<p>我们用动态规划算法来求解一类称为“规划 Planning”的问题。“规划”指的是在了解整个MDP的基础上求解最优策略，也就是清楚模型结构的基础上：包括状态行为空间、转换矩阵、奖励等。这类问题不是典型的强化学习问题，我们可以用规划来解决 Predict 和 Control 问题。<br>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/21/David_Silver_RL_3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Apprenticeship_learing" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
